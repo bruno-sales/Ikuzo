@@ -8,5 +8,6 @@ namespace Ikuzo.Infra.Data.Repository
         public LineRepository(Context.Context context) : base(context)
         {
         }
+        
     }
 }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ikuzo.Domain.ValueObjects;
+﻿using Ikuzo.Domain.ValueObjects;
 
-namespace Ikuzo.Domain.Interfaces
+namespace Ikuzo.Domain.Interfaces.CrossCuttings
 {
     public interface IUnitOfWork
     {

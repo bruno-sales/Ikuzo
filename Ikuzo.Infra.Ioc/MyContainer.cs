@@ -1,8 +1,9 @@
 ﻿using Ikuzo.Application.App;
-using Ikuzo.Application.Interfaces;
-using Ikuzo.Domain.Interfaces;
+using Ikuzo.Application.Interfaces; 
 using Ikuzo.Domain.Interfaces.CrossCuttings;
 using Ikuzo.Domain.Interfaces.Repositories;
+using Ikuzo.Domain.Interfaces.Services;
+using Ikuzo.Domain.Services;
 using Ikuzo.Infra.Data.Context;
 using Ikuzo.Infra.Data.Repository;
 using Ikuzo.Infra.DataRio;
@@ -38,7 +39,8 @@ namespace Ikuzo.Infra.Ioc
             container.Register<ILineRepository, LineRepository>(Lifestyle.Scoped);
 
             //Services
-            //container.Register<IEventTypeService, EventTypeService>(Lifestyle.Scoped);
+            container.Register<IBusService, BusService>(Lifestyle.Scoped);
+            container.Register<ILineService, LineService>(Lifestyle.Scoped);
 
             //ReadOnly
             //container.Register<BaseReadOnlyRepository, BaseReadOnlyRepository>(Lifestyle.Scoped);

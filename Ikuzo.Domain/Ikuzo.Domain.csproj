@@ -47,6 +47,10 @@
     <Compile Include="Interfaces\Repositories\IBaseRepository.cs" />
     <Compile Include="Interfaces\Repositories\IBusRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILineRepository.cs" />
+    <Compile Include="Interfaces\Services\IBusService.cs" />
+    <Compile Include="Interfaces\Services\ILineService.cs" />
+    <Compile Include="Services\BusService.cs" />
+    <Compile Include="Services\LineService.cs" />
     <Compile Include="ValueObjects\RioBusLine.cs" />
     <Compile Include="ValueObjects\ValidationError.cs" />
     <Compile Include="ValueObjects\ValidationResult.cs" />

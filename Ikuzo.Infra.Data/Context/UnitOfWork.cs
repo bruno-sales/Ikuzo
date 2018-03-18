@@ -3,6 +3,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using Ikuzo.Domain;
 using Ikuzo.Domain.Interfaces;
+using Ikuzo.Domain.Interfaces.CrossCuttings;
 using Ikuzo.Domain.ValueObjects;
 
 namespace Ikuzo.Infra.Data.Context
@@ -21,9 +22,10 @@ namespace Ikuzo.Infra.Data.Context
             var commitValidation = new ValidationResult();
             try
             {
-                if (_context.SaveChanges() < 1)
+                var saveChanges = _context.SaveChanges();
+                if (saveChanges < 1)
                 {
-                    commitValidation.AddError(new ValidationError("Ocorreu um problema ao salvar"));
+                    commitValidation.AddError(new ValidationError("Could not save"));
                 }
             }
             catch (DbEntityValidationException ex)
@@ -34,7 +36,7 @@ namespace Ikuzo.Infra.Data.Context
                     erros += "Entity - " + error.Entry.Entity.GetType().Name;
                     erros += "State - " + error.Entry.State;
                     erros = error.ValidationErrors.Aggregate(erros, (current, validationError) => current + string.Format("\tProperty: {0}, Error: {1}", validationError.PropertyName, validationError.ErrorMessage));
-                } 
+                }
                 commitValidation.AddError(new ValidationError(erros));
             }
             return commitValidation;

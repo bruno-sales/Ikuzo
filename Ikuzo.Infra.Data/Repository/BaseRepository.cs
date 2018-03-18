@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity; 
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Linq.Expressions;
-using Ikuzo.Domain.Interfaces;
+using System.Linq.Expressions; 
+using Ikuzo.Domain.Interfaces.Repositories;
 
 namespace Ikuzo.Infra.Data.Repository
 {
