@@ -41,9 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Bus.cs" />
+    <Compile Include="Entities\Line.cs" />
+    <Compile Include="Interfaces\CrossCuttings\IDataRioRepository.cs" />
+    <Compile Include="Interfaces\CrossCuttings\IRioBusRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IBaseRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IBusRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ILineRepository.cs" />
+    <Compile Include="ValueObjects\RioBusLine.cs" />
     <Compile Include="ValueObjects\ValidationError.cs" />
     <Compile Include="ValueObjects\ValidationResult.cs" />
-    <Compile Include="Interfaces\IUnityOfWork.cs" />
+    <Compile Include="Interfaces\CrossCuttings\IUnityOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

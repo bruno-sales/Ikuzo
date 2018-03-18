@@ -9,6 +9,10 @@ namespace Ikuzo.Infra.Data.Config
         {
             HasKey(i => i.BusId);
 
+            HasRequired(i => i.Line)
+                .WithMany(i=>i.Buses)
+                .HasForeignKey(i => i.LineId);
+
             ToTable("Bus");
         }
     }

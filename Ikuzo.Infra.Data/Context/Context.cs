@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using Ikuzo.Domain;
+using System.Data.Entity.ModelConfiguration.Conventions; 
 using Ikuzo.Domain.ValueObjects;
 using Ikuzo.Infra.Data.Config;
 
@@ -31,7 +30,8 @@ namespace Ikuzo.Infra.Data.Context
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
             modelBuilder.Configurations.Add(new BusConfig());
-           
+            modelBuilder.Configurations.Add(new LineConfig());
+
             modelBuilder.Ignore<ValidationResult>();
         }
     }

@@ -6,8 +6,8 @@ namespace Ikuzo.Domain.Entities
     {
         public int BusId { get; set; }
         public string ExternalId { get; set; }
-        public string Line { get; set; }
-        public string Name { get; set; }
+        public int LineId { get; set; }
+        public virtual Line Line { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }

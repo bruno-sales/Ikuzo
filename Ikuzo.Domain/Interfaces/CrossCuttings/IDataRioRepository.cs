@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ikuzo.Infra.DataRio
+namespace Ikuzo.Domain.Interfaces.CrossCuttings
 {
-    public class Class1
+    public interface IDataRioRepository
     {
+
     }
 }

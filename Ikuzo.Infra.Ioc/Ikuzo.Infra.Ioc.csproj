@@ -50,13 +50,25 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ikuzo.Application\Ikuzo.Application.csproj">
+      <Project>{bff0217c-d3c1-4d7d-861e-f3310333b626}</Project>
+      <Name>Ikuzo.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ikuzo.Domain\Ikuzo.Domain.csproj">
       <Project>{A50FD7A0-A679-49CE-A97F-BB1BC4B0AACC}</Project>
       <Name>Ikuzo.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ikuzo.Infra.DataRio\Ikuzo.Infra.DataRio.csproj">
+      <Project>{0cb9dab5-4428-4519-9ea7-ba67937f5c92}</Project>
+      <Name>Ikuzo.Infra.DataRio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ikuzo.Infra.Data\Ikuzo.Infra.Data.csproj">
       <Project>{2DA91F89-5190-4ACC-B634-BF530044F33A}</Project>
       <Name>Ikuzo.Infra.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ikuzo.Infra.RioBus\Ikuzo.Infra.RioBus.csproj">
+      <Project>{67612263-ef54-4f0c-a6e2-d40e457954c5}</Project>
+      <Name>Ikuzo.Infra.RioBus</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
