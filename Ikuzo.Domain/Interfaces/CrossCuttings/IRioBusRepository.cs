@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using Ikuzo.Domain.ValueObjects;
+using Ikuzo.Domain.ValueObjects.RioBus;
 
 namespace Ikuzo.Domain.Interfaces.CrossCuttings
 {
     public interface IRioBusRepository
     {
-        IEnumerable<RioBusLine> GetAllLines();
+        IEnumerable<RbLine> GetAllLines();
+        IEnumerable<RbBus> GetBusesInfoFromLine(string externalId);
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Ikuzo.Domain.ValueObjects
+﻿namespace Ikuzo.Domain.ValueObjects.RioBus
 {
-    public class RioBusLine
+    public class RbLine
     {
         public string Line { get; set; }
         public string Description { get; set; }

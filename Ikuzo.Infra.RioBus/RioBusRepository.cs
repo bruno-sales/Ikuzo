@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics.Contracts;
 using System.Net;
 using Ikuzo.Domain.Interfaces.CrossCuttings;
-using Ikuzo.Domain.ValueObjects;
+using Ikuzo.Domain.ValueObjects.RioBus;
 using Newtonsoft.Json;
 using RestSharp;
 
@@ -19,7 +18,7 @@ namespace Ikuzo.Infra.RioBus
             _client = new RestClient(ConfigurationManager.AppSettings["RioBusUrl"]);
         }
 
-        public IEnumerable<RioBusLine> GetAllLines()
+        public IEnumerable<RbLine> GetAllLines()
         {
             var request = new RestRequest("itinerary", Method.GET)
             {
@@ -29,12 +28,31 @@ namespace Ikuzo.Infra.RioBus
             var response = _client.Execute(request);
 
             if (response.StatusCode != HttpStatusCode.OK)
-                return new List<RioBusLine>();
+                return new List<RbLine>();
 
-            var lines = JsonConvert.DeserializeObject<List<RioBusLine>>(response.Content);
+            var lines = JsonConvert.DeserializeObject<List<RbLine>>(response.Content);
 
             return lines;
+        }
 
+
+        public IEnumerable<RbBus> GetBusesInfoFromLine(string externalId)
+        {
+            var request = new RestRequest("search/{externalId}", Method.GET)
+            {
+                JsonSerializer = new MySerializer()
+            };
+
+            request.AddUrlSegment("externalId", externalId);
+
+            var response = _client.Execute(request);
+
+            if (response.StatusCode != HttpStatusCode.OK)
+                return new List<RbBus>();
+
+            var lines = JsonConvert.DeserializeObject<List<RbBus>>(response.Content);
+
+            return lines;
         }
 
         public void Dispose()

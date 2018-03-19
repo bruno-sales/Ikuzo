@@ -2,6 +2,7 @@
 using System.Net;
 using System.Web.Http;
 using Ikuzo.Application.Interfaces;
+using Ikuzo.Domain.ValueObjects;
 using Ikuzo.Filter;
 
 namespace Ikuzo.Controllers
@@ -18,10 +19,12 @@ namespace Ikuzo.Controllers
         }
 
         [HttpPost]
-        [Route("sync")]
-        public IHttpActionResult Sync()
+        [Route("lines")]
+        public IHttpActionResult SyncLines()
         {
-            var result = _crawlerApp.SyncLines();
+            var result = new ValidationResult();
+
+            result.AddError(_crawlerApp.SyncLines());
 
             if (result.Success)
                 return Ok();
@@ -30,14 +33,20 @@ namespace Ikuzo.Controllers
 
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+
+        [HttpPost]
+        [Route("buses")]
+        public IHttpActionResult SyncBuses()
         {
+            var result = new ValidationResult();
+
+            result.AddError(_crawlerApp.SyncBuses());
+
+            if (result.Success)
+                return Ok();
+            else
+                return Content(HttpStatusCode.InternalServerError, result.Errors);
         }
 
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
-        }
     }
 }
