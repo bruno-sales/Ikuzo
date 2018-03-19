@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ikuzo.Application.Interfaces;
-using Ikuzo.Domain.Entities;
-using Ikuzo.Domain.Interfaces;
+using Ikuzo.Domain.Entities; 
 using Ikuzo.Domain.Interfaces.CrossCuttings;
 using Ikuzo.Domain.Interfaces.Services;
 using Ikuzo.Domain.ValueObjects;
@@ -34,20 +33,23 @@ namespace Ikuzo.Application.App
                 //Get data from external resource
                 var rioBusLines = _riobusRepository.GetAllLines().ToList();
 
-                //Parse Objects
+                //Analyse Objects
                 foreach (var rioBusLine in rioBusLines)
                 {
+                    //Get line from database
                     var dbLine = _lineService.Details(rioBusLine.Line);
 
-                    if (dbLine == null) //If does not exist, save
+                    if (dbLine == null) //If does not exist
                     {
+                        //Add to Save
                         linesToCreate.Add(new Line(rioBusLine.Line, rioBusLine.Description));
 
                     }
                     else if (string.Equals(dbLine.Description.ToLower(), rioBusLine.Description.ToLower()) == false)
-                    {//Check if Description changed
+                    {   //Check if Description changed
                         dbLine.Description = rioBusLine.Description;
 
+                        //Add to update
                         linesToUpdate.Add(dbLine);
                     }
                 }
@@ -65,9 +67,11 @@ namespace Ikuzo.Application.App
                 {
                     foreach (var line in linesToUpdate)
                     {
+                        //Update
                         _lineService.Edit(line);
                     }
 
+                    //Commit
                     validation.AddError(_work.Commit());
                 }
 
