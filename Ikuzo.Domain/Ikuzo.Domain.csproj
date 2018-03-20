@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,10 +50,13 @@
     <Compile Include="Interfaces\CrossCuttings\IRioBusRepository.cs" />
     <Compile Include="Interfaces\Repositories\IBaseRepository.cs" />
     <Compile Include="Interfaces\Repositories\IBusRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IGpsRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILineRepository.cs" />
     <Compile Include="Interfaces\Services\IBusService.cs" />
+    <Compile Include="Interfaces\Services\IGpsService.cs" />
     <Compile Include="Interfaces\Services\ILineService.cs" />
     <Compile Include="Services\BusService.cs" />
+    <Compile Include="Services\GpsService.cs" />
     <Compile Include="Services\LineService.cs" />
     <Compile Include="ValueObjects\RioBus\RbBus.cs" />
     <Compile Include="ValueObjects\RioBus\RbLine.cs" />
@@ -59,6 +65,8 @@
     <Compile Include="Interfaces\CrossCuttings\IUnityOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

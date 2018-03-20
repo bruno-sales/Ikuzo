@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Net;
+using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.CrossCuttings;
 using Ikuzo.Domain.ValueObjects.RioBus;
 using Newtonsoft.Json;
@@ -53,6 +54,25 @@ namespace Ikuzo.Infra.RioBus
             var lines = JsonConvert.DeserializeObject<List<RbBus>>(response.Content);
 
             return lines;
+        }
+
+        public IEnumerable<Gps> GetGpsInfoFromLine(string lineExternalId)
+        {
+            var request = new RestRequest("search/{line}", Method.GET)
+            {
+                JsonSerializer = new MySerializer()
+            };
+
+            request.AddUrlSegment("line", lineExternalId);
+
+            var response = _client.Execute(request);
+
+            if (response.StatusCode != HttpStatusCode.OK)
+                return new List<Gps>();
+
+            var gps = JsonConvert.DeserializeObject<List<Gps>>(response.Content);
+
+            return gps;
         }
 
         public void Dispose()

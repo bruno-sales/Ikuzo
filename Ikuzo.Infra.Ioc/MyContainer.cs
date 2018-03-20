@@ -37,10 +37,12 @@ namespace Ikuzo.Infra.Ioc
             container.Register(typeof(IBaseRepository<>), typeof(BaseRepository<>), Lifestyle.Scoped);
             container.Register<IBusRepository, BusRepository>(Lifestyle.Scoped);
             container.Register<ILineRepository, LineRepository>(Lifestyle.Scoped);
+            container.Register<IGpsRepository, GpsRepository>(Lifestyle.Scoped);
 
             //Services
             container.Register<IBusService, BusService>(Lifestyle.Scoped);
             container.Register<ILineService, LineService>(Lifestyle.Scoped);
+            container.Register<IGpsService, GpsService>(Lifestyle.Scoped);
 
             //ReadOnly
             //container.Register<BaseReadOnlyRepository, BaseReadOnlyRepository>(Lifestyle.Scoped);

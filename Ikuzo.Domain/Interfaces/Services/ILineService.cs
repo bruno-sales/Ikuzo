@@ -9,5 +9,6 @@ namespace Ikuzo.Domain.Interfaces.Services
         Line Edit(Line line);
         Line Details(int lineId);
         Line Details(string externalId);
+        IEnumerable<Line> GetAllLines();
     }
 }

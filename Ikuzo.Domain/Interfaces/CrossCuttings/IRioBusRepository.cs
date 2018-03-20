@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.ValueObjects.RioBus;
 
 namespace Ikuzo.Domain.Interfaces.CrossCuttings
@@ -7,5 +8,6 @@ namespace Ikuzo.Domain.Interfaces.CrossCuttings
     {
         IEnumerable<RbLine> GetAllLines();
         IEnumerable<RbBus> GetBusesInfoFromLine(string externalId);
+        IEnumerable<Gps> GetGpsInfoFromLine(string lineExternalId);
     }
 }

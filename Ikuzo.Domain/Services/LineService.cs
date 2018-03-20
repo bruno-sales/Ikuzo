@@ -43,5 +43,12 @@ namespace Ikuzo.Domain.Services
 
             return line;
         }
+
+        public IEnumerable<Line> GetAllLines()
+        {
+            var lines = _lineRepository.GetAll().ToList();
+
+            return lines;
+        }
     }
 }

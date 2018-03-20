@@ -31,6 +31,7 @@ namespace Ikuzo.Infra.Data.Context
 
             modelBuilder.Configurations.Add(new BusConfig());
             modelBuilder.Configurations.Add(new LineConfig());
+            modelBuilder.Configurations.Add(new GpsConfig());
 
             modelBuilder.Ignore<ValidationResult>();
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Ikuzo.Application.Interfaces;
 using Ikuzo.Domain.ValueObjects;
@@ -16,6 +17,21 @@ namespace Ikuzo.Controllers
         public CrawlerController(ICrawlerApp crawlerApp)
         {
             _crawlerApp = crawlerApp;
+        }
+
+        [HttpPost]
+        [Route("gps")]
+        public IHttpActionResult SyncGps()
+        {
+            var result = new ValidationResult();
+
+            result.AddError(_crawlerApp.SyncGps());
+
+            if (result.Success)
+                return Ok();
+            else
+                return Content(HttpStatusCode.InternalServerError, result.Errors);
+
         }
 
         [HttpPost]
