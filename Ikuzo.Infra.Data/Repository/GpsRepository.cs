@@ -1,4 +1,5 @@
-﻿using Ikuzo.Domain.Entities;
+﻿using System.Linq;
+using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Repositories;
 
 namespace Ikuzo.Infra.Data.Repository
@@ -7,6 +8,16 @@ namespace Ikuzo.Infra.Data.Repository
     {
         public GpsRepository(Context.Context context) : base(context)
         {
+        }
+
+        public void RemoveFromLine(string externalLineId)
+        {
+            var itens = DbSet.Where(i => i.LineExternalId == externalLineId).ToList();
+
+            foreach (var obj in itens)
+            {
+                DbSet.Remove(obj);
+            }
         }
     }
 }

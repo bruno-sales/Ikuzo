@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions; 
+using System.Data.Entity.ModelConfiguration.Conventions;
+using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.ValueObjects;
 using Ikuzo.Infra.Data.Config;
 
@@ -28,6 +29,10 @@ namespace Ikuzo.Infra.Data.Context
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<DecimalPropertyConvention>();
+
+            modelBuilder.Conventions.Add(new DecimalPropertyConvention(12, 6));
+
 
             modelBuilder.Configurations.Add(new BusConfig());
             modelBuilder.Configurations.Add(new LineConfig());

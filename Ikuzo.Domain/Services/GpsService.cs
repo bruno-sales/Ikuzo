@@ -26,7 +26,7 @@ namespace Ikuzo.Domain.Services
             var result = new ValidationResult();
             try
             {
-                _gpsRepository.RemoveWhere(i => i.LineExternalId == lineId);
+                _gpsRepository.RemoveFromLine(lineId);
             }
             catch (Exception e)
             {

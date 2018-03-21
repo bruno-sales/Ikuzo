@@ -16,8 +16,8 @@ namespace Ikuzo.Domain.Entities
         public string BusExternalId { get; set; }
         [JsonProperty("line")]
         public string LineExternalId { get; set; }
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
         public int Direction { get; set; }
         public DateTime Timestamp { get; set; }
     }

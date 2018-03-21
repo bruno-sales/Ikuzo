@@ -46,7 +46,7 @@ namespace Ikuzo.Domain.Services
 
         public IEnumerable<Line> GetAllLines()
         {
-            var lines = _lineRepository.GetAll().ToList();
+            var lines = _lineRepository.GetAll().OrderBy(i=>i.ExternalId).ToList();
 
             return lines;
         }
