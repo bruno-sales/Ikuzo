@@ -14,7 +14,8 @@ namespace Ikuzo.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult Get()
+        [Route("")]
+        public IHttpActionResult GetLines()
         {
             var lines = _lineApp.GetLines();
 
