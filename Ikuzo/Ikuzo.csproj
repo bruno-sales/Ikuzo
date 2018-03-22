@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\LineController.cs" />
     <Compile Include="Controllers\CrawlerController.cs" />
     <Compile Include="Filter\AuthorizationRequest.cs" />
     <Compile Include="Global.asax.cs">

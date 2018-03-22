@@ -49,6 +49,7 @@ namespace Ikuzo.Infra.Ioc
 
             //Application 
             container.Register<ICrawlerApp, CrawlerApp>(Lifestyle.Scoped);
+            container.Register<ILineApp, LineApp>(Lifestyle.Scoped);
 
             return container;
         }

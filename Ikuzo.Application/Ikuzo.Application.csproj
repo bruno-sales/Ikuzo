@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\CrawlerApp.cs" />
+    <Compile Include="App\LineApp.cs" />
     <Compile Include="Interfaces\ICrawlerApp.cs" />
+    <Compile Include="Interfaces\ILineApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
