@@ -52,7 +52,7 @@ namespace Ikuzo.Infra.Data.Repository
             return item;
         }
 
-        public virtual T Details(int id)
+        public virtual T Get(int id)
         {
             return DbSet.Find(id);
         }

@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using ExpressMapper;
 using Ikuzo.Application.Interfaces;
+using Ikuzo.Application.ViewModels.Line;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Services;
 
@@ -16,19 +17,27 @@ namespace Ikuzo.Application.App
             _lineService = lineService;
         }
 
-        public IEnumerable<Line> GetLines()
+        public IEnumerable<LineIndex> GetLines()
         {
-            return _lineService.GetAllLines().ToList();
+            var lines = _lineService.GetAllLines().ToList();
+
+            var modelLines = Mapper.Map<List<Line>, List<LineIndex>>(lines);
+
+            return modelLines;
         }
 
-        public Line GetLine(string externalLineId)
+        public LineDetails GetLine(string externalLineId)
         {
-            return _lineService.Details(externalLineId);
+            var modelLine = Mapper.Map<Line,LineDetails>(_lineService.Details(externalLineId));
+
+            return modelLine;
         }
 
-        public Line GetLine(int lineId)
+        public LineDetails GetLine(int lineId)
         {
-           return _lineService.Details(lineId);
+            var modelLine = Mapper.Map<Line, LineDetails>(_lineService.Details(lineId));
+
+            return modelLine;
         }
     }
 }

@@ -29,6 +29,19 @@ namespace Ikuzo.Domain.Services
             return editedLine;
         }
 
+        public Line Get(int lineId)
+        {
+            var line = _lineRepository.Get(lineId);
+
+            return line;
+        }
+
+        public Line Get(string externalId)
+        {
+            var line = _lineRepository.GetWhere(i => string.Equals(i.ExternalId.ToLower(), externalId.ToLower())).FirstOrDefault();
+
+            return line;
+        }
 
         public Line Details(int lineId)
         {
@@ -39,7 +52,7 @@ namespace Ikuzo.Domain.Services
 
         public Line Details(string externalId)
         {
-            var line = _lineRepository.GetWhere(i => string.Equals(i.ExternalId.ToLower(), externalId.ToLower())).FirstOrDefault();
+            var line = _lineRepository.Details(externalId);
 
             return line;
         }

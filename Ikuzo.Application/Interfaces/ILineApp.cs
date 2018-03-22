@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Ikuzo.Domain.Entities;
+using Ikuzo.Application.ViewModels.Line; 
 
 namespace Ikuzo.Application.Interfaces
 {
     public interface ILineApp
     {
-        IEnumerable<Line> GetLines();
-        Line GetLine(string externalLineId);
-        Line GetLine(int lineId);
+        IEnumerable<LineIndex> GetLines();
+        LineDetails GetLine(string externalLineId);
+        LineDetails GetLine(int lineId);
     }
 }

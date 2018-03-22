@@ -5,10 +5,12 @@ namespace Ikuzo.Domain.Interfaces.Services
 {
     public interface ILineService
     {
-        IEnumerable<Line> CreateLines(IEnumerable<Line> line);
-        Line Edit(Line line);
+        IEnumerable<Line> GetAllLines();
+        Line Get(int lineId);
+        Line Get(string externalId);
         Line Details(int lineId);
         Line Details(string externalId);
-        IEnumerable<Line> GetAllLines();
+        Line Edit(Line line);
+        IEnumerable<Line> CreateLines(IEnumerable<Line> line);
     }
 }

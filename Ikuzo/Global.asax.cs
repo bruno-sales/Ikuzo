@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Http;
+using Ikuzo.Application.Configurations;
 using Ikuzo.Infra.Ioc;
 using SimpleInjector.Integration.WebApi;
 
@@ -14,12 +15,16 @@ namespace Ikuzo
             //Inicializando configuração do Simple Injector
             var container = new MyContainer().Initialize();
 
-            // Verificando o simple injector
+            //Verificando o simple injector
             container.Verify();
 
             //Fazer criação de dependency resolver
             GlobalConfiguration.Configuration.DependencyResolver =
                 new SimpleInjectorWebApiDependencyResolver(container);
+
+            //ExpressMapper
+            var express = new Express();
+            express.Mapper();
         }
 
         protected void Application_PreSendRequestHeaders()

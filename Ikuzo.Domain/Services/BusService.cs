@@ -31,7 +31,7 @@ namespace Ikuzo.Domain.Services
         
         public Bus Details(int busId)
         {
-            var bus = _busRepository.Details(busId);
+            var bus = _busRepository.Get(busId);
 
             return bus;
         }
