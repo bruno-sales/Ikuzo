@@ -13,6 +13,10 @@ namespace Ikuzo.Infra.Data.Config
                 .WithMany(i=>i.Buses)
                 .HasForeignKey(i => i.LineId);
 
+            HasOptional(i => i.Gps)
+                .WithMany()
+                .HasForeignKey(i => i.BusId);
+
             ToTable("Bus");
         }
     }

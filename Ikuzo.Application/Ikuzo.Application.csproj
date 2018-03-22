@@ -43,14 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\BusApp.cs" />
     <Compile Include="App\CrawlerApp.cs" />
     <Compile Include="App\LineApp.cs" />
     <Compile Include="Configurations\DomainToViewModel.cs" />
     <Compile Include="Configurations\Express.cs" />
+    <Compile Include="Interfaces\IBusApp.cs" />
     <Compile Include="Interfaces\ICrawlerApp.cs" />
     <Compile Include="Interfaces\ILineApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Bus\BusDetails.cs" />
+    <Compile Include="ViewModels\Bus\BusGps.cs" />
     <Compile Include="ViewModels\Bus\BusIndex.cs" />
     <Compile Include="ViewModels\Line\LineBus.cs" />
     <Compile Include="ViewModels\Line\LineDetails.cs" />

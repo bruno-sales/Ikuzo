@@ -1,4 +1,5 @@
-﻿using ExpressMapper; 
+﻿using ExpressMapper;
+using Ikuzo.Application.ViewModels.Bus;
 using Ikuzo.Application.ViewModels.Line;
 using Ikuzo.Domain.Entities;
 
@@ -20,7 +21,12 @@ namespace Ikuzo.Application.Configurations
 
             Mapper.Register<Bus, LineBus>()
                 .Member(dest => dest.Bus, i => i.ExternalId)
-                .Member(dest => dest.LastUpdateDate, i => i.CreateDate); ;
+                .Member(dest => dest.LastUpdateDate, i => i.CreateDate);
+
+            Mapper.Register<Bus, BusIndex>()
+                .Member(dest => dest.Bus, i => i.ExternalId)
+                .Member(dest => dest.LastUpdateDate, i => i.CreateDate)
+                .Member(dest => dest.Line, i => i.Line.ExternalId);
         }
     }
 }

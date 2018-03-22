@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BusController.cs" />
     <Compile Include="Controllers\LineController.cs" />
     <Compile Include="Controllers\CrawlerController.cs" />
     <Compile Include="Filter\AuthorizationRequest.cs" />
@@ -193,7 +194,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57408</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

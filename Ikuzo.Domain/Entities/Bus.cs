@@ -20,6 +20,7 @@ namespace Ikuzo.Domain.Entities
         public string ExternalId { get; set; }
         public int LineId { get; set; }
         public virtual Line Line { get; set; }
+        public virtual Gps Gps { get; set; }
         public DateTime CreateDate { get; set; }
     }
 }

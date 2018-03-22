@@ -17,7 +17,7 @@ namespace Ikuzo.Infra.Ioc
     {
         public Container Initialize()
         {
-            //Inserir Modules
+            //Insert Modules
             var container = new Container();
             
             var asyncScopedLifestyle = new AsyncScopedLifestyle();
@@ -50,6 +50,7 @@ namespace Ikuzo.Infra.Ioc
             //Application 
             container.Register<ICrawlerApp, CrawlerApp>(Lifestyle.Scoped);
             container.Register<ILineApp, LineApp>(Lifestyle.Scoped);
+            container.Register<IBusApp, BusApp>(Lifestyle.Scoped);
 
             return container;
         }
