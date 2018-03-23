@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Ikuzo.Domain.Entities;
@@ -18,10 +19,9 @@ namespace Ikuzo.Infra.Data.Repository
                 .Include(i => i.Line);
         }
 
-        public Bus Details(int busId)
+        public Bus Details(Guid busId)
         {
             return DbSet
-                .Include(i => i.Gps)
                 .Include(i => i.Line)
                 .FirstOrDefault(i => i.BusId == busId);
         }
@@ -29,7 +29,6 @@ namespace Ikuzo.Infra.Data.Repository
         public Bus Details(string externalBusId)
         {
             return DbSet
-                .Include(i => i.Gps)
                 .Include(i => i.Line)
                 .FirstOrDefault(i => string.Equals(i.ExternalId.ToLower(), externalBusId.ToLower()));
         }

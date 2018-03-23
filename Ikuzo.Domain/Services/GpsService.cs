@@ -16,17 +16,22 @@ namespace Ikuzo.Domain.Services
             _gpsRepository = gpsRepository;
         }
 
+        public Gps GetBusGps(string externalBusId)
+        {
+            return _gpsRepository.GetBusGps(externalBusId);
+        }
+
         public IEnumerable<Gps> CreateGpses(IEnumerable<Gps> gpses)
         {
             return _gpsRepository.Create(gpses);
         }
         
-        public ValidationResult RemoveGpsesFromLine(string lineId)
+        public ValidationResult RemoveGpsesFromLine(string externalLineId)
         {
             var result = new ValidationResult();
             try
             {
-                _gpsRepository.RemoveFromLine(lineId);
+                _gpsRepository.RemoveFromLine(externalLineId);
             }
             catch (Exception e)
             {

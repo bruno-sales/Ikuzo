@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.ValueObjects;
 using Ikuzo.Infra.Data.Config;
 

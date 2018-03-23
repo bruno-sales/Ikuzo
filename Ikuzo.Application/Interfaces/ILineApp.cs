@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Ikuzo.Application.ViewModels.Line; 
 
 namespace Ikuzo.Application.Interfaces
@@ -7,6 +8,6 @@ namespace Ikuzo.Application.Interfaces
     {
         IEnumerable<LineIndex> GetLines();
         LineDetails GetLine(string externalLineId);
-        LineDetails GetLine(int lineId);
+        LineDetails GetLine(Guid lineId);
     }
 }

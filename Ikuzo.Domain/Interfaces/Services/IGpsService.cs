@@ -6,7 +6,8 @@ namespace Ikuzo.Domain.Interfaces.Services
 {
     public interface IGpsService
     {
+        Gps GetBusGps(string externalBusId);
         IEnumerable<Gps> CreateGpses(IEnumerable<Gps> gpses);
-        ValidationResult RemoveGpsesFromLine(string lineId);
+        ValidationResult RemoveGpsesFromLine(string externalLineId);
     }
 }

@@ -7,7 +7,7 @@ namespace Ikuzo.Infra.Data.Config
     {
         public GpsConfig()
         {
-            HasKey(i => i.Id);
+            HasKey(i => i.GpsId);
             ToTable("Gps");
         }
     }

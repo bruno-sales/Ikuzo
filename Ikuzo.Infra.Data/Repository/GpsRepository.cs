@@ -10,9 +10,16 @@ namespace Ikuzo.Infra.Data.Repository
         {
         }
 
+        public Gps GetBusGps(string externalBusId)
+        {
+            var gps = DbSet.FirstOrDefault(i => string.Equals(i.BusExternalId.ToLower(), externalBusId.ToLower()));
+
+            return gps;
+        }
+
         public void RemoveFromLine(string externalLineId)
         {
-            var itens = DbSet.Where(i => i.LineExternalId == externalLineId).ToList();
+            var itens = DbSet.Where(i => string.Equals(i.LineExternalId.ToLower(), externalLineId.ToLower())).ToList();
 
             foreach (var obj in itens)
             {

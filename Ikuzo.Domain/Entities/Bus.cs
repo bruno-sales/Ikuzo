@@ -7,20 +7,21 @@ namespace Ikuzo.Domain.Entities
         public Bus()
         {
             CreateDate = DateTime.Now;
+            BusId = Guid.NewGuid();
         }
 
-        public Bus(int lineId, string externalId)
+        public Bus(Guid lineId, string externalId)
         {
+            BusId = Guid.NewGuid();
             LineId = lineId;
             ExternalId = externalId;
             CreateDate = DateTime.Now;
         }
 
-        public int BusId { get; set; }
+        public Guid BusId { get; set; }
         public string ExternalId { get; set; }
-        public int LineId { get; set; }
+        public Guid LineId { get; set; }
         public virtual Line Line { get; set; }
-        public virtual Gps Gps { get; set; }
         public DateTime CreateDate { get; set; }
     }
 }

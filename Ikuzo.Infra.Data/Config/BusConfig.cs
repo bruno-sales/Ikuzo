@@ -11,11 +11,7 @@ namespace Ikuzo.Infra.Data.Config
 
             HasRequired(i => i.Line)
                 .WithMany(i=>i.Buses)
-                .HasForeignKey(i => i.LineId);
-
-            HasOptional(i => i.Gps)
-                .WithMany()
-                .HasForeignKey(i => i.BusId);
+                .HasForeignKey(i => i.LineId); 
 
             ToTable("Bus");
         }

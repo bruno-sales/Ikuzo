@@ -56,6 +56,11 @@ namespace Ikuzo.Infra.Data.Repository
         {
             return DbSet.Find(id);
         }
+        
+        public virtual T Get(Guid id)
+        {
+            return DbSet.Find(id);
+        }
 
         public virtual IEnumerable<T> GetAll()
         {

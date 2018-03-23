@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Repositories;
@@ -29,7 +30,7 @@ namespace Ikuzo.Domain.Services
             return editedLine;
         }
 
-        public Line Get(int lineId)
+        public Line Get(Guid lineId)
         {
             var line = _lineRepository.Get(lineId);
 
@@ -43,7 +44,7 @@ namespace Ikuzo.Domain.Services
             return line;
         }
 
-        public Line Details(int lineId)
+        public Line Details(Guid lineId)
         {
             var line = _lineRepository.Details(lineId);
 

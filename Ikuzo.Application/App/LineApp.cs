@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ExpressMapper;
 using Ikuzo.Application.Interfaces;
@@ -33,7 +34,7 @@ namespace Ikuzo.Application.App
             return modelLine;
         }
 
-        public LineDetails GetLine(int lineId)
+        public LineDetails GetLine(Guid lineId)
         {
             var modelLine = Mapper.Map<Line, LineDetails>(_lineService.Details(lineId));
 

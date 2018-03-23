@@ -27,6 +27,12 @@ namespace Ikuzo.Application.Configurations
                 .Member(dest => dest.Bus, i => i.ExternalId)
                 .Member(dest => dest.LastUpdateDate, i => i.CreateDate)
                 .Member(dest => dest.Line, i => i.Line.ExternalId);
+            
+            Mapper.Register<Bus, BusDetails>()
+                .Member(dest => dest.Bus, i => i.ExternalId)
+                .Member(dest => dest.LastUpdateDate, i => i.CreateDate)
+                .Member(dest => dest.Line, i => i.Line.ExternalId);
+
         }
     }
 }

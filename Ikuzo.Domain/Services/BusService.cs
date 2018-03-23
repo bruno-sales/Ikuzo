@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Repositories;
@@ -9,10 +10,12 @@ namespace Ikuzo.Domain.Services
     public class BusService : IBusService
     {
         private readonly IBusRepository _busRepository;
+        private readonly IGpsRepository _gpsRepository;
 
-        public BusService(IBusRepository busRepository)
+        public BusService(IBusRepository busRepository, IGpsRepository gpsRepository)
         {
             _busRepository = busRepository;
+            _gpsRepository = gpsRepository;
         }
 
         public IEnumerable<Bus> GetAllBuses()
@@ -36,7 +39,7 @@ namespace Ikuzo.Domain.Services
             return editedBus;
         }
         
-        public Bus Get(int busId)
+        public Bus Get(Guid busId)
         {
             var bus = _busRepository.Get(busId);
 
@@ -50,7 +53,7 @@ namespace Ikuzo.Domain.Services
             return bus;
         }
 
-        public Bus Details(int busId)
+        public Bus Details(Guid busId)
         {
             var bus = _busRepository.Details(busId);
 

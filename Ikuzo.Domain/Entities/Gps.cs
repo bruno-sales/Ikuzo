@@ -7,10 +7,10 @@ namespace Ikuzo.Domain.Entities
     {
         public Gps()
         {
-            Id = Guid.NewGuid();
+            GpsId = Guid.NewGuid();
         }
 
-        public Guid Id { get; set; }
+        public Guid GpsId { get; set; }
 
         [JsonProperty("order")]
         public string BusExternalId { get; set; }
