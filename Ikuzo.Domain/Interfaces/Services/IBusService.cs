@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ikuzo.Domain.Entities;
+using Ikuzo.Domain.ValueObjects;
 
 namespace Ikuzo.Domain.Interfaces.Services
 {
@@ -10,5 +11,6 @@ namespace Ikuzo.Domain.Interfaces.Services
         Bus Edit(Bus bus); 
         Bus Get(string busId); 
         Bus Details(string busId);
+        ValidationResult RemoveBusesFromLine(string lineId);
     }
 }

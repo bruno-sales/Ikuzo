@@ -46,20 +46,25 @@
   <ItemGroup>
     <Compile Include="Entities\Bus.cs" />
     <Compile Include="Entities\Gps.cs" />
+    <Compile Include="Entities\Itinerary.cs" />
     <Compile Include="Entities\Line.cs" />
     <Compile Include="Interfaces\CrossCuttings\IDataRioRepository.cs" />
     <Compile Include="Interfaces\CrossCuttings\IRioBusRepository.cs" />
     <Compile Include="Interfaces\Repositories\IBaseRepository.cs" />
     <Compile Include="Interfaces\Repositories\IBusRepository.cs" />
     <Compile Include="Interfaces\Repositories\IGpsRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IItineraryRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILineRepository.cs" />
     <Compile Include="Interfaces\Services\IBusService.cs" />
     <Compile Include="Interfaces\Services\IGpsService.cs" />
+    <Compile Include="Interfaces\Services\IItineraryService.cs" />
     <Compile Include="Interfaces\Services\ILineService.cs" />
     <Compile Include="Services\BusService.cs" />
     <Compile Include="Services\GpsService.cs" />
+    <Compile Include="Services\ItineraryService.cs" />
     <Compile Include="Services\LineService.cs" />
     <Compile Include="ValueObjects\RioBus\RbBus.cs" />
+    <Compile Include="ValueObjects\RioBus\RbItinerary.cs" />
     <Compile Include="ValueObjects\RioBus\RbLine.cs" />
     <Compile Include="ValueObjects\ValidationError.cs" />
     <Compile Include="ValueObjects\ValidationResult.cs" />

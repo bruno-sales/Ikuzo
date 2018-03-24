@@ -4,18 +4,17 @@ using System.Linq;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Repositories;
 using Ikuzo.Domain.Interfaces.Services;
+using Ikuzo.Domain.ValueObjects;
 
 namespace Ikuzo.Domain.Services
 {
     public class BusService : IBusService
     {
         private readonly IBusRepository _busRepository;
-        private readonly IGpsRepository _gpsRepository;
 
-        public BusService(IBusRepository busRepository, IGpsRepository gpsRepository)
+        public BusService(IBusRepository busRepository)
         {
             _busRepository = busRepository;
-            _gpsRepository = gpsRepository;
         }
 
         public IEnumerable<Bus> GetAllBuses()
@@ -51,6 +50,21 @@ namespace Ikuzo.Domain.Services
             var bus = _busRepository.Details(busId);
 
             return bus;
+        }
+
+        public ValidationResult RemoveBusesFromLine(string lineId)
+        {
+            var result = new ValidationResult();
+            try
+            {
+                _busRepository.RemoveFromLine(lineId);
+            }
+            catch (Exception e)
+            {
+                result.AddError(new ValidationError(e.Message));
+            }
+
+            return result;
         }
     }
 }

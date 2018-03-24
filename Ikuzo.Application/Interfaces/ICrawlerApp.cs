@@ -7,5 +7,6 @@ namespace Ikuzo.Application.Interfaces
         ValidationResult SyncGps();
         ValidationResult SyncLines();
         ValidationResult SyncBuses();
+        ValidationResult SyncItineraries();
     }
 }

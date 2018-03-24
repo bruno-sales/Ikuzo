@@ -7,7 +7,9 @@ namespace Ikuzo.Domain.Entities
     {
         public Line()
         {
-            Buses = new Collection<Bus>(); 
+            LastUpdateDate = DateTime.Now;
+            Buses = new Collection<Bus>();
+            Itineraries = new Collection<Itinerary>();
         }
 
         public Line(string lineId, string description)
@@ -16,11 +18,13 @@ namespace Ikuzo.Domain.Entities
             Description = description;
             LastUpdateDate = DateTime.Now;
             Buses = new Collection<Bus>();
+            Itineraries = new Collection<Itinerary>();
         }
 
         public string LineId { get; set; } 
         public string Description { get; set; }
         public virtual Collection<Bus> Buses { get; set; }
+        public virtual Collection<Itinerary> Itineraries { get; set; }
         public DateTime LastUpdateDate { get; set; }
     }
 }

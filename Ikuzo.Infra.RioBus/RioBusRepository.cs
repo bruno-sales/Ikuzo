@@ -37,14 +37,14 @@ namespace Ikuzo.Infra.RioBus
         }
 
 
-        public IEnumerable<RbBus> GetBusesInfoFromLine(string externalId)
+        public IEnumerable<RbBus> GetBusesInfoFromLine(string lineId)
         {
-            var request = new RestRequest("search/{externalId}", Method.GET)
+            var request = new RestRequest("search/{lineId}", Method.GET)
             {
                 JsonSerializer = new MySerializer()
             };
 
-            request.AddUrlSegment("externalId", externalId);
+            request.AddUrlSegment("lineId", lineId);
 
             var response = _client.Execute(request);
 
@@ -56,14 +56,14 @@ namespace Ikuzo.Infra.RioBus
             return lines;
         }
 
-        public IEnumerable<Gps> GetGpsInfoFromLine(string lineExternalId)
+        public IEnumerable<Gps> GetGpsInfoFromLine(string lineId)
         {
-            var request = new RestRequest("search/{line}", Method.GET)
+            var request = new RestRequest("search/{lineId}", Method.GET)
             {
                 JsonSerializer = new MySerializer()
             };
 
-            request.AddUrlSegment("line", lineExternalId);
+            request.AddUrlSegment("lineId", lineId);
 
             var response = _client.Execute(request);
 
@@ -92,6 +92,25 @@ namespace Ikuzo.Infra.RioBus
             var gps = JsonConvert.DeserializeObject<List<Gps>>(response.Content);
 
             return gps;
+        }
+
+        public RbItinerary GetItineraryInfoFromLine(string lineId)
+        {
+            var request = new RestRequest("itinerary/{lineId}", Method.GET)
+            {
+                JsonSerializer = new MySerializer()
+            };
+
+            request.AddUrlSegment("lineId", lineId);
+
+            var response = _client.Execute(request);
+
+            if (response.StatusCode != HttpStatusCode.OK)
+                return new RbItinerary();
+
+            var itinerary = JsonConvert.DeserializeObject<RbItinerary>(response.Content);
+
+            return itinerary;
         }
 
         public void Dispose()

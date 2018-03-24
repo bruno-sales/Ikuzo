@@ -58,6 +58,7 @@
     <Compile Include="ViewModels\Line\LineBus.cs" />
     <Compile Include="ViewModels\Line\LineDetails.cs" />
     <Compile Include="ViewModels\Line\LineIndex.cs" />
+    <Compile Include="ViewModels\Line\LineItinerary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

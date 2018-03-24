@@ -31,11 +31,11 @@ namespace Ikuzo.Infra.Data.Context
             modelBuilder.Conventions.Remove<DecimalPropertyConvention>();
 
             modelBuilder.Conventions.Add(new DecimalPropertyConvention(12, 6));
-
-
+            
             modelBuilder.Configurations.Add(new BusConfig());
             modelBuilder.Configurations.Add(new LineConfig());
             modelBuilder.Configurations.Add(new GpsConfig());
+            modelBuilder.Configurations.Add(new ItineraryConfig());
 
             modelBuilder.Ignore<ValidationResult>();
         }

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Config\BusConfig.cs" />
     <Compile Include="Config\GpsConfig.cs" />
+    <Compile Include="Config\ItineraryConfig.cs" />
     <Compile Include="Config\LineConfig.cs" />
     <Compile Include="Context\Context.cs" />
     <Compile Include="Context\UnitOfWork.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\BusRepository.cs" />
     <Compile Include="Repository\GpsRepository.cs" />
+    <Compile Include="Repository\ItineraryRepository.cs" />
     <Compile Include="Repository\LineRepository.cs" />
   </ItemGroup>
   <ItemGroup />

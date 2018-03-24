@@ -62,5 +62,18 @@ namespace Ikuzo.Controllers
                 return Content(HttpStatusCode.InternalServerError, result.Errors);
         }
 
+        [HttpPost]
+        [Route("itineraries")]
+        public IHttpActionResult SyncItineraries()
+        {
+            var result = new ValidationResult();
+
+            result.AddError(_crawlerApp.SyncItineraries());
+
+            if (result.Success)
+                return Ok();
+            else
+                return Content(HttpStatusCode.InternalServerError, result.Errors);
+        }
     }
 }

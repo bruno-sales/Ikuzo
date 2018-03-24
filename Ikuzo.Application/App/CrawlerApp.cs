@@ -14,69 +14,18 @@ namespace Ikuzo.Application.App
         private readonly IRioBusRepository _riobusRepository;
         private readonly ILineService _lineService;
         private readonly IBusService _busService;
+        private readonly IItineraryService _itineraryService;
         private readonly IGpsService _gpsService;
         private readonly IUnitOfWork _work;
 
-        public CrawlerApp(IRioBusRepository riobusRepository, ILineService lineService, IUnitOfWork work, IBusService busService, IGpsService gpsService)
+        public CrawlerApp(IRioBusRepository riobusRepository, ILineService lineService, IUnitOfWork work, IBusService busService, IGpsService gpsService, IItineraryService itineraryService)
         {
             _riobusRepository = riobusRepository;
             _lineService = lineService;
             _work = work;
             _busService = busService;
             _gpsService = gpsService;
-        }
-
-        public ValidationResult SyncGps()
-        {
-            var validation = new ValidationResult();
-
-            try
-            {
-                //Get lines
-                var lines = _lineService.GetAllLines().ToList();
-
-                //Analyse Objects
-                foreach (var line in lines)
-                {
-                    var gpsToCreate = new List<Gps>();
-
-                    //Get gps info from external resource
-                    var rioBusGps = _riobusRepository.GetGpsInfoFromLine(line.LineId).ToList();
-
-                    if (rioBusGps.Any()) //Having infos
-                    {
-                        foreach (var gps in rioBusGps)
-                        {
-                            //Check if adding in the right line
-                            if (!string.Equals(line.LineId.ToLower(), gps.LineId.ToLower()))
-                                continue;
-
-                            gps.Timestamp = gps.Timestamp.ToLocalTime();
-                            gpsToCreate.Add(gps); //Add to Save
-
-                        }
-                    }
-
-                    if (gpsToCreate.Any() == false)
-                        continue;
-
-                    //Remove previous gps info
-                    validation.AddError(_gpsService.RemoveGpsesFromLine(line.LineId));
-
-                    //Create
-                    _gpsService.CreateGpses(gpsToCreate);
-
-                    //Commit
-                    validation.AddError(_work.Commit());
-                }
-
-            }
-            catch (Exception e)
-            {
-                validation.AddError(new ValidationError(e.Message));
-            }
-
-            return validation;
+            _itineraryService = itineraryService;
         }
 
         public ValidationResult SyncLines()
@@ -104,7 +53,9 @@ namespace Ikuzo.Application.App
                     }
                     else if (string.Equals(dbLine.Description.ToLower(), rioBusLine.Description.ToLower()) == false)
                     {   //Check if Description changed
+
                         dbLine.Description = rioBusLine.Description;
+                        dbLine.LastUpdateDate = DateTime.Now;
 
                         //Add to update
                         linesToUpdate.Add(dbLine);
@@ -175,6 +126,9 @@ namespace Ikuzo.Application.App
                     if (busesToCreate.Any() == false)
                         continue;
 
+                    //Remove previous bus info
+                    validation.AddError(_busService.RemoveBusesFromLine(line.LineId));
+
                     //Create
                     _busService.CreateBuses(busesToCreate);
 
@@ -189,5 +143,108 @@ namespace Ikuzo.Application.App
 
             return validation;
         }
+        
+        public ValidationResult SyncItineraries()
+        {
+            var validation = new ValidationResult();
+
+            try
+            {
+                //Get lines
+                var lines = _lineService.GetAllLines().ToList();
+
+                //Analyse Objects
+                foreach (var line in lines)
+                {
+                    var itinerariesToCreate = new List<Itinerary>();
+
+                    //Get gps info from external resource
+                    var rioBusItineraries = _riobusRepository.GetItineraryInfoFromLine(line.LineId);
+
+                    if (rioBusItineraries.Spots.Any()) //Having infos
+                    {
+                        foreach (var spot in rioBusItineraries.Spots)
+                        {
+                            var itinerary = new Itinerary(line.LineId, spot.Latitude, spot.Longitude, spot.Returning);
+                            itinerariesToCreate.Add(itinerary); //Add to Save
+                        }
+                    }
+
+                    if (itinerariesToCreate.Any() == false)
+                        continue;
+
+                    //Remove previous gps info
+                    validation.AddError(_itineraryService.RemoveItinerariesFromLine(line.LineId));
+
+                    //Create
+                    _itineraryService.CreateItineraries(itinerariesToCreate);
+
+                    //Commit
+                    validation.AddError(_work.Commit());
+                }
+
+            }
+            catch (Exception e)
+            {
+                validation.AddError(new ValidationError(e.Message));
+            }
+
+            return validation;
+        }
+
+
+        public ValidationResult SyncGps()
+        {
+            var validation = new ValidationResult();
+
+            try
+            {
+                //Get lines
+                var lines = _lineService.GetAllLines().ToList();
+
+                //Analyse Objects
+                foreach (var line in lines)
+                {
+                    var gpsToCreate = new List<Gps>();
+
+                    //Get gps info from external resource
+                    var rioBusGps = _riobusRepository.GetGpsInfoFromLine(line.LineId).ToList();
+
+                    if (rioBusGps.Any()) //Having infos
+                    {
+                        foreach (var gps in rioBusGps)
+                        {
+                            //Check if adding in the right line
+                            if (!string.Equals(line.LineId.ToLower(), gps.LineId.ToLower()))
+                                continue;
+
+                            gps.Timestamp = gps.Timestamp.ToLocalTime();
+                            gpsToCreate.Add(gps); //Add to Save
+
+                        }
+                    }
+
+                    if (gpsToCreate.Any() == false)
+                        continue;
+
+                    //Remove previous gps info
+                    validation.AddError(_gpsService.RemoveGpsesFromLine(line.LineId));
+
+                    //Create
+                    _gpsService.CreateGpses(gpsToCreate);
+
+                    //Commit
+                    validation.AddError(_work.Commit());
+                }
+
+            }
+            catch (Exception e)
+            {
+                validation.AddError(new ValidationError(e.Message));
+            }
+
+            return validation;
+        }
+
     }
 }

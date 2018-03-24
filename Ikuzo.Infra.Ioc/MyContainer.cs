@@ -38,11 +38,13 @@ namespace Ikuzo.Infra.Ioc
             container.Register<IBusRepository, BusRepository>(Lifestyle.Scoped);
             container.Register<ILineRepository, LineRepository>(Lifestyle.Scoped);
             container.Register<IGpsRepository, GpsRepository>(Lifestyle.Scoped);
+            container.Register<IItineraryRepository, ItineraryRepository>(Lifestyle.Scoped);
 
             //Services
             container.Register<IBusService, BusService>(Lifestyle.Scoped);
             container.Register<ILineService, LineService>(Lifestyle.Scoped);
             container.Register<IGpsService, GpsService>(Lifestyle.Scoped);
+            container.Register<IItineraryService, ItineraryService>(Lifestyle.Scoped);
 
             //ReadOnly
             //container.Register<BaseReadOnlyRepository, BaseReadOnlyRepository>(Lifestyle.Scoped);

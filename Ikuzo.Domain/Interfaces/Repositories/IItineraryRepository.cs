@@ -2,9 +2,8 @@
 
 namespace Ikuzo.Domain.Interfaces.Repositories
 {
-    public interface IBusRepository : IBaseRepository<Bus>
+    public interface IItineraryRepository : IBaseRepository<Itinerary>
     {
-        Bus Details(string busId);
         void RemoveFromLine(string lineId);
     }
 }

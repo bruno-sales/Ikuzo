@@ -28,6 +28,7 @@ namespace Ikuzo.Application.Configurations
                 .Member(dest => dest.Bus, i => i.BusId)
                 .Member(dest => dest.Line, i => i.Line.LineId);
 
+            Mapper.Register<Itinerary, LineItinerary>();
         }
     }
 }
