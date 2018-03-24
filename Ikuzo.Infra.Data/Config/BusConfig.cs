@@ -7,7 +7,7 @@ namespace Ikuzo.Infra.Data.Config
     {
         public BusConfig()
         {
-            HasKey(i => i.BusId);
+            HasKey(i => i.BusGuid);
 
             HasRequired(i => i.Line)
                 .WithMany(i=>i.Buses)

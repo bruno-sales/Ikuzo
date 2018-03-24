@@ -7,7 +7,8 @@ namespace Ikuzo.Domain.Interfaces.CrossCuttings
     public interface IRioBusRepository
     {
         IEnumerable<RbLine> GetAllLines();
-        IEnumerable<RbBus> GetBusesInfoFromLine(string externalId);
-        IEnumerable<Gps> GetGpsInfoFromLine(string lineExternalId);
+        IEnumerable<RbBus> GetBusesInfoFromLine(string lineId);
+        IEnumerable<Gps> GetGpsInfoFromLine(string lineId);
+        IEnumerable<Gps> GetGpsInfoFromBus(string busId);
     }
 }

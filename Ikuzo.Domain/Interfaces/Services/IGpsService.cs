@@ -9,5 +9,6 @@ namespace Ikuzo.Domain.Interfaces.Services
         Gps GetBusGps(string externalBusId);
         IEnumerable<Gps> CreateGpses(IEnumerable<Gps> gpses);
         ValidationResult RemoveGpsesFromLine(string externalLineId);
+        ValidationResult RemoveGpsesFromBus(string busId);
     }
 }

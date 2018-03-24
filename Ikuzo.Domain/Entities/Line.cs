@@ -7,23 +7,20 @@ namespace Ikuzo.Domain.Entities
     {
         public Line()
         {
-            Buses = new Collection<Bus>();
-            LineId = Guid.NewGuid();
+            Buses = new Collection<Bus>(); 
         }
 
-        public Line(string externalId, string description)
+        public Line(string lineId, string description)
         {
-            LineId = Guid.NewGuid();
-            ExternalId = externalId;
+            LineId = lineId;
             Description = description;
-            CreateDate = DateTime.Now;
+            LastUpdateDate = DateTime.Now;
             Buses = new Collection<Bus>();
         }
 
-        public Guid LineId { get; set; }
-        public string ExternalId { get; set; }
+        public string LineId { get; set; } 
         public string Description { get; set; }
         public virtual Collection<Bus> Buses { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime LastUpdateDate { get; set; }
     }
 }

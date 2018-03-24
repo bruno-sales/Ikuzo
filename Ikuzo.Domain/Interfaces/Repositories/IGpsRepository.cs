@@ -4,7 +4,8 @@ namespace Ikuzo.Domain.Interfaces.Repositories
 {
     public interface IGpsRepository : IBaseRepository<Gps>
     {
-        Gps GetBusGps(string externalBusId);
-        void RemoveFromLine(string externalLineId);
+        Gps GetBusGps(string busId);
+        void RemoveFromLine(string lineId);
+        void RemoveFromBus(string busId);
     }
 }

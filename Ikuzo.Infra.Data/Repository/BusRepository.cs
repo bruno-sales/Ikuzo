@@ -17,20 +17,13 @@ namespace Ikuzo.Infra.Data.Repository
         {
             return DbSet
                 .Include(i => i.Line);
-        }
+        } 
 
-        public Bus Details(Guid busId)
+        public Bus Details(string busId)
         {
             return DbSet
                 .Include(i => i.Line)
-                .FirstOrDefault(i => i.BusId == busId);
-        }
-
-        public Bus Details(string externalBusId)
-        {
-            return DbSet
-                .Include(i => i.Line)
-                .FirstOrDefault(i => string.Equals(i.ExternalId.ToLower(), externalBusId.ToLower()));
+                .FirstOrDefault(i => string.Equals(i.BusId.ToLower(), busId.ToLower()));
         }
     }
 }

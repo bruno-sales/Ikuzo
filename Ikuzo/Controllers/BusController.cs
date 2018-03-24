@@ -23,10 +23,10 @@ namespace Ikuzo.Controllers
         }
 
         [HttpGet]
-        [Route("{externalLineId}")]
-        public IHttpActionResult GetLine([FromUri] string externalLineId)
+        [Route("{lineId}")]
+        public IHttpActionResult GetLine([FromUri] string lineId)
         {
-            var line = _lineApp.GetLine(externalLineId);
+            var line = _lineApp.GetLine(lineId);
 
             if(line != null)
                 return Ok(line);

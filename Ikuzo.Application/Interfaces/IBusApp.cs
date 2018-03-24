@@ -6,7 +6,7 @@ namespace Ikuzo.Application.Interfaces
     public interface IBusApp
     {
         IEnumerable<BusIndex> GetBuses();
-        BusDetails GetBus(string externalLineId);
+        BusDetails GetBus(string busId);
         BusDetails GetBus(int lineId);
     }
 }

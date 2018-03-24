@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema; 
 
 namespace Ikuzo.Domain.Entities
 {
@@ -6,22 +7,24 @@ namespace Ikuzo.Domain.Entities
     {
         public Bus()
         {
-            CreateDate = DateTime.Now;
-            BusId = Guid.NewGuid();
+            BusGuid = Guid.NewGuid();
+            LastUpdateDate = DateTime.Now;
         }
 
-        public Bus(Guid lineId, string externalId)
+        public Bus(string busId, string lineId)
         {
-            BusId = Guid.NewGuid();
+            BusGuid = Guid.NewGuid();
+            BusId = busId;
             LineId = lineId;
-            ExternalId = externalId;
-            CreateDate = DateTime.Now;
+            LastUpdateDate = DateTime.Now;
         }
 
-        public Guid BusId { get; set; }
-        public string ExternalId { get; set; }
-        public Guid LineId { get; set; }
+        public Guid BusGuid { get; set; }
+        public string BusId { get; set; }
+        public string LineId { get; set; }
         public virtual Line Line { get; set; }
-        public DateTime CreateDate { get; set; }
+        [NotMapped]
+        public Gps Gps { get; set; }
+        public DateTime LastUpdateDate { get; set; }
     }
 }

@@ -29,16 +29,16 @@ namespace Ikuzo.Application.App
             return modelbuses;
         }
 
-        public BusDetails GetBus(string externalLineId)
+        public BusDetails GetBus(string busId)
         {
-            var bus = _busService.Details(externalLineId);
+            var bus = _busService.Details(busId);
 
             var modelBuses = Mapper.Map<Bus,BusDetails>(bus);
 
             if (bus == null || modelBuses == null)
                 return modelBuses;
 
-            var gps = _gpsService.GetBusGps(externalLineId);
+            var gps = _gpsService.GetBusGps(busId);
 
             var direction = "West";
 

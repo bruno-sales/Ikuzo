@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Repositories;
@@ -30,37 +29,23 @@ namespace Ikuzo.Domain.Services
             return editedLine;
         }
 
-        public Line Get(Guid lineId)
+        public Line Get(string lineId)
         {
-            var line = _lineRepository.Get(lineId);
+            var line = _lineRepository.GetWhere(i => string.Equals(i.LineId.ToLower(), lineId.ToLower())).FirstOrDefault();
 
             return line;
-        }
+        } 
 
-        public Line Get(string externalId)
-        {
-            var line = _lineRepository.GetWhere(i => string.Equals(i.ExternalId.ToLower(), externalId.ToLower())).FirstOrDefault();
-
-            return line;
-        }
-
-        public Line Details(Guid lineId)
+        public Line Details(string lineId)
         {
             var line = _lineRepository.Details(lineId);
 
             return line;
         }
 
-        public Line Details(string externalId)
-        {
-            var line = _lineRepository.Details(externalId);
-
-            return line;
-        }
-
         public IEnumerable<Line> GetAllLines()
         {
-            var lines = _lineRepository.GetAll().OrderBy(i=>i.ExternalId).ToList();
+            var lines = _lineRepository.GetAll().OrderBy(i=>i.LineId).ToList();
 
             return lines;
         }

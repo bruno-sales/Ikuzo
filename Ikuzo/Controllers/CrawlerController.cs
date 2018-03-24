@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net; 
 using System.Web.Http;
 using Ikuzo.Application.Interfaces;
 using Ikuzo.Domain.ValueObjects;

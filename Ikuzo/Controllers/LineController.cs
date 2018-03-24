@@ -23,10 +23,10 @@ namespace Ikuzo.Controllers
         }
 
         [HttpGet]
-        [Route("{externalBusId}")]
-        public IHttpActionResult GetBus([FromUri] string externalBusId)
+        [Route("{busId}")]
+        public IHttpActionResult GetBus([FromUri] string busId)
         {
-            var bus = _busApp.GetBus(externalBusId);
+            var bus = _busApp.GetBus(busId);
 
             if(bus != null)
                 return Ok(bus);

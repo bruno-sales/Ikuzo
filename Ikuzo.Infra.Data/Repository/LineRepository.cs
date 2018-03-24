@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Repositories;
@@ -10,18 +9,12 @@ namespace Ikuzo.Infra.Data.Repository
     {
         public LineRepository(Context.Context context) : base(context)
         {
-        }
+        } 
 
-        public Line Details(Guid lineId)
+        public Line Details(string lineId)
         {
             return DbSet
-                .Include(i => i.Buses).FirstOrDefault(i => i.LineId == lineId);
-        }
-
-        public Line Details(string externalLineId)
-        {
-            return DbSet
-                .Include(i => i.Buses).FirstOrDefault(i => string.Equals(i.ExternalId.ToLower(), externalLineId.ToLower()));
+                .Include(i => i.Buses).FirstOrDefault(i => string.Equals(i.LineId.ToLower(), lineId.ToLower()));
         }
     }
 }

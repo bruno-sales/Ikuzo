@@ -26,12 +26,27 @@ namespace Ikuzo.Domain.Services
             return _gpsRepository.Create(gpses);
         }
         
-        public ValidationResult RemoveGpsesFromLine(string externalLineId)
+        public ValidationResult RemoveGpsesFromLine(string lineId)
         {
             var result = new ValidationResult();
             try
             {
-                _gpsRepository.RemoveFromLine(externalLineId);
+                _gpsRepository.RemoveFromLine(lineId);
+            }
+            catch (Exception e)
+            {
+                result.AddError(new ValidationError(e.Message));
+            }
+
+            return result;
+        }
+
+        public ValidationResult RemoveGpsesFromBus(string busId)
+        {
+            var result = new ValidationResult();
+            try
+            {
+                _gpsRepository.RemoveFromLine(busId);
             }
             catch (Exception e)
             {

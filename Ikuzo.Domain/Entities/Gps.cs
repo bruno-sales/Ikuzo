@@ -7,18 +7,20 @@ namespace Ikuzo.Domain.Entities
     {
         public Gps()
         {
-            GpsId = Guid.NewGuid();
+            GpsGuid = Guid.NewGuid();
+            LastUpdateDate = DateTime.Now;
         }
 
-        public Guid GpsId { get; set; }
+        public Guid GpsGuid { get; set; }
 
         [JsonProperty("order")]
-        public string BusExternalId { get; set; }
+        public string BusId { get; set; }
         [JsonProperty("line")]
-        public string LineExternalId { get; set; }
+        public string LineId { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public int Direction { get; set; }
         public DateTime Timestamp { get; set; }
+        public DateTime LastUpdateDate { get; set; }
     }
 }

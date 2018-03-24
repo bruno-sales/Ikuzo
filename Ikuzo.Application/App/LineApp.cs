@@ -27,18 +27,11 @@ namespace Ikuzo.Application.App
             return modelLines;
         }
 
-        public LineDetails GetLine(string externalLineId)
+        public LineDetails GetLine(string lineId)
         {
-            var modelLine = Mapper.Map<Line,LineDetails>(_lineService.Details(externalLineId));
+            var modelLine = Mapper.Map<Line,LineDetails>(_lineService.Details(lineId));
 
             return modelLine;
-        }
-
-        public LineDetails GetLine(Guid lineId)
-        {
-            var modelLine = Mapper.Map<Line, LineDetails>(_lineService.Details(lineId));
-
-            return modelLine;
-        }
+        } 
     }
 }
