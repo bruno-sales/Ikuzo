@@ -6,6 +6,7 @@ namespace Ikuzo.Application.Interfaces
     public interface ILineApp
     {
         IEnumerable<LineIndex> GetLines();
-        LineDetails GetLine(string lineId); 
+        LineDetails GetLine(string lineId);
+        IEnumerable<LineIndex> GetLocalLines(decimal latitude, decimal longitude, decimal variance);
     }
 }

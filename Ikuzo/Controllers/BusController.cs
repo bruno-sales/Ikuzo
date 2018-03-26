@@ -3,33 +3,33 @@ using Ikuzo.Application.Interfaces;
 
 namespace Ikuzo.Controllers
 {
-    [RoutePrefix("v1/api/lines")]
+    [RoutePrefix("v1/api/buses")]
     public class BusController : ApiController
     {
-        private readonly ILineApp _lineApp;
+        private readonly IBusApp _busApp;
 
-        public BusController(ILineApp lineApp)
+        public BusController(IBusApp busApp)
         {
-            _lineApp = lineApp;
+            _busApp = busApp;
         }
 
         [HttpGet]
         [Route("")]
-        public IHttpActionResult GetLines()
+        public IHttpActionResult GetBuses()
         {
-            var lines = _lineApp.GetLines();
+            var buses = _busApp.GetBuses();
 
-            return Ok(lines);
+            return Ok(buses);
         }
 
         [HttpGet]
-        [Route("{lineId}")]
-        public IHttpActionResult GetLine([FromUri] string lineId)
+        [Route("{busId}")]
+        public IHttpActionResult GetBus([FromUri] string busId)
         {
-            var line = _lineApp.GetLine(lineId);
+            var bus = _busApp.GetBus(busId);
 
-            if(line != null)
-                return Ok(line);
+            if(bus != null)
+                return Ok(bus);
 
             return NotFound();
         }

@@ -29,9 +29,19 @@ namespace Ikuzo.Application.App
 
         public LineDetails GetLine(string lineId)
         {
-            var modelLine = Mapper.Map<Line,LineDetails>(_lineService.Details(lineId));
+            var modelLine = Mapper.Map<Line, LineDetails>(_lineService.Details(lineId));
 
             return modelLine;
-        } 
+        }
+
+        public IEnumerable<LineIndex> GetLocalLines(decimal latitude, decimal longitude, decimal variance)
+        {
+            var lines = _lineService.GetLocalLines(latitude, longitude, variance).ToList();
+
+            var modelLines = Mapper.Map<List<Line>, List<LineIndex>>(lines);
+
+            return modelLines;
+        }
+
     }
 }

@@ -9,10 +9,12 @@ namespace Ikuzo.Domain.Services
     public class LineService : ILineService
     {
         private readonly ILineRepository _lineRepository;
+        private readonly IItineraryRepository _itineraryRepository;
 
-        public LineService(ILineRepository lineRepository)
+        public LineService(ILineRepository lineRepository, IItineraryRepository itineraryRepository)
         {
             _lineRepository = lineRepository;
+            _itineraryRepository = itineraryRepository;
         }
 
         public IEnumerable<Line> CreateLines(IEnumerable<Line> line)
@@ -48,6 +50,11 @@ namespace Ikuzo.Domain.Services
             var lines = _lineRepository.GetAll().OrderBy(i=>i.LineId).ToList();
 
             return lines;
+        }
+
+        public IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal variance)
+        {
+            return _itineraryRepository.GetLocalLines(latitude, longitude, variance).ToList();
         }
     }
 }
