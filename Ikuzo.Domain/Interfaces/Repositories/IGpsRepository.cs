@@ -1,4 +1,5 @@
-﻿using Ikuzo.Domain.Entities;
+﻿using System.Collections.Generic;
+using Ikuzo.Domain.Entities;
 
 namespace Ikuzo.Domain.Interfaces.Repositories
 {
@@ -7,5 +8,6 @@ namespace Ikuzo.Domain.Interfaces.Repositories
         Gps GetBusGps(string busId);
         void RemoveFromLine(string lineId);
         void RemoveFromBus(string busId);
+        IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance, string lineId);
     }
 }

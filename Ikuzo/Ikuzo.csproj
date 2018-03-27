@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestModels\LocalLinesRequest.cs" />
+    <Compile Include="RequestModels\NerbyBusesRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />

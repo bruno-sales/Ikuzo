@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Repositories;
 using Ikuzo.Domain.Interfaces.Services;
@@ -54,6 +55,13 @@ namespace Ikuzo.Domain.Services
             }
 
             return result;
+        }
+
+        public IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance, string lineId)
+        {
+            var gpses = _gpsRepository.GetNerbyBusesGps(latitude, longitude, variance, lineId).ToList();
+
+            return gpses;
         }
     }
 }

@@ -73,26 +73,7 @@ namespace Ikuzo.Infra.RioBus
             var gps = JsonConvert.DeserializeObject<List<Gps>>(response.Content);
 
             return gps;
-        }
-
-        public IEnumerable<Gps> GetGpsInfoFromBus(string busId)
-        {
-            var request = new RestRequest("search/{busId}", Method.GET)
-            {
-                JsonSerializer = new MySerializer()
-            };
-
-            request.AddUrlSegment("busId", busId);
-
-            var response = _client.Execute(request);
-
-            if (response.StatusCode != HttpStatusCode.OK)
-                return new List<Gps>();
-
-            var gps = JsonConvert.DeserializeObject<List<Gps>>(response.Content);
-
-            return gps;
-        }
+        } 
 
         public RbItinerary GetItineraryInfoFromLine(string lineId)
         {

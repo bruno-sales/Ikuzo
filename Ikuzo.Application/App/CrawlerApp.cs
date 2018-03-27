@@ -117,7 +117,11 @@ namespace Ikuzo.Application.App
                         if (rioBusBuses.Any()) //Having buses
                         {
                             foreach (var rioBusBus in rioBusBuses)
-                            {
+                            {  
+                                //Check if adding in the right line
+                                if (!string.Equals(line.LineId.ToLower(), rioBusBus.Line.ToLower()))
+                                    continue;
+
                                 busesToCreate.Add(new Bus(rioBusBus.Order, line.LineId)); //Add to Save
                             }
                         }

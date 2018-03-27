@@ -36,6 +36,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Device.Portable, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3f6d3f5f65b761a0, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Device.Location.Portable.1.0.0\lib\System.Device.Portable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +51,7 @@
     <Compile Include="Entities\Gps.cs" />
     <Compile Include="Entities\Itinerary.cs" />
     <Compile Include="Entities\Line.cs" />
+    <Compile Include="Helpers\GpsHelper.cs" />
     <Compile Include="Interfaces\CrossCuttings\IDataRioRepository.cs" />
     <Compile Include="Interfaces\CrossCuttings\IRioBusRepository.cs" />
     <Compile Include="Interfaces\Repositories\IBaseRepository.cs" />

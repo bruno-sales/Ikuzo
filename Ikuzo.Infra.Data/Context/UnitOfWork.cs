@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data.Entity.Validation;
 using System.Linq;
-using Ikuzo.Domain;
-using Ikuzo.Domain.Interfaces;
 using Ikuzo.Domain.Interfaces.CrossCuttings;
 using Ikuzo.Domain.ValueObjects;
 

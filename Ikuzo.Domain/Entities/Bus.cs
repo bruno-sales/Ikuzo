@@ -7,19 +7,16 @@ namespace Ikuzo.Domain.Entities
     {
         public Bus()
         {
-            BusGuid = Guid.NewGuid();
             LastUpdateDate = DateTime.Now;
         }
 
         public Bus(string busId, string lineId)
         {
-            BusGuid = Guid.NewGuid();
             BusId = busId;
             LineId = lineId;
             LastUpdateDate = DateTime.Now;
         }
 
-        public Guid BusGuid { get; set; }
         public string BusId { get; set; }
         public string LineId { get; set; }
         public virtual Line Line { get; set; }

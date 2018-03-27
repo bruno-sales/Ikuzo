@@ -1,5 +1,7 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using Ikuzo.Application.Interfaces;
+using Ikuzo.RequestModels;
 
 namespace Ikuzo.Controllers
 {
@@ -34,5 +36,33 @@ namespace Ikuzo.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        [Route("nearby")]
+        public IHttpActionResult NearbyBuses([FromUri] NerbyBusesRequest request)
+        {
+            if (request == null)
+                return BadRequest();
+
+            decimal variance;
+
+            try
+            {
+                if (request.Var == null)
+                    variance = new decimal(0.010000);
+                else
+                    variance = Convert.ToDecimal(request.Var) / (decimal)1000000.0;
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            var line = _busApp.GetNearbyBuses(request.Lat, request.Lon, variance, request.Line);
+
+            if (line != null)
+                return Ok(line);
+
+            return NotFound();
+        }
     }
 }

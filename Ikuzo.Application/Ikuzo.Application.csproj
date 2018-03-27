@@ -55,6 +55,7 @@
     <Compile Include="ViewModels\Bus\BusDetails.cs" />
     <Compile Include="ViewModels\Bus\BusGps.cs" />
     <Compile Include="ViewModels\Bus\BusIndex.cs" />
+    <Compile Include="ViewModels\Bus\BusNearbyDetails.cs" />
     <Compile Include="ViewModels\Line\LineBus.cs" />
     <Compile Include="ViewModels\Line\LineDetails.cs" />
     <Compile Include="ViewModels\Line\LineIndex.cs" />

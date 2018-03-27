@@ -7,6 +7,7 @@ namespace Ikuzo.Application.Interfaces
     {
         IEnumerable<BusIndex> GetBuses();
         BusDetails GetBus(string busId);
-        BusDetails GetBus(int lineId);
+        IEnumerable<BusNearbyDetails> GetNearbyBuses(decimal latitude, decimal longitude, decimal variance,
+            string lineId);
     }
 }

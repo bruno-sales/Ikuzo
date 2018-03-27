@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ExpressMapper;
 using Ikuzo.Application.Interfaces;
-using Ikuzo.Application.ViewModels.Bus; 
+using Ikuzo.Application.ViewModels.Bus;
 using Ikuzo.Domain.Entities;
+using Ikuzo.Domain.Helpers;
 using Ikuzo.Domain.Interfaces.Services;
 
 namespace Ikuzo.Application.App
@@ -33,41 +34,51 @@ namespace Ikuzo.Application.App
         {
             var bus = _busService.Details(busId);
 
-            var modelBuses = Mapper.Map<Bus,BusDetails>(bus);
+            var modelBuses = Mapper.Map<Bus, BusDetails>(bus);
 
             if (bus == null || modelBuses == null)
                 return modelBuses;
 
             var gps = _gpsService.GetBusGps(busId);
-
-            var direction = "West";
-
-            if (gps.Direction > 315 && gps.Direction <= 45)
-            {
-                direction = "North";
-            }
-            else if (gps.Direction > 45 && gps.Direction <= 135)
-            {
-                direction = "East";
-            }
-            else if(gps.Direction > 135 && gps.Direction <= 225)
-            {
-                direction = "South";
-            }
-
+            
             modelBuses.Gps = new BusGps()
             {
                 Latitude = gps.Latitude,
                 Longitude = gps.Longitude,
-                Direction = direction
+                Direction = GpsHelper.GetDirectionByAngle(gps.Direction)
             };
 
             return modelBuses;
         }
 
-        public BusDetails GetBus(int lineId)
+        public IEnumerable<BusNearbyDetails> GetNearbyBuses(decimal latitude, decimal longitude, decimal variance, string lineId)
         {
-            throw new NotImplementedException();
+            var buses = new List<BusNearbyDetails>();
+            var gpses = _gpsService.GetNerbyBusesGps(latitude, longitude, variance, lineId).ToList();
+
+            foreach (var gps in gpses)
+            {
+                var distance = GpsHelper.DistanceBetweenCoordenates(latitude, longitude, gps.Latitude, gps.Longitude);
+                var minutesToArrive = (distance / 4.2) / 60.0;
+                var bus = new BusNearbyDetails()
+                {
+                    Bus = gps.BusId,
+                    Line = gps.LineId,
+                    Distance = distance,
+                    MinutesToArrive = Convert.ToInt32(minutesToArrive),
+                    LastUpdateDate = gps.LastUpdateDate,
+                    Gps = new BusGps()
+                    {
+                        Latitude = gps.Latitude,
+                        Longitude = gps.Longitude,
+                        Direction = GpsHelper.GetDirectionByAngle(gps.Direction)
+                    }
+                };
+
+                buses.Add(bus);
+            }
+
+            return buses.OrderBy(i=>i.Distance);
         }
     }
 }

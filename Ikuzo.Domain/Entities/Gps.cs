@@ -15,8 +15,10 @@ namespace Ikuzo.Domain.Entities
 
         [JsonProperty("order")]
         public string BusId { get; set; }
+        public virtual Bus Bus{ get; set; }
         [JsonProperty("line")]
         public string LineId { get; set; }
+        public virtual Line Line { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public int Direction { get; set; }

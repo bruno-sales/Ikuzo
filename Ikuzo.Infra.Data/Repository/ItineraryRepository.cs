@@ -29,7 +29,7 @@ namespace Ikuzo.Infra.Data.Repository
             var endLatitude = latitude + variance;
 
             var startLongitude = longitude - variance;
-            var endLongitude = longitude + variance;
+            var endLongitude = longitude + variance; 
 
             var itens = DbSet.Where(i => (i.Latitude >= startLatitude && i.Latitude <= endLatitude)
                                          && (i.Longitude >= startLongitude && i.Longitude <= endLongitude))
