@@ -39,7 +39,7 @@ namespace Ikuzo.Infra.Data.Repository
             }
         }
 
-        public IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance, string lineId)
+        public IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance)
         {
             //Negatives Lat/Lon
             var startLatitude = latitude - variance;
@@ -48,23 +48,19 @@ namespace Ikuzo.Infra.Data.Repository
             var startLongitude = longitude - variance;
             var endLongitude = longitude + variance;
 
-            List<Gps> itens;
-
-            if (string.IsNullOrEmpty(lineId))
-            {
-                itens = DbSet.Where(i => (i.Latitude >= startLatitude && i.Latitude <= endLatitude)
+            var itens = DbSet.Where(i => (i.Latitude >= startLatitude && i.Latitude <= endLatitude)
                                            && (i.Longitude >= startLongitude && i.Longitude <= endLongitude))
                   .Include(i => i.Bus).ToList();
-            }
-            else
-            {
-                itens = DbSet.Where(i => string.Equals(i.LineId.ToLower(), lineId.ToLower()) 
-                                         && (i.Latitude >= startLatitude && i.Latitude <= endLatitude)
-                                         && (i.Longitude >= startLongitude && i.Longitude <= endLongitude))
-                    .Include(i => i.Bus).ToList();
-            }
 
             return itens;
-        } 
+        }
+
+        public IEnumerable<Gps> GetNerbyBusesGpsFromLine(string lineId)
+        {
+            var itens = DbSet.Where(i => string.Equals(i.LineId.ToLower(), lineId.ToLower()))
+                    .Include(i => i.Bus).ToList();
+
+            return itens;
+        }
     }
 }

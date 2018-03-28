@@ -26,7 +26,7 @@ namespace Ikuzo.Domain.Services
         {
             return _gpsRepository.Create(gpses);
         }
-        
+
         public ValidationResult RemoveGpsesFromLine(string lineId)
         {
             var result = new ValidationResult();
@@ -59,7 +59,16 @@ namespace Ikuzo.Domain.Services
 
         public IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance, string lineId)
         {
-            var gpses = _gpsRepository.GetNerbyBusesGps(latitude, longitude, variance, lineId).ToList();
+            var gpses = new List<Gps>();
+
+            if (string.IsNullOrEmpty(lineId))
+            {
+                gpses = _gpsRepository.GetNerbyBusesGps(latitude, longitude, variance).ToList();
+            }
+            else
+            {
+                gpses = _gpsRepository.GetNerbyBusesGpsFromLine(lineId).ToList();
+            }
 
             return gpses;
         }

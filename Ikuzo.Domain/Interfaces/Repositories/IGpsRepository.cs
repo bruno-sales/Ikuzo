@@ -8,6 +8,7 @@ namespace Ikuzo.Domain.Interfaces.Repositories
         Gps GetBusGps(string busId);
         void RemoveFromLine(string lineId);
         void RemoveFromBus(string busId);
-        IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance, string lineId);
+        IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance);
+        IEnumerable<Gps> GetNerbyBusesGpsFromLine(string lineId);
     }
 }
