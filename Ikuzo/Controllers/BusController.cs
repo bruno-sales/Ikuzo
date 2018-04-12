@@ -47,12 +47,12 @@ namespace Ikuzo.Controllers
 
             try
             {
-                if (request.Precision == null || request.Precision > 10 || request.Precision <= 0)
+                if (request.Precision == null || request.Precision > 10 || request.Precision < 0)
                     variance = new decimal(0.01);
                 else
                 {
                     //a*X + b
-                    variance = (request.Precision.Value * new decimal(-0.1) + new decimal(2.1)) / (decimal) 100.0;
+                    variance = (request.Precision.Value * new decimal(-0.1) + new decimal(2)) / (decimal) 100.0;
                 }
             }
             catch (Exception)
