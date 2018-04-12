@@ -35,7 +35,7 @@ namespace Ikuzo.Infra.Data.Repository
                                          && (i.Longitude >= startLongitude && i.Longitude <= endLongitude))
                         .Include(i => i.Line).ToList();
 
-            var lines = itens.Select(i => i.Line).Distinct();
+            var lines = itens.Select(i => i.Line).Distinct().OrderBy(i=>i.LineId);
 
             return lines;
 

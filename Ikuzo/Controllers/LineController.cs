@@ -47,10 +47,13 @@ namespace Ikuzo.Controllers
 
             try
             {
-                if (request.Var == null)
-                    variance = new decimal(0.001000);
+                if (request.Precision == null)
+                    variance = new decimal(0.001);
                 else
-                    variance = Convert.ToDecimal(request.Var) / (decimal)1000000.0;
+                {
+                    //a*X + b
+                    variance = (request.Precision.Value * new decimal(-0.1) + new decimal(2.1)) / (decimal)1000.0;
+                }  
             }
             catch (Exception)
             {

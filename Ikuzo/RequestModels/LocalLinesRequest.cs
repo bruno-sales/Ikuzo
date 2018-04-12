@@ -4,6 +4,6 @@
     {
         public decimal Lat { get; set; }
         public decimal Lon { get; set; }
-        public decimal? Var { get; set; }
+        public decimal? Precision { get; set; }
     }
 }
