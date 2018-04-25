@@ -117,7 +117,7 @@ namespace Ikuzo.Application.App
                         if (rioBusBuses.Any()) //Having buses
                         {
                             foreach (var rioBusBus in rioBusBuses)
-                            {  
+                            {
                                 //Check if adding in the right line
                                 if (!string.Equals(line.LineId.ToLower(), rioBusBus.Line.ToLower()))
                                     continue;
@@ -147,7 +147,7 @@ namespace Ikuzo.Application.App
 
             return validation;
         }
-        
+
         public ValidationResult SyncItineraries()
         {
             var validation = new ValidationResult();
@@ -204,43 +204,16 @@ namespace Ikuzo.Application.App
             try
             {
                 //Get lines
-                var lines = _lineService.GetAllLines().ToList();
+                var lines = _lineService.GetAllLines().Select(i => i.LineId).ToList();
 
-                //Analyse Objects
-                foreach (var line in lines)
-                {
-                    var gpsToCreate = new List<Gps>();
+                var allGps = _riobusRepository.GetGpsInfoFromLines(lines).ToList();
 
-                    //Get gps info from external resource
-                    var rioBusGps = _riobusRepository.GetGpsInfoFromLine(line.LineId).ToList();
+                //Remove previous gps info
+                _gpsService.RemoveAllGpses();
 
-                    if (rioBusGps.Any()) //Having infos
-                    {
-                        foreach (var gps in rioBusGps)
-                        {
-                            //Check if adding in the right line
-                            if (!string.Equals(line.LineId.ToLower(), gps.LineId.ToLower()))
-                                continue;
-
-                            gps.Timestamp = gps.Timestamp.ToLocalTime();
-                            gpsToCreate.Add(gps); //Add to Save
-
-                        }
-                    }
-
-                    if (gpsToCreate.Any() == false)
-                        continue;
-
-                    //Remove previous gps info
-                    validation.AddError(_gpsService.RemoveGpsesFromLine(line.LineId));
-
-                    //Create
-                    _gpsService.CreateGpses(gpsToCreate);
-
-                    //Commit
-                    validation.AddError(_work.Commit());
-                }
-
+                //Create
+                _gpsService.CreateGpses(allGps);
+                
             }
             catch (Exception e)
             {

@@ -22,9 +22,9 @@ namespace Ikuzo.Domain.Services
             return _gpsRepository.GetBusGps(externalBusId);
         }
 
-        public IEnumerable<Gps> CreateGpses(IEnumerable<Gps> gpses)
+        public void CreateGpses(IEnumerable<Gps> gpses)
         {
-            return _gpsRepository.Create(gpses);
+            _gpsRepository.GpsBulkInsert(gpses);
         }
 
         public ValidationResult RemoveGpsesFromLine(string lineId)
@@ -33,6 +33,21 @@ namespace Ikuzo.Domain.Services
             try
             {
                 _gpsRepository.RemoveFromLine(lineId);
+            }
+            catch (Exception e)
+            {
+                result.AddError(new ValidationError(e.Message));
+            }
+
+            return result;
+        }
+
+        public ValidationResult RemoveAllGpses()
+        {
+            var result = new ValidationResult();
+            try
+            {
+                _gpsRepository.RemoveAll();
             }
             catch (Exception e)
             {

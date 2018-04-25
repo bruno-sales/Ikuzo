@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity; 
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions; 
 using Ikuzo.Domain.Interfaces.Repositories;
@@ -10,6 +12,8 @@ namespace Ikuzo.Infra.Data.Repository
 {
     public class BaseRepository<T> : IDisposable, IBaseRepository<T> where T : class
     {
+        protected SqlConnection Connection =>
+            new SqlConnection(ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString);
         protected readonly Context.Context Db;
         protected readonly IDbSet<T> DbSet;
 

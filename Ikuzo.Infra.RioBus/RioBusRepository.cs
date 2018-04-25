@@ -56,14 +56,23 @@ namespace Ikuzo.Infra.RioBus
             return lines;
         }
 
-        public IEnumerable<Gps> GetGpsInfoFromLine(string lineId)
+        public IEnumerable<Gps> GetGpsInfoFromLines(List<string> lineIds)
         {
-            var request = new RestRequest("search/{lineId}", Method.GET)
+            var lines = "";
+
+            foreach (var lineId in lineIds)
+            {
+                lines += lineId+",";
+            }
+
+            lines = lines.Substring(0, lines.Length - 1);
+
+            var request = new RestRequest("search/{lineIds}", Method.GET)
             {
                 JsonSerializer = new MySerializer()
             };
 
-            request.AddUrlSegment("lineId", lineId);
+            request.AddUrlSegment("lineIds", lines);
 
             var response = _client.Execute(request);
 

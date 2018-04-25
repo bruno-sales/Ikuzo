@@ -7,9 +7,10 @@ namespace Ikuzo.Domain.Interfaces.Services
     public interface IGpsService
     {
         Gps GetBusGps(string externalBusId);
-        IEnumerable<Gps> CreateGpses(IEnumerable<Gps> gpses);
+        void CreateGpses(IEnumerable<Gps> gpses);
         ValidationResult RemoveGpsesFromLine(string lineId);
         ValidationResult RemoveGpsesFromBus(string busId);
+        ValidationResult RemoveAllGpses();
         IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance, string line);
     }
 }

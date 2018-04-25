@@ -7,15 +7,7 @@ namespace Ikuzo.Infra.Data.Config
     {
         public GpsConfig()
         {
-            HasKey(i => i.GpsGuid);
-
-            HasRequired(i => i.Line)
-                .WithMany()
-                .HasForeignKey(i => i.LineId);
-
-            HasRequired(i => i.Bus)
-                .WithMany()
-                .HasForeignKey(i => i.BusId);
+            HasKey(i => i.GpsGuid); 
 
             ToTable("Gps");
         }

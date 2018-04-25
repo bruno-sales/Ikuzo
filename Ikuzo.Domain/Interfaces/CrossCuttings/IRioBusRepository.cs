@@ -8,7 +8,7 @@ namespace Ikuzo.Domain.Interfaces.CrossCuttings
     {
         IEnumerable<RbLine> GetAllLines();
         IEnumerable<RbBus> GetBusesInfoFromLine(string lineId);
-        IEnumerable<Gps> GetGpsInfoFromLine(string lineId); 
+        IEnumerable<Gps> GetGpsInfoFromLines(List<string> lineIds); 
         RbItinerary GetItineraryInfoFromLine(string lineId);
     }
 }
