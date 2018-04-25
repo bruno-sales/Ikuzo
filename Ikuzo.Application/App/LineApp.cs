@@ -4,6 +4,7 @@ using ExpressMapper;
 using Ikuzo.Application.Interfaces;
 using Ikuzo.Application.ViewModels.Line;
 using Ikuzo.Domain.Entities;
+using Ikuzo.Domain.Helpers;
 using Ikuzo.Domain.Interfaces.Services;
 
 namespace Ikuzo.Application.App
@@ -35,6 +36,14 @@ namespace Ikuzo.Application.App
 
         public IEnumerable<LineIndex> GetLocalLines(decimal latitude, decimal longitude, decimal variance)
         {
+            /*var y1 = latitude - variance;
+            var y2 = latitude + variance;
+
+            var x1 = longitude - variance;
+            var x2 = longitude + variance;
+
+            var t = GpsHelper.DistanceBetweenCoordenates(y1, x1, y2, x2);*/
+
             var lines = _lineService.GetLocalLines(latitude, longitude, variance).ToList();
 
             var modelLines = Mapper.Map<List<Line>, List<LineIndex>>(lines);

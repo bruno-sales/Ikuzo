@@ -47,12 +47,12 @@ namespace Ikuzo.Controllers
 
             try
             {
-                if (request.Precision == null || request.Precision > 10 || request.Precision < 0)
-                    variance = new decimal(0.01);
+                if (request.Precision == null || request.Precision > 100 || request.Precision < 0)
+                    variance = new decimal(0.0035); //0.0035 1060 m -> 0.01 3027 m
                 else
                 {
                     //a*X + b
-                    variance = (request.Precision.Value * new decimal(-0.1) + new decimal(2)) / (decimal) 100.0;
+                    variance = (request.Precision.Value * new decimal(-0.65) + new decimal(100)) / (decimal) 10000.0;
                 }
             }
             catch (Exception)
@@ -60,10 +60,10 @@ namespace Ikuzo.Controllers
                 return BadRequest();
             }
 
-            var line = _busApp.GetNearbyBuses(request.Lat, request.Lon, variance, request.Line);
+            var buses = _busApp.GetNearbyBuses(request.Lat, request.Lon, variance, request.Line);
 
-            if (line != null)
-                return Ok(line);
+            if (buses != null)
+                return Ok(buses);
 
             return NotFound();
         }

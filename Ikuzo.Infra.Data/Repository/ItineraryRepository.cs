@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+using System.Data; 
+using System.Data.SqlClient; 
+using Dapper;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Repositories;
 
@@ -14,30 +15,61 @@ namespace Ikuzo.Infra.Data.Repository
 
         public void RemoveFromLine(string lineId)
         {
-            var itens = DbSet.Where(i => string.Equals(i.LineId.ToLower(), lineId.ToLower())).ToList();
+            var sql = $@"
+                      SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; 
+                      DELETE 
+                      FROM [Itinerary] 
+                      WHERE [LineId] = '" + lineId + "'";
 
-            foreach (var obj in itens)
+            using (var cn = Connection)
             {
-                DbSet.Remove(obj);
+                if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
+
+                var comm = new SqlCommand(sql, cn);
+
+                comm.ExecuteNonQuery();
+
+                if (cn.State.Equals(ConnectionState.Open)) cn.Close();
             }
         }
 
         public IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal variance)
         {
+            var itens = new List<Line>();
+
             //Negatives Lat/Lon
-            var startLatitude = latitude - variance;
-            var endLatitude = latitude + variance;
+            var y1 = latitude - variance;
+            var y2 = latitude + variance;
 
-            var startLongitude = longitude - variance;
-            var endLongitude = longitude + variance; 
+            var x1 = longitude - variance;
+            var x2 = longitude + variance;
 
-            var itens = DbSet.Where(i => (i.Latitude >= startLatitude && i.Latitude <= endLatitude)
-                                         && (i.Longitude >= startLongitude && i.Longitude <= endLongitude))
-                        .Include(i => i.Line).ToList();
+            var sql = $@"
+                    SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+                    SELECT L.* 
+                    FROM [Itinerary] as I
+                    INNER JOIN [Line] as L
+                    ON I.LineId = L.LineId
+                    WHERE (I.[Latitude] BETWEEN @Y1 AND @Y2 )  
+                    AND   (I.[Longitude] BETWEEN @X1 AND @X2 ) 
+                    GROUP BY L.[LineId], L.[Description], L.[LastUpdateDate]";
 
-            var lines = itens.Select(i => i.Line).Distinct().OrderBy(i=>i.LineId);
+            using (var cn = Connection)
+            {
+                var args = new DynamicParameters();
+                args.Add("Y1", y1, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("Y2", y2, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("X1", x1, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("X2", x2, DbType.Decimal, precision: 12, scale: 6);
 
-            return lines;
+                if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
+
+                itens.AddRange(Connection.Query<Line>(sql, args, commandTimeout: 6000));
+
+                if (cn.State.Equals(ConnectionState.Open)) cn.Close();
+            }
+
+            return itens; 
 
         }
     }

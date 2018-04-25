@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -24,12 +24,14 @@ namespace Ikuzo.Infra.Data.Repository
 
         public void RemoveAll()
         {
+            var sql = $@"
+                      SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;  +
+                      DELETE  
+                      FROM [Gps]";
+
             using (var cn = Connection)
             {
                 if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
-
-                var sql = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                          "DELETE FROM GPS";
 
                 var comm = new SqlCommand(sql, cn);
 
@@ -43,12 +45,15 @@ namespace Ikuzo.Infra.Data.Repository
 
         public void RemoveFromLine(string lineId)
         {
+            var sql = $@"
+                      SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; 
+                      DELETE 
+                      FROM [Gps] 
+                      WHERE [LineId] = '" + lineId + "'";
+
             using (var cn = Connection)
             {
                 if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
-
-                var sql = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                          "DELETE FROM GPS WHERE LINEID = '" + lineId + "'";
 
                 var comm = new SqlCommand(sql, cn);
 
@@ -56,24 +61,42 @@ namespace Ikuzo.Infra.Data.Repository
 
                 if (cn.State.Equals(ConnectionState.Open)) cn.Close();
             }
-
-            if (Connection.State.Equals(ConnectionState.Open)) Connection.Close();
         }
 
         public IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance)
         {
+            var itens = new List<Gps>();
+
             //Negatives Lat/Lon
-            /*var startLatitude = latitude - variance;
-            var endLatitude = latitude + variance;
+            var y1 = latitude - variance;
+            var y2 = latitude + variance;
 
-            var startLongitude = longitude - variance;
-            var endLongitude = longitude + variance;
+            var x1 = longitude - variance;
+            var x2 = longitude + variance;
 
-            var itens = DbSet.Where(i => (i.Latitude >= startLatitude && i.Latitude <= endLatitude)
-                                         && (i.Longitude >= startLongitude && i.Longitude <= endLongitude))
-                .Include(i => i.Bus).ToList();*/
+            var sql = $@"
+                    SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+                    SELECT * 
+                    FROM [Gps] 
+                    WHERE ([Latitude] BETWEEN @Y1 AND @Y2 ) AND 
+                    ([Longitude] BETWEEN @X1 AND @X2 ) ";
 
-            return null;
+            using (var cn = Connection)
+            {
+                var args = new DynamicParameters();
+                args.Add("Y1", y1, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("Y2", y2, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("X1", x1, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("X2", x2, DbType.Decimal, precision: 12, scale: 6);
+
+                if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
+
+                itens.AddRange(Connection.Query<Gps>(sql, args, commandTimeout: 6000));
+
+                if (cn.State.Equals(ConnectionState.Open)) cn.Close();
+            }
+
+            return itens;
         }
 
         public IEnumerable<Gps> GetNerbyBusesGpsFromLine(string lineId)
@@ -84,16 +107,16 @@ namespace Ikuzo.Infra.Data.Repository
                     SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
                     SELECT * 
                     FROM [Gps] 
-                    WHERE [LineId] = " + lineId;
+                    WHERE [LineId] = '" + lineId + "'";
 
-            using (Connection)
+            using (var cn = Connection)
             {
-                if (Connection.State.Equals(ConnectionState.Open) == false) Connection.Open();
+                if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
 
                 itens.AddRange(Connection.Query<Gps>(sql, commandTimeout: 6000));
-            }
 
-            Connection.Close();
+                if (cn.State.Equals(ConnectionState.Open)) cn.Close();
+            }
 
             return itens;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Net;
+using System.Text;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.CrossCuttings;
 using Ikuzo.Domain.ValueObjects.RioBus;
@@ -58,14 +59,14 @@ namespace Ikuzo.Infra.RioBus
 
         public IEnumerable<Gps> GetGpsInfoFromLines(List<string> lineIds)
         {
-            var lines = "";
+            var sbLines = new StringBuilder();
 
             foreach (var lineId in lineIds)
             {
-                lines += lineId+",";
+                sbLines.Append(lineId + ",");
             }
 
-            lines = lines.Substring(0, lines.Length - 1);
+            var lines = sbLines.ToString(0, sbLines.Length - 1);
 
             var request = new RestRequest("search/{lineIds}", Method.GET)
             {
@@ -82,7 +83,7 @@ namespace Ikuzo.Infra.RioBus
             var gps = JsonConvert.DeserializeObject<List<Gps>>(response.Content);
 
             return gps;
-        } 
+        }
 
         public RbItinerary GetItineraryInfoFromLine(string lineId)
         {

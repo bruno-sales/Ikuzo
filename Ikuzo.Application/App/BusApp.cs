@@ -54,6 +54,15 @@ namespace Ikuzo.Application.App
         public IEnumerable<BusNearbyDetails> GetNearbyBuses(decimal latitude, decimal longitude, decimal variance, string lineId)
         {
             var buses = new List<BusNearbyDetails>();
+
+            /*var y1 = latitude - variance;
+            var y2 = latitude + variance;
+
+            var x1 = longitude - variance;
+            var x2 = longitude + variance;
+
+            var t = GpsHelper.DistanceBetweenCoordenates(y1, x1, y2, x2);*/
+
             var gpses = _gpsService.GetNerbyBusesGps(latitude, longitude, variance, lineId).ToList();
 
             foreach (var gps in gpses)
