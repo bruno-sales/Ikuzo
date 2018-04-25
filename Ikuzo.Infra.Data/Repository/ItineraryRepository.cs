@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data; 
 using System.Data.SqlClient; 
 using Dapper;
@@ -70,7 +71,95 @@ namespace Ikuzo.Infra.Data.Repository
             }
 
             return itens; 
+        }
 
+        public void ItineraryBulkInsert(IEnumerable<Itinerary> itineraries)
+        {
+            var dt = MakeTable(itineraries);
+
+            using (var cn = Connection)
+            {
+                if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
+
+                using (var s = new SqlBulkCopy(cn))
+                {
+                    s.DestinationTableName = dt.TableName;
+
+                    foreach (var column in dt.Columns)
+                    {
+                        s.ColumnMappings.Add(column.ToString(), column.ToString());
+                    }
+
+                    s.WriteToServer(dt);
+                }
+
+                if (cn.State.Equals(ConnectionState.Open)) cn.Close();
+            }
+        }
+
+        private DataTable MakeTable(IEnumerable<Itinerary> itineraries)
+        {
+            var dtTable = new DataTable("Itinerary");
+
+            var column1 = new DataColumn
+            {
+                DataType = Type.GetType("System.Guid"),
+                ColumnName = "ItineraryGuid"
+            }; 
+
+            var column2 = new DataColumn
+            {
+                DataType = Type.GetType("System.Decimal"),
+                ColumnName = "Latitude"
+            };
+
+            var column3 = new DataColumn
+            {
+                DataType = Type.GetType("System.Decimal"),
+                ColumnName = "Longitude"
+            };
+
+            var column4 = new DataColumn
+            {
+                DataType = Type.GetType("System.String"),
+                ColumnName = "LineId"
+            };
+
+            var column5 = new DataColumn
+            {
+                DataType = Type.GetType("System.Boolean"),
+                ColumnName = "Returning"
+            };
+             
+            
+            var column6 = new DataColumn
+            {
+                DataType = Type.GetType("System.DateTime"),
+                ColumnName = "LastUpdateDate"
+            };
+
+            dtTable.Columns.Add(column1);
+            dtTable.Columns.Add(column2);
+            dtTable.Columns.Add(column3);
+            dtTable.Columns.Add(column4);
+            dtTable.Columns.Add(column5);
+            dtTable.Columns.Add(column6); 
+
+            //Adding rows
+            foreach (var itinerary in itineraries)
+            {
+                var dr = dtTable.NewRow();
+                dr["ItineraryGuid"] = itinerary.ItineraryGuid; 
+                dr["Latitude"] = itinerary.Latitude;
+                dr["Longitude"] = itinerary.Longitude;
+                dr["LineId"] = itinerary.LineId;
+                dr["Returning"] = itinerary.Returning; 
+                dr["LastUpdateDate"] = itinerary.LastUpdateDate;
+
+                dtTable.Rows.Add(dr);
+            }
+
+            return dtTable;
         }
     }
 }

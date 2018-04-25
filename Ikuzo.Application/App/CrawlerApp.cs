@@ -43,7 +43,7 @@ namespace Ikuzo.Application.App
                 foreach (var rioBusLine in rioBusLines)
                 {
                     //Get line from database
-                    var dbLine = _lineService.Details(rioBusLine.Line);
+                    var dbLine = _lineService.Get(rioBusLine.Line);
 
                     if (dbLine == null) //If does not exist
                     {
@@ -66,9 +66,6 @@ namespace Ikuzo.Application.App
                 {
                     //Create
                     _lineService.CreateLines(linesToCreate);
-
-                    //Commit
-                    validation.AddError(_work.Commit());
                 }
 
                 if (linesToUpdate.Any())
@@ -107,7 +104,7 @@ namespace Ikuzo.Application.App
                     var busesToCreate = new List<Bus>();
 
                     //Get line from database
-                    var line = _lineService.Details(rioBusLine.Line);
+                    var line = _lineService.Get(rioBusLine.Line);
 
                     if (line != null)
                     {
@@ -127,7 +124,7 @@ namespace Ikuzo.Application.App
                         }
                     }
 
-                    if (busesToCreate.Any() == false)
+                    if (busesToCreate.Any() == false || line == null)
                         continue;
 
                     //Remove previous bus info
@@ -135,9 +132,6 @@ namespace Ikuzo.Application.App
 
                     //Create
                     _busService.CreateBuses(busesToCreate);
-
-                    //Commit
-                    validation.AddError(_work.Commit());
                 }
             }
             catch (Exception e)
@@ -183,8 +177,6 @@ namespace Ikuzo.Application.App
                     //Create
                     _itineraryService.CreateItineraries(itinerariesToCreate);
 
-                    //Commit
-                    validation.AddError(_work.Commit());
                 }
 
             }
@@ -213,7 +205,7 @@ namespace Ikuzo.Application.App
 
                 //Create
                 _gpsService.CreateGpses(allGps);
-                
+
             }
             catch (Exception e)
             {

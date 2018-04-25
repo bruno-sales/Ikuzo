@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Repositories;
@@ -27,12 +30,86 @@ namespace Ikuzo.Infra.Data.Repository
 
         public void RemoveFromLine(string lineId)
         {
-            var itens = DbSet.Where(i => string.Equals(i.LineId.ToLower(), lineId.ToLower())).ToList();
+            var sql = $@"
+                      SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; 
+                      DELETE 
+                      FROM [Bus] 
+                      WHERE [LineId] = '" + lineId + "'";
 
-            foreach (var obj in itens)
+            using (var cn = Connection)
             {
-                DbSet.Remove(obj);
+                if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
+
+                var comm = new SqlCommand(sql, cn);
+
+                comm.ExecuteNonQuery();
+
+                if (cn.State.Equals(ConnectionState.Open)) cn.Close();
             }
+        }
+
+        public void BusBulkInsert(IEnumerable<Bus> buses)
+        {
+            var dt = MakeTable(buses);
+
+            using (var cn = Connection)
+            {
+                if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
+
+                using (var s = new SqlBulkCopy(cn))
+                {
+                    s.DestinationTableName = dt.TableName;
+
+                    foreach (var column in dt.Columns)
+                    {
+                        s.ColumnMappings.Add(column.ToString(), column.ToString());
+                    }
+
+                    s.WriteToServer(dt);
+                }
+
+                if (cn.State.Equals(ConnectionState.Open)) cn.Close();
+            }
+        }
+
+        private DataTable MakeTable(IEnumerable<Bus> buses)
+        {
+            var dtTable = new DataTable("Bus");
+ 
+            var column1 = new DataColumn
+            {
+                DataType = Type.GetType("System.String"),
+                ColumnName = "BusId"
+            };
+
+            var column2 = new DataColumn
+            {
+                DataType = Type.GetType("System.String"),
+                ColumnName = "LineId"
+            };
+
+            var column3 = new DataColumn
+            {
+                DataType = Type.GetType("System.DateTime"),
+                ColumnName = "LastUpdateDate"
+            };
+
+            dtTable.Columns.Add(column1);
+            dtTable.Columns.Add(column2);
+            dtTable.Columns.Add(column3); 
+
+            //Adding rows
+            foreach (var bus in buses)
+            {
+                var dr = dtTable.NewRow();
+                dr["BusId"] = bus.BusId;
+                dr["LineId"] = bus.LineId; 
+                dr["LastUpdateDate"] = bus.LastUpdateDate;
+
+                dtTable.Rows.Add(dr);
+            }
+
+            return dtTable;
         }
     }
 }

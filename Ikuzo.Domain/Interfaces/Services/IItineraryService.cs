@@ -6,7 +6,7 @@ namespace Ikuzo.Domain.Interfaces.Services
 {
     public interface IItineraryService
     { 
-        IEnumerable<Itinerary> CreateItineraries(IEnumerable<Itinerary> itineraries);
+        void CreateItineraries(IEnumerable<Itinerary> itineraries);
         ValidationResult RemoveItinerariesFromLine(string lineId);
     }
 }

@@ -17,11 +17,9 @@ namespace Ikuzo.Domain.Services
             _itineraryRepository = itineraryRepository;
         }
 
-        public IEnumerable<Line> CreateLines(IEnumerable<Line> line)
+        public void CreateLines(IEnumerable<Line> lines)
         {
-            var createdLines = _lineRepository.Create(line);
-
-            return createdLines;
+             _lineRepository.LineBulkInsert(lines); 
         }
 
         public Line Edit(Line line)
@@ -33,7 +31,7 @@ namespace Ikuzo.Domain.Services
 
         public Line Get(string lineId)
         {
-            var line = _lineRepository.GetWhere(i => string.Equals(i.LineId.ToLower(), lineId.ToLower())).FirstOrDefault();
+            var line = _lineRepository.Get(lineId);
 
             return line;
         } 

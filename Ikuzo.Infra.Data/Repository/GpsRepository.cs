@@ -207,7 +207,7 @@ namespace Ikuzo.Infra.Data.Repository
             dtTable.Columns.Add(column7);
             dtTable.Columns.Add(column8);
 
-            //Adicionando linhas
+            //Adding rows
             foreach (var gps in gpses)
             {
                 var dr = dtTable.NewRow();

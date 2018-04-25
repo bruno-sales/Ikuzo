@@ -42,19 +42,7 @@ namespace Ikuzo.Infra.Data.Repository
 
             return obj;
 
-        }
-
-        public virtual IEnumerable<T> Create(IEnumerable<T> myObj)
-        {
-            var item = myObj.ToList();
-
-            foreach (var obj in item)
-            {
-                DbSet.Add(obj);
-            }
-
-            return item;
-        }
+        } 
 
         public virtual T Get(int id)
         {

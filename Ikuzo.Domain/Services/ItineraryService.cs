@@ -16,9 +16,9 @@ namespace Ikuzo.Domain.Services
             _itineraryRepository = itineraryRepository;
         }
 
-        public IEnumerable<Itinerary> CreateItineraries(IEnumerable<Itinerary> itineraries)
+        public void CreateItineraries(IEnumerable<Itinerary> itineraries)
         {
-            return _itineraryRepository.Create(itineraries);
+             _itineraryRepository.ItineraryBulkInsert(itineraries);
         }
 
         public ValidationResult RemoveItinerariesFromLine(string lineId)

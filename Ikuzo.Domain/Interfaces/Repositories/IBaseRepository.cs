@@ -10,8 +10,7 @@ namespace Ikuzo.Domain.Interfaces.Repositories
         T Get(int id);
         T Get(Guid id);
         T Edit(T myObj);
-        IEnumerable<T> GetWhere(Expression<Func<T, bool>> exp);
-        IEnumerable<T> Create(IEnumerable<T> myObj);
+        IEnumerable<T> GetWhere(Expression<Func<T, bool>> exp); 
         IEnumerable<T> GetAll();
         void RemoveWhere(Expression<Func<T, bool>> exp);
     }

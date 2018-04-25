@@ -6,7 +6,7 @@ namespace Ikuzo.Domain.Interfaces.Services
     public interface ILineService
     {
         Line Edit(Line line);
-        IEnumerable<Line> CreateLines(IEnumerable<Line> line);
+        void CreateLines(IEnumerable<Line> lines);
         IEnumerable<Line> GetAllLines();
         IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal variance);
         Line Get(string lineId); 

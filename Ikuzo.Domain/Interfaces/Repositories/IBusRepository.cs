@@ -1,4 +1,5 @@
-﻿using Ikuzo.Domain.Entities;
+﻿using System.Collections.Generic;
+using Ikuzo.Domain.Entities;
 
 namespace Ikuzo.Domain.Interfaces.Repositories
 {
@@ -6,5 +7,6 @@ namespace Ikuzo.Domain.Interfaces.Repositories
     {
         Bus Details(string busId);
         void RemoveFromLine(string lineId);
+        void BusBulkInsert(IEnumerable<Bus> buses);
     }
 }

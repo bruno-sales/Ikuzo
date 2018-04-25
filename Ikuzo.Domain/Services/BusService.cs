@@ -24,11 +24,9 @@ namespace Ikuzo.Domain.Services
             return buses;
         }
 
-        public IEnumerable<Bus> CreateBuses(IEnumerable<Bus> bus)
+        public void CreateBuses(IEnumerable<Bus> bus)
         {
-            var createdBuses = _busRepository.Create(bus);
-
-            return createdBuses;
+             _busRepository.BusBulkInsert(bus); 
         }
 
         public Bus Edit(Bus bus)
