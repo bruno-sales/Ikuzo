@@ -25,6 +25,7 @@ Retorna informações detalhadas de um ônibus específico dado identificador.
 | Campo | Tipo | Descrição |
 | ------ | ------ | ------ |
 | busId | string | Identificador único do ônibus
+
 Exemplo: /v1/api/buses/C51555
 - - - 
 Retorna lista com informações de GPS de ônibus próximos à uma geolocalização.
@@ -54,6 +55,7 @@ Retorna informações detalhadas de um ônibus específico dado identificador.
 | Campo | Tipo | Descrição |
 | ------ | ------ | ------ |
 | lineId | string | Identificador único da linha de ônibus
+
 Exemplo: /v1/api/lines/107
 - - - 
 Retorna lista de linhas de ônibus tenham seu itinerário que passam próximas à uma geolocalização.
