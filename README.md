@@ -48,7 +48,7 @@ Exemplo: /v1/api/buses/nearby?lat=-22.914456&lon=43.226733
 [GET] /v1/api/lines/
 ```
 - - -
-Retorna informações detalhadas de um ônibus específico dado identificador.
+Retorna informações detalhadas de uma linha específica dado identificador.
 ```sh
 [GET] /v1/api/lines/{lineId}
 ```
