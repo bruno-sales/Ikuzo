@@ -11,11 +11,8 @@ namespace Ikuzo.Controllers
     public class CrawlerController : ApiController
     {
 
-        /* 1- Quais onibus passam aqui (OK)
-           1.1- Disponibilizar cadastro de itinerarios
-           1.2- Listar os onibus que tão quase chegando no ponto (OK)
-           2- Como chegar num destino com os onibus daqui (OK - Usar o get local com um range maior)
-           Plus- Qual o melhor onibus pra chegar no destino 
+        /*  
+           1.1- Disponibilizar cadastro de itinerarios  
         */
         private readonly ICrawlerApp _crawlerApp;
 
