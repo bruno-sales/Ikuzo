@@ -25,7 +25,7 @@ namespace Ikuzo.Infra.Data.Repository
         public void RemoveAll()
         {
             var sql = $@"
-                      SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;  +
+                      SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
                       DELETE  
                       FROM [Gps]";
 
@@ -33,9 +33,13 @@ namespace Ikuzo.Infra.Data.Repository
             {
                 if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
 
-                var comm = new SqlCommand(sql, cn);
+                var trans = cn.BeginTransaction("removeAllTransaction");
+
+                var comm = new SqlCommand(sql, cn, trans);
 
                 comm.ExecuteNonQuery();
+
+                trans.Commit();
 
                 if (cn.State.Equals(ConnectionState.Open)) cn.Close();
             }
@@ -55,9 +59,13 @@ namespace Ikuzo.Infra.Data.Repository
             {
                 if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
 
-                var comm = new SqlCommand(sql, cn);
+                var trans = cn.BeginTransaction("removeFromLineTransaction");
+
+                var comm = new SqlCommand(sql, cn, trans);
 
                 comm.ExecuteNonQuery();
+
+                trans.Commit();
 
                 if (cn.State.Equals(ConnectionState.Open)) cn.Close();
             }
