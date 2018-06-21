@@ -87,7 +87,8 @@ namespace Ikuzo.Infra.Data.Repository
                     SELECT * 
                     FROM [Gps] 
                     WHERE ([Latitude] BETWEEN @Y1 AND @Y2 ) AND 
-                    ([Longitude] BETWEEN @X1 AND @X2 ) ";
+                    ([Longitude] BETWEEN @X1 AND @X2 ) AND 
+                    DATEDIFF(minute, timestamp, getdate()) < 5";
 
             using (var cn = Connection)
             {
@@ -115,7 +116,7 @@ namespace Ikuzo.Infra.Data.Repository
                     SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
                     SELECT * 
                     FROM [Gps] 
-                    WHERE [LineId] = '" + lineId + "'";
+                    WHERE DATEDIFF(minute, timestamp, getdate()) < 5 AND [LineId] = '" + lineId + "'"; 
 
             using (var cn = Connection)
             {
