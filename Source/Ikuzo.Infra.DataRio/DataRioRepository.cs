@@ -40,7 +40,7 @@ namespace Ikuzo.Infra.DataRio
             { 
 
                 //Parse timestamp
-                DateTime.TryParseExact(gps[0], "MM-dd-yyyy HH:mm:ss", CultureInfo.InvariantCulture,
+                DateTime.TryParseExact(gps[0], "MM-dd-yyyy HH:mm:ssZ", CultureInfo.InvariantCulture,
                     DateTimeStyles.AdjustToUniversal, out var timestamp);
 
                 //Check if it is a valid datetime 
