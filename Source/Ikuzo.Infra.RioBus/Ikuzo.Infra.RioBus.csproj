@@ -63,6 +63,10 @@
       <Project>{A50FD7A0-A679-49CE-A97F-BB1BC4B0AACC}</Project>
       <Name>Ikuzo.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ikuzo.Infra.DataRio\Ikuzo.Infra.DataRio.csproj">
+      <Project>{0cb9dab5-4428-4519-9ea7-ba67937f5c92}</Project>
+      <Name>Ikuzo.Infra.DataRio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

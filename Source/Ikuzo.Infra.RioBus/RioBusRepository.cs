@@ -14,9 +14,11 @@ namespace Ikuzo.Infra.RioBus
     public class RioBusRepository : IRioBusRepository
     {
         private readonly IRestClient _client;
+        private readonly IDataRioRepository _datario;
 
-        public RioBusRepository()
+        public RioBusRepository(IDataRioRepository datario)
         {
+            _datario = datario;
             _client = new RestClient(ConfigurationManager.AppSettings["RioBusUrl"]);
         }
 
@@ -78,7 +80,9 @@ namespace Ikuzo.Infra.RioBus
             var response = _client.Execute(request);
 
             if (response.StatusCode != HttpStatusCode.OK)
-                return new List<Gps>();
+            {
+                return _datario.GetGpsInformation();
+            }
 
             var gps = JsonConvert.DeserializeObject<List<Gps>>(response.Content);
 
