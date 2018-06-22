@@ -7,14 +7,14 @@ namespace Ikuzo.Domain.Entities
     {
         public Bus()
         {
-            LastUpdateDate = DateTime.Now;
+            LastUpdateDate = DateTime.UtcNow;
         }
 
         public Bus(string busId, string lineId)
         {
             BusId = busId;
             LineId = lineId;
-            LastUpdateDate = DateTime.Now;
+            LastUpdateDate = DateTime.UtcNow;
         }
 
         public string BusId { get; set; }

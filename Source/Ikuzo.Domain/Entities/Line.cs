@@ -7,7 +7,7 @@ namespace Ikuzo.Domain.Entities
     {
         public Line()
         {
-            LastUpdateDate = DateTime.Now;
+            LastUpdateDate = DateTime.UtcNow;
             Buses = new Collection<Bus>();
             Itineraries = new Collection<Itinerary>();
         }
@@ -16,7 +16,7 @@ namespace Ikuzo.Domain.Entities
         {
             LineId = lineId;
             Description = description;
-            LastUpdateDate = DateTime.Now;
+            LastUpdateDate = DateTime.UtcNow;
             Buses = new Collection<Bus>();
             Itineraries = new Collection<Itinerary>();
         }

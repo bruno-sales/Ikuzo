@@ -41,11 +41,11 @@ namespace Ikuzo.Infra.DataRio
 
                 //Parse timestamp
                 DateTime.TryParseExact(gps[0], "MM-dd-yyyy HH:mm:ss", CultureInfo.InvariantCulture,
-                    DateTimeStyles.AssumeLocal, out var timestamp);
+                    DateTimeStyles.AdjustToUniversal, out var timestamp);
 
                 //Check if it is a valid datetime 
                 timestamp = timestamp < new DateTime(2000, 1, 1) ? 
-                                            DateTime.Now.AddDays(-1) : 
+                                            DateTime.UtcNow.AddDays(-1) : 
                                             timestamp;
 
                 //Parse Latitude

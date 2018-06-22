@@ -8,7 +8,7 @@ namespace Ikuzo.Domain.Entities
         public Gps()
         {
             GpsGuid = Guid.NewGuid();
-            LastUpdateDate = DateTime.Now;
+            LastUpdateDate = DateTime.UtcNow;
         }
 
         public Guid GpsGuid { get; set; }

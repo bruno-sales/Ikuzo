@@ -55,7 +55,7 @@ namespace Ikuzo.Application.App
                     {   //Check if Description changed
 
                         dbLine.Description = rioBusLine.Description;
-                        dbLine.LastUpdateDate = DateTime.Now;
+                        dbLine.LastUpdateDate = DateTime.UtcNow;
 
                         //Add to update
                         linesToUpdate.Add(dbLine);

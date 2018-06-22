@@ -8,7 +8,7 @@ namespace Ikuzo.Domain.Entities
         public Itinerary()
         {
             ItineraryGuid = Guid.NewGuid();
-            LastUpdateDate = DateTime.Now;
+            LastUpdateDate = DateTime.UtcNow;
         }
         public Itinerary(string lineId, decimal lat, decimal longe, bool returning)
         {
@@ -17,7 +17,7 @@ namespace Ikuzo.Domain.Entities
             Longitude = longe;
             Returning = returning;
             ItineraryGuid = Guid.NewGuid();
-            LastUpdateDate = DateTime.Now;
+            LastUpdateDate = DateTime.UtcNow;
         }
 
         public Guid ItineraryGuid { get; set; }
