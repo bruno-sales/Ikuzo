@@ -46,7 +46,7 @@ namespace Ikuzo.Application.App
             {
                 Latitude = gps.Latitude,
                 Longitude = gps.Longitude,
-                Direction = GpsHelper.GetDirectionByAngle(gps.Direction)
+                Direction = gps.Direction.ToString()
             };
 
             return modelBuses;
@@ -71,11 +71,12 @@ namespace Ikuzo.Application.App
                     Distance = distance,
                     MinutesToArrive = Convert.ToInt32(minutesToArrive),
                     LastUpdateDate = gps.LastUpdateDate,
+                    TimeStamp = gps.Timestamp,
                     Gps = new BusGps()
                     {
                         Latitude = gps.Latitude,
                         Longitude = gps.Longitude,
-                        Direction = GpsHelper.GetDirectionByAngle(gps.Direction)
+                        Direction = gps.Direction.ToString()
                     }
                 };
 
