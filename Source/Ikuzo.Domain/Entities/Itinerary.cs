@@ -9,21 +9,13 @@ namespace Ikuzo.Domain.Entities
         {
             ItineraryGuid = Guid.NewGuid();
             LastUpdateDate = DateTime.UtcNow;
-        }
-        public Itinerary(string lineId, decimal lat, decimal longe, bool returning)
-        {
-            LineId = lineId;
-            Latitude = lat;
-            Longitude = longe;
-            Returning = returning;
-            ItineraryGuid = Guid.NewGuid();
-            LastUpdateDate = DateTime.UtcNow;
-        }
+        } 
 
         public Guid ItineraryGuid { get; set; }
 
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
+        public int Sequence { get; set; }
         public bool Returning { get; set; }
         public DateTime LastUpdateDate { get; set; }
 

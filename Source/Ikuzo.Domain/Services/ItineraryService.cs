@@ -35,5 +35,20 @@ namespace Ikuzo.Domain.Services
 
             return result;
         }
+
+        public ValidationResult RemoveAllItineraries()
+        {
+            var result = new ValidationResult();
+            try
+            {
+                _itineraryRepository.RemoveAll();
+            }
+            catch (Exception e)
+            {
+                result.AddError(new ValidationError(e.Message));
+            }
+
+            return result;
+        }
     }
 }

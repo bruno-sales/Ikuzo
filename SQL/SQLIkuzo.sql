@@ -30,7 +30,8 @@ CREATE TABLE Itinerary (
 	[Latitude] [decimal](12, 6) NOT NULL,
 	[Longitude] [decimal](12, 6) NOT NULL,
     LineId varchar(30) NOT NULL,
-    Returning Bit NOT NULL,
+    [Sequence] int NOT NULL,
+    Returning bit NOT NULL,
     LastUpdateDate [datetime] NOT NULL ,
     PRIMARY KEY (ItineraryGuid),
     FOREIGN KEY (LineId) REFERENCES Line(LineId)

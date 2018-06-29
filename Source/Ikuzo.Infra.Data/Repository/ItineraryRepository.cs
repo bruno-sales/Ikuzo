@@ -38,6 +38,29 @@ namespace Ikuzo.Infra.Data.Repository
             }
         }
 
+        public void RemoveAll()
+        {
+            var sql = $@"
+                      SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; 
+                      DELETE 
+                      FROM [Itinerary] "  ;
+
+            using (var cn = Connection)
+            {
+                if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
+
+                var trans = cn.BeginTransaction("removeAllItFromTransaction");
+
+                var comm = new SqlCommand(sql, cn, trans);
+
+                comm.ExecuteNonQuery();
+
+                trans.Commit();
+
+                if (cn.State.Equals(ConnectionState.Open)) cn.Close();
+            }
+        }
+
         public IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal variance)
         {
             var itens = new List<Line>();
@@ -131,12 +154,17 @@ namespace Ikuzo.Infra.Data.Repository
 
             var column5 = new DataColumn
             {
+                DataType = Type.GetType("System.Int32"),
+                ColumnName = "Sequence"
+            };
+
+            var column6 = new DataColumn
+            {
                 DataType = Type.GetType("System.Boolean"),
                 ColumnName = "Returning"
             };
-             
-            
-            var column6 = new DataColumn
+
+            var column7 = new DataColumn
             {
                 DataType = Type.GetType("System.DateTime"),
                 ColumnName = "LastUpdateDate"
@@ -147,7 +175,8 @@ namespace Ikuzo.Infra.Data.Repository
             dtTable.Columns.Add(column3);
             dtTable.Columns.Add(column4);
             dtTable.Columns.Add(column5);
-            dtTable.Columns.Add(column6); 
+            dtTable.Columns.Add(column6);
+            dtTable.Columns.Add(column7);
 
             //Adding rows
             foreach (var itinerary in itineraries)
@@ -157,7 +186,8 @@ namespace Ikuzo.Infra.Data.Repository
                 dr["Latitude"] = itinerary.Latitude;
                 dr["Longitude"] = itinerary.Longitude;
                 dr["LineId"] = itinerary.LineId;
-                dr["Returning"] = itinerary.Returning; 
+                dr["Sequence"] = itinerary.Sequence;
+                dr["Returning"] = itinerary.Returning;
                 dr["LastUpdateDate"] = itinerary.LastUpdateDate;
 
                 dtTable.Rows.Add(dr);

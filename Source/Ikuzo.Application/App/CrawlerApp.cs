@@ -12,13 +12,14 @@ namespace Ikuzo.Application.App
     public class CrawlerApp : ICrawlerApp
     {
         private readonly IRioBusRepository _riobusRepository;
+        private readonly IDataRioRepository _datarioRepository;
         private readonly ILineService _lineService;
         private readonly IBusService _busService;
         private readonly IItineraryService _itineraryService;
         private readonly IGpsService _gpsService;
         private readonly IUnitOfWork _work;
 
-        public CrawlerApp(IRioBusRepository riobusRepository, ILineService lineService, IUnitOfWork work, IBusService busService, IGpsService gpsService, IItineraryService itineraryService)
+        public CrawlerApp(IRioBusRepository riobusRepository, ILineService lineService, IUnitOfWork work, IBusService busService, IGpsService gpsService, IItineraryService itineraryService, IDataRioRepository datarioRepository)
         {
             _riobusRepository = riobusRepository;
             _lineService = lineService;
@@ -26,6 +27,7 @@ namespace Ikuzo.Application.App
             _busService = busService;
             _gpsService = gpsService;
             _itineraryService = itineraryService;
+            _datarioRepository = datarioRepository;
         }
 
         public ValidationResult SyncLines()
@@ -151,34 +153,21 @@ namespace Ikuzo.Application.App
                 //Get lines
                 var lines = _lineService.GetAllLines().ToList();
 
+                var itinerariesToCreate = new List<Itinerary>();
+
                 //Analyse Objects
                 foreach (var line in lines)
                 {
-                    var itinerariesToCreate = new List<Itinerary>();
+                    var itineraries = _datarioRepository.GetItineraryInformation(line.LineId);
 
-                    //Get gps info from external resource
-                    var rioBusItineraries = _riobusRepository.GetItineraryInfoFromLine(line.LineId);
-
-                    if (rioBusItineraries.Spots.Any()) //Having infos
-                    {
-                        foreach (var spot in rioBusItineraries.Spots)
-                        {
-                            var itinerary = new Itinerary(line.LineId, spot.Latitude, spot.Longitude, spot.Returning);
-                            itinerariesToCreate.Add(itinerary); //Add to Save
-                        }
-                    }
-
-                    if (itinerariesToCreate.Any() == false)
-                        continue;
-
-                    //Remove previous gps info
-                    validation.AddError(_itineraryService.RemoveItinerariesFromLine(line.LineId));
-
-                    //Create
-                    _itineraryService.CreateItineraries(itinerariesToCreate);
-
+                    itinerariesToCreate.AddRange(itineraries);
                 }
 
+                if (itinerariesToCreate.Any())
+                {
+                    _itineraryService.RemoveAllItineraries();
+                    _itineraryService.CreateItineraries(itinerariesToCreate);
+                }
             }
             catch (Exception e)
             {
