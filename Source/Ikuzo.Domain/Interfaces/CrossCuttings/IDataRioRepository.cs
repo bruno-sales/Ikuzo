@@ -6,5 +6,6 @@ namespace Ikuzo.Domain.Interfaces.CrossCuttings
     public interface IDataRioRepository
     {
         IEnumerable<Gps> GetGpsInformation();
+        IEnumerable<Itinerary> GetItineraryInformation(string lineId);
     }
 }

@@ -7,6 +7,7 @@ namespace Ikuzo.Domain.Interfaces.Repositories
     {
         IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal variance);
         void RemoveFromLine(string lineId);
+        void RemoveAll();
         void ItineraryBulkInsert(IEnumerable<Itinerary> itineraries);
     }
 }

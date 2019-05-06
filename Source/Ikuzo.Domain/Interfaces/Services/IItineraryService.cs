@@ -8,5 +8,6 @@ namespace Ikuzo.Domain.Interfaces.Services
     { 
         void CreateItineraries(IEnumerable<Itinerary> itineraries);
         ValidationResult RemoveItinerariesFromLine(string lineId);
+        ValidationResult RemoveAllItineraries();
     }
 }

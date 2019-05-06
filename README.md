@@ -12,6 +12,8 @@ Para executar a Ikuzo API localmente, você irá precisar:
 ### Rest API
 As respostas serão sempre me formato JSON e As URLs disponíveis para consulta de cada item são:
 
+*Todas as datas/horas das consultas são em formato UTC (+3 horas em relação ao horário brasileiro).*
+
 #### Ônibus
  Retorna uma lista com informações básicas de todos os ônibus cadastrados.
 ```sh
