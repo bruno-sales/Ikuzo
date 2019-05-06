@@ -119,7 +119,11 @@ namespace Ikuzo.Application.App
                                 if (!string.Equals(line.LineId.ToLower(), rioBusBus.Line.ToLower()))
                                     continue;
 
-                                busesToCreate.Add(new Bus(rioBusBus.Order, line.LineId)); //Add to Save
+                                //if not already added
+                                if (_busService.Get(rioBusBus.Order) == null)
+                                {
+                                    busesToCreate.Add(new Bus(rioBusBus.Order, line.LineId)); //Add to Save
+                                }
                             }
                         }
                     }

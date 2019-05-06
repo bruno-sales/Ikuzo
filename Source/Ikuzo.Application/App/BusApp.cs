@@ -69,7 +69,7 @@ namespace Ikuzo.Application.App
                     Bus = gps.BusId,
                     Line = gps.LineId,
                     Distance = distance,
-                    MinutesToArrive = Convert.ToInt32(minutesToArrive),
+                   //MinutesToArrive = Convert.ToInt32(minutesToArrive),
                     LastUpdateDate = gps.LastUpdateDate,
                     TimeStamp = gps.Timestamp,
                     Gps = new BusGps()

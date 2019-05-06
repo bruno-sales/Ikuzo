@@ -35,3 +35,12 @@ CREATE TABLE Itinerary (
     PRIMARY KEY (ItineraryGuid),
     FOREIGN KEY (LineId) REFERENCES Line(LineId)
 ); 
+
+CREATE TABLE Tag (
+    TagId varchar(30) NOT NULL,
+    LineId varchar(30) NOT NULL,
+    TagName varchar(50) NULL,
+    LastUpdateDate [datetime] NOT NULL ,
+    PRIMARY KEY (TagId),
+    FOREIGN KEY (LineId) REFERENCES Line(LineId)
+); 
