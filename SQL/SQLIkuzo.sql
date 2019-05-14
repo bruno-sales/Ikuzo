@@ -45,3 +45,15 @@ CREATE TABLE Tag (
     PRIMARY KEY (TagId),
     FOREIGN KEY (LineId) REFERENCES Line(LineId)
 ); 
+
+CREATE TABLE GpsHistory (
+    GpsHistoryId [bigint] IDENTITY(1,1),
+	[BusId] [varchar](30) NOT NULL,
+	[LineId] [varchar](30) NOT NULL,
+	[Latitude] [decimal](12, 6) NOT NULL,
+	[Longitude] [decimal](12, 6) NOT NULL,
+	[Direction] [int] NOT NULL,
+	[TimeStamp] [datetime] NOT NULL,
+    LastUpdateDate [datetime] NOT NULL 
+    PRIMARY KEY (GpsHistoryId)
+); 

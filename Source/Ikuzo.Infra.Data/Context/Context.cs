@@ -19,9 +19,7 @@ namespace Ikuzo.Infra.Data.Context
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
         }
-
-        
-        //public IDbSet<Invoice> Invoices { get; set; }
+         
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,6 +34,8 @@ namespace Ikuzo.Infra.Data.Context
             modelBuilder.Configurations.Add(new LineConfig());
             modelBuilder.Configurations.Add(new GpsConfig());
             modelBuilder.Configurations.Add(new ItineraryConfig());
+            modelBuilder.Configurations.Add(new TagConfig());
+            modelBuilder.Configurations.Add(new GpsHistoryConfig());
 
             modelBuilder.Ignore<ValidationResult>();
         }

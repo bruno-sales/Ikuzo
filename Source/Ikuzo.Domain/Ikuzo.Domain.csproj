@@ -53,6 +53,7 @@
     <Compile Include="Entities\Line.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Helpers\GpsHelper.cs" />
+    <Compile Include="Histories\GpsHistory.cs" />
     <Compile Include="Interfaces\CrossCuttings\IDataRioRepository.cs" />
     <Compile Include="Interfaces\CrossCuttings\IRioBusRepository.cs" />
     <Compile Include="Interfaces\Repositories\IBaseRepository.cs" />

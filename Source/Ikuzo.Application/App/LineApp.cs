@@ -4,7 +4,6 @@ using ExpressMapper;
 using Ikuzo.Application.Interfaces;
 using Ikuzo.Application.ViewModels.Line;
 using Ikuzo.Domain.Entities;
-using Ikuzo.Domain.Helpers;
 using Ikuzo.Domain.Interfaces.Services;
 
 namespace Ikuzo.Application.App

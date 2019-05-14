@@ -30,7 +30,7 @@ namespace Ikuzo.Infra.Data.Repository
 
         public void RemoveFromLine(string lineId)
         {
-            var sql = $@"
+            var sql = @"
                       SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; 
                       DELETE 
                       FROM [Bus] 
