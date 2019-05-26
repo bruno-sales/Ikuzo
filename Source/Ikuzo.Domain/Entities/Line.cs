@@ -8,7 +8,7 @@ namespace Ikuzo.Domain.Entities
         public Line()
         {
             LastUpdateDate = DateTime.UtcNow;
-            Buses = new Collection<Bus>();
+            Modals = new Collection<Modal>();
             Itineraries = new Collection<Itinerary>();
             Tags = new Collection<Tag>();
         }
@@ -18,14 +18,14 @@ namespace Ikuzo.Domain.Entities
             LineId = lineId;
             Description = description;
             LastUpdateDate = DateTime.UtcNow;
-            Buses = new Collection<Bus>();
+            Modals = new Collection<Modal>();
             Itineraries = new Collection<Itinerary>();
             Tags = new Collection<Tag>();
         }
 
         public string LineId { get; set; } 
         public string Description { get; set; }
-        public virtual Collection<Bus> Buses { get; set; }
+        public virtual Collection<Modal> Modals { get; set; }
         public virtual Collection<Tag> Tags { get; set; }
         public virtual Collection<Itinerary> Itineraries { get; set; }
         public DateTime LastUpdateDate { get; set; }

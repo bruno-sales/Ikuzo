@@ -5,7 +5,7 @@ namespace Ikuzo.Domain.Histories
     public class GpsHistory
     { 
         public Int64 GpsHistoryId { get; set; }
-        public string BusId { get; set; } 
+        public string ModalId { get; set; } 
         public string LineId { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }

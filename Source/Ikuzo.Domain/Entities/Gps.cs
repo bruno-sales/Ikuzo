@@ -14,7 +14,7 @@ namespace Ikuzo.Domain.Entities
         public Guid GpsGuid { get; set; }
 
         [JsonProperty("order")]
-        public string BusId { get; set; } 
+        public string ModalId { get; set; } 
         [JsonProperty("line")]
         public string LineId { get; set; } 
         public decimal Latitude { get; set; }

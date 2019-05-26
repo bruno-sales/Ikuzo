@@ -35,13 +35,13 @@ namespace Ikuzo.Infra.Ioc
 
             //Repositories
             container.Register(typeof(IBaseRepository<>), typeof(BaseRepository<>), Lifestyle.Scoped);
-            container.Register<IBusRepository, BusRepository>(Lifestyle.Scoped);
+            container.Register<IModalRepository, ModalRepository>(Lifestyle.Scoped);
             container.Register<ILineRepository, LineRepository>(Lifestyle.Scoped);
             container.Register<IGpsRepository, GpsRepository>(Lifestyle.Scoped);
             container.Register<IItineraryRepository, ItineraryRepository>(Lifestyle.Scoped);
 
             //Services
-            container.Register<IBusService, BusService>(Lifestyle.Scoped);
+            container.Register<IModalService, ModalService>(Lifestyle.Scoped);
             container.Register<ILineService, LineService>(Lifestyle.Scoped);
             container.Register<IGpsService, GpsService>(Lifestyle.Scoped);
             container.Register<IItineraryService, ItineraryService>(Lifestyle.Scoped);
@@ -52,7 +52,7 @@ namespace Ikuzo.Infra.Ioc
             //Application 
             container.Register<ICrawlerApp, CrawlerApp>(Lifestyle.Scoped);
             container.Register<ILineApp, LineApp>(Lifestyle.Scoped);
-            container.Register<IBusApp, BusApp>(Lifestyle.Scoped);
+            container.Register<IModalApp, ModalApp>(Lifestyle.Scoped);
 
             return container;
         }

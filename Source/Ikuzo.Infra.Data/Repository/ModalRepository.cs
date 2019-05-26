@@ -9,23 +9,23 @@ using Ikuzo.Domain.Interfaces.Repositories;
 
 namespace Ikuzo.Infra.Data.Repository
 {
-    public class BusRepository : BaseRepository<Bus>, IBusRepository
+    public class ModalRepository : BaseRepository<Modal>, IModalRepository
     {
-        public BusRepository(Context.Context context) : base(context)
+        public ModalRepository(Context.Context context) : base(context)
         {
         }
 
-        public override IEnumerable<Bus> GetAll()
+        public override IEnumerable<Modal> GetAll()
         {
             return DbSet
                 .Include(i => i.Line);
         } 
 
-        public Bus Details(string busId)
+        public Modal Details(string modalId)
         {
             return DbSet
                 .Include(i => i.Line)
-                .FirstOrDefault(i => string.Equals(i.BusId.ToLower(), busId.ToLower()));
+                .FirstOrDefault(i => string.Equals(i.ModalId.ToLower(), modalId.ToLower()));
         }
 
         public void RemoveFromLine(string lineId)
@@ -33,14 +33,14 @@ namespace Ikuzo.Infra.Data.Repository
             var sql = @"
                       SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; 
                       DELETE 
-                      FROM [Bus] 
+                      FROM [Modal] 
                       WHERE [LineId] = '" + lineId + "'";
 
             using (var cn = Connection)
             {
                 if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
 
-                var trans = cn.BeginTransaction("removeBusTransaction");
+                var trans = cn.BeginTransaction("removeModalTransaction");
 
                 var comm = new SqlCommand(sql, cn, trans);
 
@@ -52,9 +52,9 @@ namespace Ikuzo.Infra.Data.Repository
             }
         }
 
-        public void BusBulkInsert(IEnumerable<Bus> buses)
+        public void ModalBulkInsert(IEnumerable<Modal> modals)
         {
-            var dt = MakeTable(buses);
+            var dt = MakeTable(modals);
 
             using (var cn = Connection)
             {
@@ -76,14 +76,14 @@ namespace Ikuzo.Infra.Data.Repository
             }
         }
 
-        private DataTable MakeTable(IEnumerable<Bus> buses)
+        private DataTable MakeTable(IEnumerable<Modal> modals)
         {
-            var dtTable = new DataTable("Bus");
+            var dtTable = new DataTable("Modal");
  
             var column1 = new DataColumn
             {
                 DataType = Type.GetType("System.String"),
-                ColumnName = "BusId"
+                ColumnName = "ModalId"
             };
 
             var column2 = new DataColumn
@@ -103,12 +103,12 @@ namespace Ikuzo.Infra.Data.Repository
             dtTable.Columns.Add(column3); 
 
             //Adding rows
-            foreach (var bus in buses)
+            foreach (var modal in modals)
             {
                 var dr = dtTable.NewRow();
-                dr["BusId"] = bus.BusId;
-                dr["LineId"] = bus.LineId; 
-                dr["LastUpdateDate"] = bus.LastUpdateDate;
+                dr["ModalId"] = modal.ModalId;
+                dr["LineId"] = modal.LineId; 
+                dr["LastUpdateDate"] = modal.LastUpdateDate;
 
                 dtTable.Rows.Add(dr);
             }

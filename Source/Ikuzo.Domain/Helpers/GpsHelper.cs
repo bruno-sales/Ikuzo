@@ -16,10 +16,10 @@ namespace Ikuzo.Domain.Helpers
             var start = new GeoCoordinate(fLat, fLon);
             var end = new GeoCoordinate(eLat, eLon);
 
-            var distance = start.GetDistanceTo(end);
+            var distance = start.GetDistanceTo(end); //Haversine formula
 
             return Convert.ToInt32(distance);
-        }
+        } 
 
         public static string GetDirectionByAngle(int angle)
         {

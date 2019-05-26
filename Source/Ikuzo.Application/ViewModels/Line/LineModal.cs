@@ -2,9 +2,9 @@
 
 namespace Ikuzo.Application.ViewModels.Line
 {
-    public class LineBus
+    public class LineModal
     {
-        public string Bus { get; set; }
+        public string Modal { get; set; }
         public DateTime LastUpdateDate { get; set; }
     }
 }

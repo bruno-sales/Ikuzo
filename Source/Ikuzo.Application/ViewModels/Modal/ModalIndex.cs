@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Ikuzo.Application.ViewModels.Bus
+namespace Ikuzo.Application.ViewModels.Modal
 {
-    public class BusIndex
+    public class ModalIndex
     {
-        public string Bus { get; set; }
+        public string Modal { get; set; }
         public string Line { get; set; }
         public DateTime LastUpdateDate { get; set; }
     }

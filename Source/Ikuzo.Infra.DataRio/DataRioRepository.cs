@@ -61,7 +61,7 @@ namespace Ikuzo.Infra.DataRio
                 //build gps item
                 var gpsItem = new Gps
                 {
-                    BusId = gps[1],
+                    ModalId = gps[1],
                     LineId = gps[2].Replace(".0", ""),
                     Direction = direction,
                     Timestamp = timestamp,

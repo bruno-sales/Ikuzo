@@ -3,10 +3,10 @@ using Ikuzo.Domain.Entities;
 
 namespace Ikuzo.Domain.Interfaces.Repositories
 {
-    public interface IBusRepository : IBaseRepository<Bus>
+    public interface IModalRepository : IBaseRepository<Modal>
     {
-        Bus Details(string busId);
+        Modal Details(string modalId);
         void RemoveFromLine(string lineId);
-        void BusBulkInsert(IEnumerable<Bus> buses);
+        void ModalBulkInsert(IEnumerable<Modal> modals);
     }
 }

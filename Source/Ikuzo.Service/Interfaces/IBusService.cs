@@ -2,7 +2,7 @@
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.ValueObjects;
 
-namespace Ikuzo.Domain.Interfaces.Services
+namespace Ikuzo.Service.Interfaces
 {
     public interface IBusService
     {

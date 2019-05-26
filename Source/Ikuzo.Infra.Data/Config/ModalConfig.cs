@@ -3,17 +3,17 @@ using Ikuzo.Domain.Entities;
 
 namespace Ikuzo.Infra.Data.Config
 {
-    public class BusConfig : EntityTypeConfiguration<Bus>
+    public class ModalConfig : EntityTypeConfiguration<Modal>
     {
-        public BusConfig()
+        public ModalConfig()
         {
-            HasKey(i => i.BusId);
+            HasKey(i => i.ModalId);
 
             HasRequired(i => i.Line)
-                .WithMany(i=>i.Buses)
+                .WithMany(i=>i.Modals)
                 .HasForeignKey(i => i.LineId); 
 
-            ToTable("Bus");
+            ToTable("Modal");
         }
     }
 }

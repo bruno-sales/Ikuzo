@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ikuzo.Domain.Entities;
-using Ikuzo.Domain.Interfaces.Repositories;
-using Ikuzo.Domain.Interfaces.Services;
 using Ikuzo.Domain.ValueObjects;
+using Ikuzo.Infra.Data.Interfaces;
+using Ikuzo.Service.Interfaces;
 
-namespace Ikuzo.Domain.Services
+namespace Ikuzo.Service.Services
 {
     public class BusService : IBusService
     {

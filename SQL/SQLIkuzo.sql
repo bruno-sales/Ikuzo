@@ -5,17 +5,17 @@ CREATE TABLE Line (
     PRIMARY KEY (LineId)
 ); 
 
-CREATE TABLE Bus (
-    BusId varchar(30) NOT NULL,
+CREATE TABLE Modal (
+    ModalId varchar(30) NOT NULL,
     LineId varchar(30) NOT NULL,
     LastUpdateDate [datetime] NOT NULL ,
-    PRIMARY KEY (BusId),
+    PRIMARY KEY (ModalId),
     FOREIGN KEY (LineId) REFERENCES Line(LineId)
 ); 
 
 CREATE TABLE Gps (
     GpsGuid [uniqueidentifier] NOT NULL DEFAULT (newid()),
-	[BusId] [varchar](30) NOT NULL,
+	[ModalId] [varchar](30) NOT NULL,
 	[LineId] [varchar](30) NOT NULL,
 	[Latitude] [decimal](12, 6) NOT NULL,
 	[Longitude] [decimal](12, 6) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE Tag (
 
 CREATE TABLE GpsHistory (
     GpsHistoryId [bigint] IDENTITY(1,1),
-	[BusId] [varchar](30) NOT NULL,
+	[ModalId] [varchar](30) NOT NULL,
 	[LineId] [varchar](30) NOT NULL,
 	[Latitude] [decimal](12, 6) NOT NULL,
 	[Longitude] [decimal](12, 6) NOT NULL,

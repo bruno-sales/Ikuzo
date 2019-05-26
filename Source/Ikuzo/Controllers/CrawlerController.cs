@@ -53,12 +53,12 @@ namespace Ikuzo.Controllers
 
 
         [HttpPost]
-        [Route("buses")]
-        public IHttpActionResult SyncBuses()
+        [Route("modals")]
+        public IHttpActionResult SyncModals()
         {
             var result = new ValidationResult();
 
-            result.AddError(_crawlerApp.SyncBuses());
+            result.AddError(_crawlerApp.SyncModals());
 
             if (result.Success)
                 return Ok();

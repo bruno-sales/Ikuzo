@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ikuzo.Domain.Entities;
-using Ikuzo.Domain.Interfaces.Repositories;
-using Ikuzo.Domain.Interfaces.Services;
 using Ikuzo.Domain.ValueObjects;
+using Ikuzo.Infra.Data.Interfaces;
+using Ikuzo.Service.Interfaces;
 
-namespace Ikuzo.Domain.Services
+namespace Ikuzo.Service.Services
 {
     public class GpsService : IGpsService
     {
@@ -17,9 +17,9 @@ namespace Ikuzo.Domain.Services
             _gpsRepository = gpsRepository;
         }
 
-        public Gps GetModalGps(string externalModalId)
+        public Gps GetBusGps(string externalBusId)
         {
-            return _gpsRepository.GetModalGps(externalModalId);
+            return _gpsRepository.GetBusGps(externalBusId);
         }
 
         public void CreateGpses(IEnumerable<Gps> gpses)
@@ -55,12 +55,27 @@ namespace Ikuzo.Domain.Services
             }
 
             return result;
-        } 
+        }
 
-        public IEnumerable<Gps> GetNerbyModalsGps(decimal latitude, decimal longitude, decimal variance, string lineId)
+        public ValidationResult RemoveGpsesFromBus(string busId)
         {
-            var gpses  = string.IsNullOrEmpty(lineId) ? _gpsRepository.GetNerbyModalsGps(latitude, longitude, variance).ToList() :
-                                                   _gpsRepository.GetNerbyModalsGpsFromLine(lineId).ToList();
+            var result = new ValidationResult();
+            try
+            {
+                _gpsRepository.RemoveFromLine(busId);
+            }
+            catch (Exception e)
+            {
+                result.AddError(new ValidationError(e.Message));
+            }
+
+            return result;
+        }
+
+        public IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance, string lineId)
+        {
+            var gpses  = string.IsNullOrEmpty(lineId) ? _gpsRepository.GetNerbyBusesGps(latitude, longitude, variance).ToList() :
+                                                   _gpsRepository.GetNerbyBusesGpsFromLine(lineId).ToList();
             return gpses;
         }
     }

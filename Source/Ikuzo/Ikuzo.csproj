@@ -111,7 +111,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LineController.cs" />
-    <Compile Include="Controllers\BusController.cs" />
+    <Compile Include="Controllers\ModalController.cs" />
     <Compile Include="Controllers\CrawlerController.cs" />
     <Compile Include="Filter\AuthorizationRequest.cs" />
     <Compile Include="Global.asax.cs">
@@ -119,7 +119,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestModels\LocalLinesRequest.cs" />
-    <Compile Include="RequestModels\NerbyBusesRequest.cs" />
+    <Compile Include="RequestModels\NerbyModalsRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />

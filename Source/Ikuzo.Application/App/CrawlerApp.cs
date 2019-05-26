@@ -14,17 +14,17 @@ namespace Ikuzo.Application.App
         private readonly IRioBusRepository _riobusRepository;
         private readonly IDataRioRepository _datarioRepository;
         private readonly ILineService _lineService;
-        private readonly IBusService _busService;
+        private readonly IModalService _modalService;
         private readonly IItineraryService _itineraryService;
         private readonly IGpsService _gpsService;
         private readonly IUnitOfWork _work;
 
-        public CrawlerApp(IRioBusRepository riobusRepository, ILineService lineService, IUnitOfWork work, IBusService busService, IGpsService gpsService, IItineraryService itineraryService, IDataRioRepository datarioRepository)
+        public CrawlerApp(IRioBusRepository riobusRepository, ILineService lineService, IUnitOfWork work, IModalService modalService, IGpsService gpsService, IItineraryService itineraryService, IDataRioRepository datarioRepository)
         {
             _riobusRepository = riobusRepository;
             _lineService = lineService;
             _work = work;
-            _busService = busService;
+            _modalService = modalService;
             _gpsService = gpsService;
             _itineraryService = itineraryService;
             _datarioRepository = datarioRepository;
@@ -91,7 +91,7 @@ namespace Ikuzo.Application.App
             return validation;
         }
 
-        public ValidationResult SyncBuses()
+        public ValidationResult SyncModals()
         {
             var validation = new ValidationResult();
 
@@ -103,7 +103,7 @@ namespace Ikuzo.Application.App
                 //Analyse Objects
                 foreach (var rioBusLine in rioBusLines)
                 {
-                    var busesToCreate = new List<Bus>();
+                    var modalsToCreate = new List<Modal>();
 
                     //Get line from database
                     var line = _lineService.Get(rioBusLine.Line);
@@ -122,22 +122,22 @@ namespace Ikuzo.Application.App
                                     continue;
 
                                 //if not already added
-                                if (_busService.Get(rioBusBus.Order) == null)
+                                if (_modalService.Get(rioBusBus.Order) == null)
                                 {
-                                    busesToCreate.Add(new Bus(rioBusBus.Order, line.LineId)); //Add to Save
+                                    modalsToCreate.Add(new Modal(rioBusBus.Order, line.LineId)); //Add to Save
                                 }
                             }
                         }
                     }
 
-                    if (busesToCreate.Any() == false || line == null)
+                    if (modalsToCreate.Any() == false || line == null)
                         continue;
 
                     //Remove previous bus info
-                    validation.AddError(_busService.RemoveBusesFromLine(line.LineId));
+                    validation.AddError(_modalService.RemoveModalsFromLine(line.LineId));
 
                     //Create
-                    _busService.CreateBuses(busesToCreate);
+                    _modalService.CreateModals(modalsToCreate);
                 }
             }
             catch (Exception e)

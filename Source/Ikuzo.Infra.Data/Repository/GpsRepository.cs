@@ -16,9 +16,9 @@ namespace Ikuzo.Infra.Data.Repository
         {
         }
 
-        public Gps GetBusGps(string busId)
+        public Gps GetModalGps(string ModalId)
         {
-            var gps = DbSet.FirstOrDefault(i => string.Equals(i.BusId.ToLower(), busId.ToLower()));
+            var gps = DbSet.FirstOrDefault(i => string.Equals(i.ModalId.ToLower(), ModalId.ToLower()));
 
             return gps;
         }
@@ -82,7 +82,7 @@ namespace Ikuzo.Infra.Data.Repository
             }
         }
 
-        public IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance)
+        public IEnumerable<Gps> GetNerbyModalsGps(decimal latitude, decimal longitude, decimal variance)
         {
             var itens = new List<Gps>();
 
@@ -118,7 +118,7 @@ namespace Ikuzo.Infra.Data.Repository
             return itens;
         }
 
-        public IEnumerable<Gps> GetNerbyBusesGpsFromLine(string lineId)
+        public IEnumerable<Gps> GetNerbyModalsGpsFromLine(string lineId)
         {
             var itens = new List<Gps>();
 
@@ -171,7 +171,7 @@ namespace Ikuzo.Infra.Data.Repository
 
             var sql = @"
                     SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-                    SELECT BusId, LineId, Latitude, Longitude, Direction, [TimeStamp], LastUpdateDate   
+                    SELECT ModalId, LineId, Latitude, Longitude, Direction, [TimeStamp], LastUpdateDate   
                     FROM [Gps] ";
 
             if (lineId != null)
@@ -228,7 +228,7 @@ namespace Ikuzo.Infra.Data.Repository
             var column2 = new DataColumn
             {
                 DataType = Type.GetType("System.String"),
-                ColumnName = "BusId"
+                ColumnName = "ModalId"
             };
 
             var column3 = new DataColumn
@@ -281,7 +281,7 @@ namespace Ikuzo.Infra.Data.Repository
             {
                 var dr = dtTable.NewRow();
                 dr["GpsGuid"] = gps.GpsGuid;
-                dr["BusId"] = gps.BusId;
+                dr["ModalId"] = gps.ModalId;
                 dr["LineId"] = gps.LineId;
                 dr["Latitude"] = gps.Latitude;
                 dr["Longitude"] = gps.Longitude;
@@ -308,7 +308,7 @@ namespace Ikuzo.Infra.Data.Repository
             var column2 = new DataColumn
             {
                 DataType = Type.GetType("System.String"),
-                ColumnName = "BusId"
+                ColumnName = "ModalId"
             };
 
             var column3 = new DataColumn
@@ -361,7 +361,7 @@ namespace Ikuzo.Infra.Data.Repository
             {
                 var dr = dtTable.NewRow();
                 dr["GpsHistoryId"] = gps.GpsHistoryId;
-                dr["BusId"] = gps.BusId;
+                dr["ModalId"] = gps.ModalId;
                 dr["LineId"] = gps.LineId;
                 dr["Latitude"] = gps.Latitude;
                 dr["Longitude"] = gps.Longitude;

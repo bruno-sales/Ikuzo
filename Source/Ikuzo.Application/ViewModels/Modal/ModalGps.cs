@@ -1,6 +1,6 @@
-﻿namespace Ikuzo.Application.ViewModels.Bus
+﻿namespace Ikuzo.Application.ViewModels.Modal
 {
-    public class BusGps
+    public class ModalGps
     {
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }

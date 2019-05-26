@@ -5,40 +5,40 @@ using Ikuzo.RequestModels;
 
 namespace Ikuzo.Controllers
 {
-    [RoutePrefix("v1/api/buses")]
-    public class BusController : ApiController
+    [RoutePrefix("v1/api/modals")]
+    public class ModalController : ApiController
     {
-        private readonly IBusApp _busApp;
+        private readonly IModalApp _modalApp;
 
-        public BusController(IBusApp busApp)
+        public ModalController(IModalApp modalApp)
         {
-            _busApp = busApp;
+            _modalApp = modalApp;
         }
 
         [HttpGet]
         [Route("")]
-        public IHttpActionResult GetBuses()
+        public IHttpActionResult GetModals()
         {
-            var buses = _busApp.GetBuses();
+            var modals = _modalApp.GetModals();
 
-            return Ok(buses);
+            return Ok(modals);
         }
 
         [HttpGet]
-        [Route("{busId}")]
-        public IHttpActionResult GetBus([FromUri] string busId)
+        [Route("{modalId}")]
+        public IHttpActionResult GetModal([FromUri] string modalId)
         {
-            var bus = _busApp.GetBus(busId);
+            var modal = _modalApp.GetModal(modalId);
 
-            if(bus != null)
-                return Ok(bus);
+            if(modal != null)
+                return Ok(modal);
 
             return NotFound();
         }
 
         [HttpGet]
         [Route("nearby")]
-        public IHttpActionResult NearbyBuses([FromUri] NerbyBusesRequest request)
+        public IHttpActionResult NearbyModals([FromUri] NerbyModalsRequest request)
         {
             if (request == null)
                 return BadRequest();
@@ -60,10 +60,10 @@ namespace Ikuzo.Controllers
                 return BadRequest();
             }
 
-            var buses = _busApp.GetNearbyBuses(request.Lat, request.Lon, variance, request.Line);
+            var modals = _modalApp.GetNearbyModals(request.Lat, request.Lon, variance, request.Line);
 
-            if (buses != null)
-                return Ok(buses);
+            if (modals != null)
+                return Ok(modals);
 
             return NotFound();
         }

@@ -6,11 +6,10 @@ namespace Ikuzo.Domain.Interfaces.Services
 {
     public interface IGpsService
     {
-        Gps GetBusGps(string externalBusId);
+        Gps GetModalGps(string externalModalId);
         void CreateGpses(IEnumerable<Gps> gpses);
-        ValidationResult RemoveGpsesFromLine(string lineId);
-        ValidationResult RemoveGpsesFromBus(string busId);
+        ValidationResult RemoveGpsesFromLine(string lineId); 
         ValidationResult RemoveAllGpses();
-        IEnumerable<Gps> GetNerbyBusesGps(decimal latitude, decimal longitude, decimal variance, string line);
+        IEnumerable<Gps> GetNerbyModalsGps(decimal latitude, decimal longitude, decimal variance, string line);
     }
 }

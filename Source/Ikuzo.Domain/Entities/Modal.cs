@@ -3,21 +3,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ikuzo.Domain.Entities
 {
-    public class Bus
+    public class Modal
     {
-        public Bus()
+        public Modal()
         {
             LastUpdateDate = DateTime.UtcNow;
         }
 
-        public Bus(string busId, string lineId)
+        public Modal(string modalId, string lineId)
         {
-            BusId = busId;
+            ModalId = modalId;
             LineId = lineId;
             LastUpdateDate = DateTime.UtcNow;
         }
 
-        public string BusId { get; set; }
+        public string ModalId { get; set; }
         public string LineId { get; set; }
         public virtual Line Line { get; set; }
         [NotMapped]

@@ -24,7 +24,7 @@ namespace Ikuzo.Infra.Data.Repository
         public Line Details(string lineId)
         {
             return DbSet
-                .Include(i => i.Buses)
+                .Include(i => i.Modals)
                 .Include(i => i.Itineraries)
                 .Include(i => i.Tags)
                 .FirstOrDefault(i => string.Equals(i.LineId.ToLower(), lineId.ToLower()));
