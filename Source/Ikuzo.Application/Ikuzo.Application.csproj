@@ -53,6 +53,7 @@
     <Compile Include="Interfaces\ICrawlerApp.cs" />
     <Compile Include="Interfaces\ILineApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Itinerary\ItineraryIndex.cs" />
     <Compile Include="ViewModels\Modal\ModalDetails.cs" />
     <Compile Include="ViewModels\Modal\ModalGps.cs" />
     <Compile Include="ViewModels\Modal\ModalIndex.cs" />

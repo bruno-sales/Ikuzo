@@ -10,10 +10,7 @@ namespace Ikuzo.Controllers
     [RoutePrefix("v1/api/crawler")]
     public class CrawlerController : ApiController
     {
-
-        /*  
-           1.1- Disponibilizar cadastro de itinerarios  
-        */
+         
         private readonly ICrawlerApp _crawlerApp;
 
         public CrawlerController(ICrawlerApp crawlerApp)

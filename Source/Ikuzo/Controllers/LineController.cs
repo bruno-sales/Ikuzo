@@ -37,6 +37,18 @@ namespace Ikuzo.Controllers
         }
 
         [HttpGet]
+        [Route("{lineId}/itinerary")]
+        public IHttpActionResult GetLineItinerary([FromUri] string lineId)
+        {
+            var line = _lineApp.GetLineItinerary(lineId);
+
+            if (line != null)
+                return Ok(line);
+
+            return NotFound();
+        }
+
+        [HttpGet]
         [Route("local")]
         public IHttpActionResult LocalLines([FromUri] LocalLinesRequest request)
         {

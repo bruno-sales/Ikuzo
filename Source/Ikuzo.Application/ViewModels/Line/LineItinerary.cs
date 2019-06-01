@@ -1,9 +1,20 @@
-﻿namespace Ikuzo.Application.ViewModels.Line
+﻿using System;
+using System.Collections.Generic;
+using Ikuzo.Application.ViewModels.Itinerary; 
+
+namespace Ikuzo.Application.ViewModels.Line
 {
     public class LineItinerary
     {
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
-        public bool Returning { get; set; } 
+        public LineItinerary()
+        {
+            Itineraries = new List<ItineraryIndex>();
+        }
+
+        public string Line { get; set; }
+        public string Name { get; set; } 
+
+        public List<ItineraryIndex> Itineraries { get; set; }
     }
+
 }

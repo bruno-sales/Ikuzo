@@ -91,6 +91,32 @@ namespace Ikuzo.Infra.Data.Repository
             return itens; 
         }
 
+        public IEnumerable<Itinerary> GetLineItinerary(string lineId)
+        {
+            var itens = new List<Itinerary>();
+
+            var sql = $@"
+                    SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+                    SELECT * 
+                    FROM [Itinerary] as I  
+                    WHERE LineId = @line  
+                    ORDER BY returning, sequence";
+
+            using (var cn = Connection)
+            {
+                var args = new DynamicParameters();
+                args.Add("line", lineId, DbType.String); 
+
+                if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
+
+                itens.AddRange(Connection.Query<Itinerary>(sql, args, commandTimeout: 6000));
+
+                if (cn.State.Equals(ConnectionState.Open)) cn.Close();
+            }
+
+            return itens;
+        }
+
         public void ItineraryBulkInsert(IEnumerable<Itinerary> itineraries)
         {
             var dt = MakeTable(itineraries);

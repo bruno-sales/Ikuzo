@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ItineraryController.cs" />
     <Compile Include="Controllers\LineController.cs" />
     <Compile Include="Controllers\ModalController.cs" />
     <Compile Include="Controllers\CrawlerController.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestModels\LocalLinesRequest.cs" />
     <Compile Include="RequestModels\NerbyModalsRequest.cs" />
+    <Compile Include="RequestModels\RouteRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />

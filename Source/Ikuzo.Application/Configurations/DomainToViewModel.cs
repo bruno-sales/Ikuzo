@@ -1,4 +1,5 @@
 ﻿using ExpressMapper;
+using Ikuzo.Application.ViewModels.Itinerary;
 using Ikuzo.Application.ViewModels.Line;
 using Ikuzo.Application.ViewModels.Modal;
 using Ikuzo.Domain.Entities;
@@ -27,8 +28,8 @@ namespace Ikuzo.Application.Configurations
             Mapper.Register<Modal, ModalDetails>()
                 .Member(dest => dest.Modal, i => i.ModalId)
                 .Member(dest => dest.Line, i => i.Line.LineId);
-
-            Mapper.Register<Itinerary, LineItinerary>();
+             
+            Mapper.Register<Itinerary, ItineraryIndex>();
         }
     }
 }

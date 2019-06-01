@@ -9,5 +9,6 @@ namespace Ikuzo.Domain.Interfaces.Repositories
         void RemoveFromLine(string lineId);
         void RemoveAll();
         void ItineraryBulkInsert(IEnumerable<Itinerary> itineraries);
+        IEnumerable<Itinerary> GetLineItinerary(string lineId);
     }
 }
