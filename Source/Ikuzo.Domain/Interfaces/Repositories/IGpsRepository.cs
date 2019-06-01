@@ -8,7 +8,7 @@ namespace Ikuzo.Domain.Interfaces.Repositories
         Gps GetModalGps(string modalId);
         void RemoveFromLine(string lineId);
         void RemoveAll();
-        IEnumerable<Gps> GetNerbyModalsGps(decimal latitude, decimal longitude, decimal variance);
+        IEnumerable<Gps> GetNerbyModalsGps(decimal latitude, decimal longitude, decimal distance);
         IEnumerable<Gps> GetNerbyModalsGpsFromLine(string lineId);
         void GpsBulkInsert(IEnumerable<Gps> gpses);
     }

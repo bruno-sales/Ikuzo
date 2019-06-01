@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using ExpressMapper;
 using Ikuzo.Application.Interfaces;
@@ -33,17 +35,12 @@ namespace Ikuzo.Application.App
             return modelLine;
         }
 
-        public IEnumerable<LineIndex> GetLocalLines(decimal latitude, decimal longitude, decimal variance)
-        {
-            /*var y1 = latitude - variance;
-            var y2 = latitude + variance;
+        public IEnumerable<LineIndex> GetLocalLines(decimal latitude, decimal longitude, decimal? distance)
+        { 
+            if(distance == null)
+                distance = Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultDistance"] ?? "200");
 
-            var x1 = longitude - variance;
-            var x2 = longitude + variance;
-
-            var t = GpsHelper.DistanceBetweenCoordenates(y1, x1, y2, x2);*/
-
-            var lines = _lineService.GetLocalLines(latitude, longitude, variance).ToList();
+            var lines = _lineService.GetLocalLines(latitude, longitude, distance.Value).ToList();
 
             var modelLines = Mapper.Map<List<Line>, List<LineIndex>>(lines);
 

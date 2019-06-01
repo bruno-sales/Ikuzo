@@ -41,26 +41,9 @@ namespace Ikuzo.Controllers
         public IHttpActionResult NearbyModals([FromUri] NerbyModalsRequest request)
         {
             if (request == null)
-                return BadRequest();
+                return BadRequest(); 
 
-            decimal variance;
-
-            try
-            {
-                if (request.Precision == null || request.Precision > 100 || request.Precision < 0)
-                    variance = new decimal(0.0035); //0.0035 1060 m -> 0.01 3027 m
-                else
-                {
-                    //a*X + b
-                    variance = (request.Precision.Value * new decimal(-0.65) + new decimal(100)) / (decimal) 10000.0;
-                }
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-
-            var modals = _modalApp.GetNearbyModals(request.Lat, request.Lon, variance, request.Line);
+            var modals = _modalApp.GetNearbyModals(request.Lat, request.Lon, request.Distance, request.Line);
 
             if (modals != null)
                 return Ok(modals);

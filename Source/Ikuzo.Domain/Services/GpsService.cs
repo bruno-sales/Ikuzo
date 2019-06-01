@@ -57,9 +57,9 @@ namespace Ikuzo.Domain.Services
             return result;
         } 
 
-        public IEnumerable<Gps> GetNerbyModalsGps(decimal latitude, decimal longitude, decimal variance, string lineId)
+        public IEnumerable<Gps> GetNerbyModalsGps(decimal latitude, decimal longitude, decimal distance, string lineId)
         {
-            var gpses  = string.IsNullOrEmpty(lineId) ? _gpsRepository.GetNerbyModalsGps(latitude, longitude, variance).ToList() :
+            var gpses  = string.IsNullOrEmpty(lineId) ? _gpsRepository.GetNerbyModalsGps(latitude, longitude, distance).ToList() :
                                                    _gpsRepository.GetNerbyModalsGpsFromLine(lineId).ToList();
             return gpses;
         }

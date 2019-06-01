@@ -61,34 +61,25 @@ namespace Ikuzo.Infra.Data.Repository
             }
         }
 
-        public IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal variance)
+        public IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal distance)
         {
             var itens = new List<Line>();
-
-            //Negatives Lat/Lon
-            var y1 = latitude - variance;
-            var y2 = latitude + variance;
-
-            var x1 = longitude - variance;
-            var x2 = longitude + variance;
-
+             
             var sql = $@"
                     SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
                     SELECT L.* 
                     FROM [Itinerary] as I
                     INNER JOIN [Line] as L
                     ON I.LineId = L.LineId
-                    WHERE (I.[Latitude] BETWEEN @Y1 AND @Y2 )  
-                    AND   (I.[Longitude] BETWEEN @X1 AND @X2 ) 
+                    WHERE  dbo.FnGetDistance(@lat, @lon, I.[Latitude], I.[Longitude],'Meters') <= @distance   
                     GROUP BY L.[LineId], L.[Description], L.[LastUpdateDate]";
 
             using (var cn = Connection)
             {
                 var args = new DynamicParameters();
-                args.Add("Y1", y1, DbType.Decimal, precision: 12, scale: 6);
-                args.Add("Y2", y2, DbType.Decimal, precision: 12, scale: 6);
-                args.Add("X1", x1, DbType.Decimal, precision: 12, scale: 6);
-                args.Add("X2", x2, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("lat", latitude, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("lon", longitude, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("distance", distance, DbType.Decimal, precision: 12, scale: 2); 
 
                 if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
 

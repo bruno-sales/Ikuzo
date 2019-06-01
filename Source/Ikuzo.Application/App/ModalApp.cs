@@ -52,23 +52,26 @@ namespace Ikuzo.Application.App
             return modalDetail;
         }
 
-        public IEnumerable<ModalNearbyDetails> GetNearbyModals(decimal latitude, decimal longitude, decimal variance, string lineId)
+        public IEnumerable<ModalNearbyDetails> GetNearbyModals(decimal latitude, decimal longitude, decimal? distance, string lineId)
         {
-            var modals = new List<ModalNearbyDetails>(); 
+            var modals = new List<ModalNearbyDetails>();
 
-            var gpses = _gpsService.GetNerbyModalsGps(latitude, longitude, variance, lineId).ToList();
+            if (distance == null)
+                distance = Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultDistance"] ?? "200");
+
+            var gpses = _gpsService.GetNerbyModalsGps(latitude, longitude, distance.Value, lineId).ToList();
 
             foreach (var gps in gpses)
             {
-                var distance = GpsHelper.DistanceBetweenCoordenates(latitude, longitude, gps.Latitude, gps.Longitude);
+                var distanceInMeters = GpsHelper.DistanceBetweenCoordenates(latitude, longitude, gps.Latitude, gps.Longitude);
                 var modalAvgSpeed = Convert.ToDouble(ConfigurationManager.AppSettings["BusAvgSpeed"] ?? "4.2");
 
-                var minutesToArrive = (distance / modalAvgSpeed) / 60.0;
+                var minutesToArrive = (distanceInMeters / modalAvgSpeed) / 60.0;
                 var modal = new ModalNearbyDetails()
                 {
                     Modal = gps.ModalId,
                     Line = gps.LineId,
-                    Distance = distance,
+                    Distance = distanceInMeters,
                    //MinutesToArrive = Convert.ToInt32(minutesToArrive),
                     LastUpdateDate = gps.LastUpdateDate,
                     TimeStamp = gps.Timestamp,

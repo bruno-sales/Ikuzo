@@ -7,7 +7,7 @@ namespace Ikuzo.Application.Interfaces
     {
         IEnumerable<ModalIndex> GetModals();
         ModalDetails GetModal(string modalId);
-        IEnumerable<ModalNearbyDetails> GetNearbyModals(decimal latitude, decimal longitude, decimal variance,
+        IEnumerable<ModalNearbyDetails> GetNearbyModals(decimal latitude, decimal longitude, decimal? distance,
             string lineId);
     }
 }

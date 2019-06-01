@@ -10,6 +10,6 @@ namespace Ikuzo.Domain.Interfaces.Services
         void CreateGpses(IEnumerable<Gps> gpses);
         ValidationResult RemoveGpsesFromLine(string lineId); 
         ValidationResult RemoveAllGpses();
-        IEnumerable<Gps> GetNerbyModalsGps(decimal latitude, decimal longitude, decimal variance, string line);
+        IEnumerable<Gps> GetNerbyModalsGps(decimal latitude, decimal longitude, decimal distance, string line);
     }
 }
