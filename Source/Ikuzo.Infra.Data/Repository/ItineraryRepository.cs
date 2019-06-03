@@ -117,6 +117,47 @@ namespace Ikuzo.Infra.Data.Repository
             return itens;
         }
 
+        public IEnumerable<Line> GetLocalToDestinyLines(decimal latitude1, decimal longitude1, decimal latitude2, decimal longitude2, decimal distance)
+        {
+            var itens = new List<Line>();
+
+            var sql = $@"
+                    SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+                    SELECT * 
+                    FROM [LINE] l 
+                    WHERE
+                    (
+	                    SELECT count(i.LineId) FROM [Itinerary] i
+	                    WHERE i.LineId = l.LineId and 
+	                    dbo.FnGetDistance(@lat1, @long1, i.Latitude, i.Longitude, 'Meters') <= @distance
+                    ) > 0 
+                    AND
+                    (
+	                    SELECT count(i.LineId) FROM [Itinerary] i
+	                    WHERE i.LineId = l.LineId and 
+	                    dbo.FnGetDistance(@lat2, @long2, i.Latitude, i.Longitude, 'Meters') <= @distance
+                    ) > 0";
+
+            using (var cn = Connection)
+            {
+                var args = new DynamicParameters();
+                args.Add("lat1", latitude1, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("long1", longitude1, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("lat2", latitude2, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("long2", longitude2, DbType.Decimal, precision: 12, scale: 6);
+                args.Add("distance", distance, DbType.Decimal, precision: 12, scale: 2);
+
+                if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
+
+                itens.AddRange(Connection.Query<Line>(sql, args, commandTimeout: 6000));
+
+                if (cn.State.Equals(ConnectionState.Open)) cn.Close();
+            }
+
+            return itens;
+        }
+
+
         public void ItineraryBulkInsert(IEnumerable<Itinerary> itineraries)
         {
             var dt = MakeTable(itineraries);

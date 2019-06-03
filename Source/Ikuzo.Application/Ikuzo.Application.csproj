@@ -44,11 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\ItineraryApp.cs" />
     <Compile Include="App\ModalApp.cs" />
     <Compile Include="App\CrawlerApp.cs" />
     <Compile Include="App\LineApp.cs" />
     <Compile Include="Configurations\DomainToViewModel.cs" />
     <Compile Include="Configurations\Express.cs" />
+    <Compile Include="Interfaces\IItineraryApp.cs" />
     <Compile Include="Interfaces\IModalApp.cs" />
     <Compile Include="Interfaces\ICrawlerApp.cs" />
     <Compile Include="Interfaces\ILineApp.cs" />

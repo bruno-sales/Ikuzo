@@ -8,36 +8,24 @@ namespace Ikuzo.Controllers
     [RoutePrefix("v1/api/itineraries")]
     public class ItineraryController : ApiController
     {
-        private readonly ILineApp _lineApp;
+        private readonly IItineraryApp _itineraryApp;
 
-        public ItineraryController(ILineApp lineApp)
+        public ItineraryController(IItineraryApp itineraryApp)
         {
-            _lineApp = lineApp;
-        } 
-
-        [HttpGet]
-        [Route("{lineId}")]
-        public IHttpActionResult GetLine([FromUri] string lineId)
-        {
-            var line = _lineApp.GetLine(lineId);
-
-            if (line != null)
-                return Ok(line);
-
-            return NotFound();
+            _itineraryApp = itineraryApp;
         }
-
+        
         [HttpGet]
         [Route("route")]
         public IHttpActionResult GetRoute([FromUri] RouteRequest request)
         {
-           /* if (request == null)
+            if (request == null)
                 return BadRequest(); 
 
-            var line = _lineApp.GetLocalLines(request.Lat, request.Lon, request.Distance);
+            var lines = _itineraryApp.GetLocalToDestinyLines(request.LatOri, request.LonOri, request.LatDest, request.LonDest, 300 );
 
-            if (line != null)
-                return Ok(line);*/
+            if (lines != null)
+                return Ok(lines);
 
             return NotFound();
         }
