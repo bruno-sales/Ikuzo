@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ikuzo.Application.Interfaces;
 using Ikuzo.Domain.Entities;
+using Ikuzo.Domain.Helpers;
 using Ikuzo.Domain.Interfaces.CrossCuttings;
 using Ikuzo.Domain.Interfaces.Services;
 using Ikuzo.Domain.ValueObjects;
@@ -164,7 +165,46 @@ namespace Ikuzo.Application.App
                 {
                     var itineraries = _datarioRepository.GetItineraryInformation(line.LineId);
 
-                    itinerariesToCreate.AddRange(itineraries);
+                    var calculatedItineraries = new List<Itinerary>();
+
+                    var goingItineraries = itineraries.Where(i => i.Returning == false).OrderBy(i => i.Sequence).ToList();
+                    var returningItineraries = itineraries.Where(i => i.Returning).OrderBy(i => i.Sequence).ToList();
+
+                    for (var i = 0; i < goingItineraries.Count; i++)
+                    {
+                        var thisItinerary = goingItineraries[i];
+
+                        var nextItinerary = goingItineraries[i + 1];
+
+                        if (nextItinerary != null)
+                        {
+                            var distanceBetween = GpsHelper.DistanceBetweenCoordenates(thisItinerary.Latitude,
+                                thisItinerary.Longitude, nextItinerary.Latitude, nextItinerary.Longitude);
+
+                            thisItinerary.DistanceToNext = distanceBetween;
+                        }
+
+                        calculatedItineraries.Add(thisItinerary);
+                    }
+
+                    for (var i = 0; i < returningItineraries.Count; i++)
+                    {
+                        var thisItinerary = returningItineraries[i];
+
+                        var nextItinerary = returningItineraries[i + 1];
+
+                        if (nextItinerary != null)
+                        {
+                            var distanceBetween = GpsHelper.DistanceBetweenCoordenates(thisItinerary.Latitude,
+                                thisItinerary.Longitude, nextItinerary.Latitude, nextItinerary.Longitude);
+
+                            thisItinerary.DistanceToNext = distanceBetween;
+                        }
+
+                        calculatedItineraries.Add(thisItinerary);
+                    }
+
+                    itinerariesToCreate.AddRange(calculatedItineraries);
                 }
 
                 if (itinerariesToCreate.Any())

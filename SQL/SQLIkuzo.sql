@@ -32,6 +32,7 @@ CREATE TABLE Itinerary (
     LineId varchar(30) NOT NULL,
     [Sequence] int NOT NULL,
     Returning bit NOT NULL,
+	DistanceToNext[decimal](12, 2) NULL,
     LastUpdateDate [datetime] NOT NULL ,
     PRIMARY KEY (ItineraryGuid),
     FOREIGN KEY (LineId) REFERENCES Line(LineId)

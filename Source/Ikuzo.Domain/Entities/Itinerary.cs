@@ -17,6 +17,7 @@ namespace Ikuzo.Domain.Entities
         public decimal Longitude { get; set; }
         public int Sequence { get; set; }
         public bool Returning { get; set; }
+        public decimal? DistanceToNext { get; set; }
         public DateTime LastUpdateDate { get; set; }
 
         [JsonProperty("line")]
