@@ -224,6 +224,12 @@ namespace Ikuzo.Infra.Data.Repository
 
             var column7 = new DataColumn
             {
+                DataType = Type.GetType("System.Decimal"),
+                ColumnName = "DistanceToNext"
+            };
+
+            var column8 = new DataColumn
+            {
                 DataType = Type.GetType("System.DateTime"),
                 ColumnName = "LastUpdateDate"
             };
@@ -235,6 +241,7 @@ namespace Ikuzo.Infra.Data.Repository
             dtTable.Columns.Add(column5);
             dtTable.Columns.Add(column6);
             dtTable.Columns.Add(column7);
+            dtTable.Columns.Add(column8);
 
             //Adding rows
             foreach (var itinerary in itineraries)
@@ -246,6 +253,7 @@ namespace Ikuzo.Infra.Data.Repository
                 dr["LineId"] = itinerary.LineId;
                 dr["Sequence"] = itinerary.Sequence;
                 dr["Returning"] = itinerary.Returning;
+                dr["DistanceToNext"] = itinerary.DistanceToNext;
                 dr["LastUpdateDate"] = itinerary.LastUpdateDate;
 
                 dtTable.Rows.Add(dr);

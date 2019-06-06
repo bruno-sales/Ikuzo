@@ -170,7 +170,7 @@ namespace Ikuzo.Application.App
                     var goingItineraries = itineraries.Where(i => i.Returning == false).OrderBy(i => i.Sequence).ToList();
                     var returningItineraries = itineraries.Where(i => i.Returning).OrderBy(i => i.Sequence).ToList();
 
-                    for (var i = 0; i < goingItineraries.Count; i++)
+                    for (var i = 0; i < goingItineraries.Count - 1; i++)
                     {
                         var thisItinerary = goingItineraries[i];
 
@@ -187,7 +187,7 @@ namespace Ikuzo.Application.App
                         calculatedItineraries.Add(thisItinerary);
                     }
 
-                    for (var i = 0; i < returningItineraries.Count; i++)
+                    for (var i = 0; i < returningItineraries.Count - 1; i++)
                     {
                         var thisItinerary = returningItineraries[i];
 
