@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Repositories;
 using Ikuzo.Domain.Interfaces.Services;
@@ -56,6 +57,14 @@ namespace Ikuzo.Domain.Services
             var lines = _itineraryRepository.GetLocalToDestinyLines(latitude1, longitude1, latitude2, longitude2, distance);
 
             return lines;
+        }
+        
+
+        public IEnumerable<Itinerary> GetLineItineraries(string lineId)
+        {
+            var itineraries = _itineraryRepository.GetLineItinerary(lineId);
+
+            return itineraries;
         }
     }
 }

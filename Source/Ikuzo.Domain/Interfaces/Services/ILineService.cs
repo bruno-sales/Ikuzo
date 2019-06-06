@@ -8,8 +8,7 @@ namespace Ikuzo.Domain.Interfaces.Services
         Line Edit(Line line);
         void CreateLines(IEnumerable<Line> lines);
         IEnumerable<Line> GetAllLines();
-        IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal distance);
-        IEnumerable<Itinerary> GetLineItineraries(string lineId);
+        IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal distance); 
         Line Get(string lineId); 
         Line Details(string lineId); 
     }

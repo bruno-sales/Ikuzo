@@ -163,7 +163,7 @@ namespace Ikuzo.Application.App
                 //Analyse Objects
                 foreach (var line in lines)
                 {
-                    var itineraries = _datarioRepository.GetItineraryInformation(line.LineId);
+                    var itineraries = _datarioRepository.GetItineraryInformation(line.LineId).ToList();
 
                     var calculatedItineraries = new List<Itinerary>();
 
@@ -173,16 +173,12 @@ namespace Ikuzo.Application.App
                     for (var i = 0; i < goingItineraries.Count - 1; i++)
                     {
                         var thisItinerary = goingItineraries[i];
-
                         var nextItinerary = goingItineraries[i + 1];
 
-                        if (nextItinerary != null)
-                        {
-                            var distanceBetween = GpsHelper.DistanceBetweenCoordenates(thisItinerary.Latitude,
-                                thisItinerary.Longitude, nextItinerary.Latitude, nextItinerary.Longitude);
+                        var distanceBetween = GpsHelper.DistanceBetweenCoordenates(thisItinerary.Latitude,
+                            thisItinerary.Longitude, nextItinerary.Latitude, nextItinerary.Longitude);
 
-                            thisItinerary.DistanceToNext = distanceBetween;
-                        }
+                        thisItinerary.DistanceToNext = distanceBetween;
 
                         calculatedItineraries.Add(thisItinerary);
                     }
@@ -190,16 +186,12 @@ namespace Ikuzo.Application.App
                     for (var i = 0; i < returningItineraries.Count - 1; i++)
                     {
                         var thisItinerary = returningItineraries[i];
-
                         var nextItinerary = returningItineraries[i + 1];
 
-                        if (nextItinerary != null)
-                        {
-                            var distanceBetween = GpsHelper.DistanceBetweenCoordenates(thisItinerary.Latitude,
-                                thisItinerary.Longitude, nextItinerary.Latitude, nextItinerary.Longitude);
+                        var distanceBetween = GpsHelper.DistanceBetweenCoordenates(thisItinerary.Latitude,
+                            thisItinerary.Longitude, nextItinerary.Latitude, nextItinerary.Longitude);
 
-                            thisItinerary.DistanceToNext = distanceBetween;
-                        }
+                        thisItinerary.DistanceToNext = distanceBetween;
 
                         calculatedItineraries.Add(thisItinerary);
                     }

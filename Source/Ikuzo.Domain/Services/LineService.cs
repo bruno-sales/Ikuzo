@@ -54,12 +54,5 @@ namespace Ikuzo.Domain.Services
         {
             return _itineraryRepository.GetLocalLines(latitude, longitude, distance).ToList();
         }
-
-        public IEnumerable<Itinerary> GetLineItineraries(string lineId)
-        {
-            var itineraries = _itineraryRepository.GetLineItinerary(lineId).ToList();
-
-            return itineraries;
-        }
     }
 }

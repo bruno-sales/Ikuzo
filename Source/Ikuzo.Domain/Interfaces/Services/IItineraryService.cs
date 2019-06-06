@@ -11,5 +11,6 @@ namespace Ikuzo.Domain.Interfaces.Services
         ValidationResult RemoveAllItineraries();
         IEnumerable<Line> GetLocalToDestinyLines(decimal latitude1, decimal longitude1, decimal latitude2,
             decimal longitude2, decimal distance);
+        IEnumerable<Itinerary> GetLineItineraries(string lineId);
     }
 }

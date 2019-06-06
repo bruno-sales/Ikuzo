@@ -14,10 +14,12 @@ namespace Ikuzo.Application.App
     public class LineApp : ILineApp
     {
         private readonly ILineService _lineService;
+        private readonly IItineraryService _itineraryService;
 
-        public LineApp(ILineService lineService)
+        public LineApp(ILineService lineService, IItineraryService itineraryService)
         {
             _lineService = lineService;
+            _itineraryService = itineraryService;
         }
 
         public IEnumerable<LineIndex> GetLines()
@@ -54,7 +56,7 @@ namespace Ikuzo.Application.App
 
             if (line == null) return null;
 
-            var itineraries = _lineService.GetLineItineraries(lineId).ToList();
+            var itineraries = _itineraryService.GetLineItineraries(lineId).ToList();
             var itineraryIndex = Mapper.Map<List<Itinerary>, List<ItineraryIndex>>(itineraries);
             
             var lineItinerary = new LineItinerary { Line = line.LineId, Name = line.Description };
