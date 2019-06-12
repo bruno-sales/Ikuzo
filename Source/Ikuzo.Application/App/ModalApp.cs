@@ -61,29 +61,39 @@ namespace Ikuzo.Application.App
 
             var gpses = _gpsService.GetNerbyModalsGps(latitude, longitude, distance.Value, lineId).ToList();
 
-            foreach (var gps in gpses)
+            if (gpses.Any())
             {
-                var distanceInMeters = GpsHelper.DistanceBetweenCoordenates(latitude, longitude, gps.Latitude, gps.Longitude);
-                var modalAvgSpeed = Convert.ToDouble(ConfigurationManager.AppSettings["BusAvgSpeed"] ?? "4.2");
+                var recentGpses = gpses.Where(i => i.Timestamp.Year == DateTime.UtcNow.Year &&
+                                                   i.Timestamp.Month == DateTime.UtcNow.Month &&
+                                                   i.Timestamp.Day == DateTime.UtcNow.Day &&
+                                                   i.Timestamp.Hour == DateTime.UtcNow.Hour &&
+                                                   i.Timestamp.Minute - DateTime.UtcNow.Minute < 5).ToList();
 
-                var minutesToArrive = (distanceInMeters / modalAvgSpeed) / 60.0;
-                var modal = new ModalNearbyDetails()
+                foreach (var gps in recentGpses)
                 {
-                    Modal = gps.ModalId,
-                    Line = gps.LineId,
-                    Distance = distanceInMeters,
-                   //MinutesToArrive = Convert.ToInt32(minutesToArrive),
-                    LastUpdateDate = gps.LastUpdateDate,
-                    TimeStamp = gps.Timestamp,
-                    Gps = new ModalGps()
-                    {
-                        Latitude = gps.Latitude,
-                        Longitude = gps.Longitude,
-                        Direction = gps.Direction.ToString()
-                    }
-                };
+                    var distanceInMeters =
+                        GpsHelper.DistanceBetweenCoordenates(latitude, longitude, gps.Latitude, gps.Longitude);
+                    var modalAvgSpeed = Convert.ToDouble(ConfigurationManager.AppSettings["BusAvgSpeed"] ?? "4.2");
 
-                modals.Add(modal);
+                    var minutesToArrive = (distanceInMeters / modalAvgSpeed) / 60.0;
+                    var modal = new ModalNearbyDetails()
+                    {
+                        Modal = gps.ModalId,
+                        Line = gps.LineId,
+                        Distance = distanceInMeters,
+                        //MinutesToArrive = Convert.ToInt32(minutesToArrive),
+                        LastUpdateDate = gps.LastUpdateDate,
+                        TimeStamp = gps.Timestamp,
+                        Gps = new ModalGps()
+                        {
+                            Latitude = gps.Latitude,
+                            Longitude = gps.Longitude,
+                            Direction = gps.Direction.ToString()
+                        }
+                    };
+
+                    modals.Add(modal);
+                }
             }
 
             return modals.OrderBy(i=>i.Distance);
