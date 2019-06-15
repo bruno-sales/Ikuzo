@@ -212,8 +212,7 @@ namespace Ikuzo.Application.App
 
             return validation;
         }
-
-
+        
         public ValidationResult SyncGps()
         {
             var validation = new ValidationResult();

@@ -35,11 +35,11 @@ namespace Ikuzo.Application.App
         {
             var modal = _modalService.Details(modalId);
 
+            if (modal == null)
+                return null;
+
             var modalDetail = Mapper.Map<Modal, ModalDetails>(modal);
-
-            if (modal == null || modalDetail == null)
-                return modalDetail;
-
+ 
             var gps = _gpsService.GetModalGps(modalId);
 
             modalDetail.Gps = new ModalGps()

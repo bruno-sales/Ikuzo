@@ -91,7 +91,7 @@ namespace Ikuzo.Infra.Data.Repository
             return itens; 
         }
 
-        public IEnumerable<Itinerary> GetLineItinerary(string lineId)
+        public IEnumerable<Itinerary> GetLineItineraries(string lineId)
         {
             var itens = new List<Itinerary>();
 

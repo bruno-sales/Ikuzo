@@ -62,7 +62,7 @@ namespace Ikuzo.Domain.Services
 
         public IEnumerable<Itinerary> GetLineItineraries(string lineId)
         {
-            var itineraries = _itineraryRepository.GetLineItinerary(lineId);
+            var itineraries = _itineraryRepository.GetLineItineraries(lineId);
 
             return itineraries;
         }
