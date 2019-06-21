@@ -5,7 +5,7 @@ using Ikuzo.RequestModels;
 
 namespace Ikuzo.Controllers
 {
-    [RoutePrefix("v1/api/lines")]
+    [RoutePrefix("api/v1/lines")]
     public class LineController : ApiController
     {
         private readonly ILineApp _lineApp;

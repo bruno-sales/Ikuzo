@@ -5,7 +5,7 @@ using Ikuzo.RequestModels;
 
 namespace Ikuzo.Controllers
 {
-    [RoutePrefix("v1/api/itineraries")]
+    [RoutePrefix("api/v1/itineraries")]
     public class ItineraryController : ApiController
     {
         private readonly IItineraryApp _itineraryApp;

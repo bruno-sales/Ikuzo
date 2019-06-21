@@ -7,7 +7,7 @@ using Ikuzo.Filter;
 namespace Ikuzo.Controllers
 {
     [AuthorizationRequest]
-    [RoutePrefix("v1/api/crawler")]
+    [RoutePrefix("api/v1/crawler")]
     public class CrawlerController : ApiController
     {
          

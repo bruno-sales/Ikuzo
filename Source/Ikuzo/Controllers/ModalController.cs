@@ -5,7 +5,7 @@ using Ikuzo.RequestModels;
 
 namespace Ikuzo.Controllers
 {
-    [RoutePrefix("v1/api/modals")]
+    [RoutePrefix("api/v1/modals")]
     public class ModalController : ApiController
     {
         private readonly IModalApp _modalApp;
