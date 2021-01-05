@@ -5,7 +5,7 @@ namespace Ikuzo.Domain.Interfaces.Repositories
 {
     public interface IItineraryRepository : IBaseRepository<Itinerary>
     {
-        IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal distance);
+        IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, List<int> tags, decimal distance);
         void RemoveFromLine(string lineId);
         void RemoveAll();
         void ItineraryBulkInsert(IEnumerable<Itinerary> itineraries);

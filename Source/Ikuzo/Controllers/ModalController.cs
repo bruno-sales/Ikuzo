@@ -38,7 +38,7 @@ namespace Ikuzo.Controllers
 
         [HttpGet]
         [Route("nearby")]
-        public IHttpActionResult NearbyModals([FromUri] NerbyModalsRequest request)
+        public IHttpActionResult NearbyModals([FromUri] NearbyModalsRequest request)
         {
             if (request == null)
                 return BadRequest(); 

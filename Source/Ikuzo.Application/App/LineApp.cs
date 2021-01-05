@@ -7,6 +7,7 @@ using Ikuzo.Application.Interfaces;
 using Ikuzo.Application.ViewModels.Itinerary;
 using Ikuzo.Application.ViewModels.Line;
 using Ikuzo.Domain.Entities;
+using Ikuzo.Domain.Helpers;
 using Ikuzo.Domain.Interfaces.Services;
 
 namespace Ikuzo.Application.App
@@ -47,12 +48,14 @@ namespace Ikuzo.Application.App
             return modelLine;
         }
 
-        public IEnumerable<LineIndex> GetLocalLines(decimal latitude, decimal longitude, decimal? distance)
+        public IEnumerable<LineIndex> GetLocalLines(decimal latitude, decimal longitude, List<string> tags, decimal? distance)
         {
             if (distance == null)
                 distance = Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultDistance"] ?? "200");
 
-            var lines = _lineService.GetLocalLines(latitude, longitude, distance.Value).ToList();
+            var enumTags = EnumHelper.GetTagIds(tags);
+
+            var lines = _lineService.GetLocalLines(latitude, longitude, enumTags, distance.Value).ToList();
 
             var modelLines = Mapper.Map<List<Line>, List<LineIndex>>(lines);
 

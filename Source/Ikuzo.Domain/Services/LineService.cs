@@ -50,9 +50,9 @@ namespace Ikuzo.Domain.Services
             return lines;
         }
 
-        public IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal distance)
+        public IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, List<int> tags,  decimal distance)
         {
-            return _itineraryRepository.GetLocalLines(latitude, longitude, distance).ToList();
+            return _itineraryRepository.GetLocalLines(latitude, longitude, tags, distance).ToList();
         }
     }
 }

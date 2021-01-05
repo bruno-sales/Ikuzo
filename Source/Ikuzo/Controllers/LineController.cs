@@ -55,7 +55,7 @@ namespace Ikuzo.Controllers
             if (request == null)
                 return BadRequest(); 
 
-            var line = _lineApp.GetLocalLines(request.Lat, request.Lon, request.Distance);
+            var line = _lineApp.GetLocalLines(request.Lat, request.Lon, request.Tags, request.Distance);
 
             if (line != null)
                 return Ok(line);

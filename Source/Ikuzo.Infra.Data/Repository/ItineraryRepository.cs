@@ -62,7 +62,7 @@ namespace Ikuzo.Infra.Data.Repository
             }
         }
 
-        public IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal distance)
+        public IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, List<int> tags, decimal distance)
         {
             var itens = new List<Line>();
 
@@ -72,7 +72,9 @@ namespace Ikuzo.Infra.Data.Repository
                     FROM [Itinerary] as I
                     INNER JOIN [Line] as L
                     ON I.LineId = L.LineId
-                    WHERE  dbo.FnGetDistance(@lat, @lon, I.[Latitude], I.[Longitude],'Meters') <= @distance   
+                    WHERE  
+                    ({BuildLineTagSqlQuery(tags)}) > 0 AND
+                    dbo.FnGetDistance(@lat, @lon, I.[Latitude], I.[Longitude],'Meters') <= @distance   
                     GROUP BY L.[LineId], L.[Description], L.[LastUpdateDate]";
 
             using (var cn = Connection)

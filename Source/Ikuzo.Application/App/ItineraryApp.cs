@@ -21,14 +21,7 @@ namespace Ikuzo.Application.App
 
         public IEnumerable<LineIndex> GetLocalToDestinyLines(decimal latitude1, decimal longitude1, decimal latitude2, decimal longitude2, List<string> tags, decimal distance)
         {
-
-            var enumTags = new List<int>();
-
-            foreach (var tag in tags)
-            {
-                var parsed = Enum.TryParse<TagTypes>(tag, true, out var enumTag);
-                enumTags.Add(parsed ? (int) enumTag : (int) TagTypes.None);
-            }
+            var enumTags = EnumHelper.GetTagIds(tags);
 
             var lines = _itineraryService.GetLocalToDestinyLines(latitude1, longitude1, latitude2, longitude2, enumTags, distance).ToList();
 

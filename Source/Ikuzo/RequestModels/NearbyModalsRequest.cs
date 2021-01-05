@@ -1,6 +1,6 @@
 ﻿namespace Ikuzo.RequestModels
 {
-    public class NerbyModalsRequest
+    public class NearbyModalsRequest
     {
         public decimal Lat { get; set; }
         public decimal Lon { get; set; }

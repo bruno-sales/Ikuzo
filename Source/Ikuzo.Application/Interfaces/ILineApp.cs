@@ -7,7 +7,7 @@ namespace Ikuzo.Application.Interfaces
     {
         IEnumerable<LineIndex> GetLines();
         LineDetails GetLine(string lineId);
-        IEnumerable<LineIndex> GetLocalLines(decimal latitude, decimal longitude, decimal? distance);
+        IEnumerable<LineIndex> GetLocalLines(decimal latitude, decimal longitude, List<string> tags, decimal? distance);
         LineItinerary GetLineItinerary(string lineId);
     }
 }
