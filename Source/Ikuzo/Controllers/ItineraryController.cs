@@ -22,7 +22,7 @@ namespace Ikuzo.Controllers
             if (request == null)
                 return BadRequest(); 
 
-            var lines = _itineraryApp.GetLocalToDestinyLines(request.LatOri, request.LonOri, request.LatDest, request.LonDest, 300 );
+            var lines = _itineraryApp.GetLocalToDestinyLines(request.LatOri, request.LonOri, request.LatDest, request.LonDest, request.Tags, 300 );
 
             if (lines != null)
                 return Ok(lines);

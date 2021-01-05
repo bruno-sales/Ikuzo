@@ -7,12 +7,7 @@ namespace Ikuzo.Infra.Data.Config
     {
         public TagConfig()
         {
-            HasKey(i => i.TagId);
-
-            HasRequired(i => i.Line)
-                .WithMany(i => i.Tags)
-                .HasForeignKey(i => i.LineId);
-
+            HasKey(i => i.TagId); 
             ToTable("Tag");
         }
     }

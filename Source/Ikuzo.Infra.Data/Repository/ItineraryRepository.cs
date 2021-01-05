@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data; 
-using System.Data.SqlClient; 
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
 using Dapper;
 using Ikuzo.Domain.Entities;
 using Ikuzo.Domain.Interfaces.Repositories;
@@ -43,7 +44,7 @@ namespace Ikuzo.Infra.Data.Repository
             var sql = $@"
                       SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; 
                       DELETE 
-                      FROM [Itinerary] "  ;
+                      FROM [Itinerary] ";
 
             using (var cn = Connection)
             {
@@ -64,7 +65,7 @@ namespace Ikuzo.Infra.Data.Repository
         public IEnumerable<Line> GetLocalLines(decimal latitude, decimal longitude, decimal distance)
         {
             var itens = new List<Line>();
-             
+
             var sql = $@"
                     SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
                     SELECT L.* 
@@ -79,7 +80,7 @@ namespace Ikuzo.Infra.Data.Repository
                 var args = new DynamicParameters();
                 args.Add("lat", latitude, DbType.Decimal, precision: 12, scale: 6);
                 args.Add("lon", longitude, DbType.Decimal, precision: 12, scale: 6);
-                args.Add("distance", distance, DbType.Decimal, precision: 12, scale: 2); 
+                args.Add("distance", distance, DbType.Decimal, precision: 12, scale: 2);
 
                 if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
 
@@ -88,7 +89,7 @@ namespace Ikuzo.Infra.Data.Repository
                 if (cn.State.Equals(ConnectionState.Open)) cn.Close();
             }
 
-            return itens; 
+            return itens;
         }
 
         public IEnumerable<Itinerary> GetLineItineraries(string lineId)
@@ -105,7 +106,7 @@ namespace Ikuzo.Infra.Data.Repository
             using (var cn = Connection)
             {
                 var args = new DynamicParameters();
-                args.Add("line", lineId, DbType.String); 
+                args.Add("line", lineId, DbType.String);
 
                 if (cn.State.Equals(ConnectionState.Open) == false) cn.Open();
 
@@ -117,7 +118,7 @@ namespace Ikuzo.Infra.Data.Repository
             return itens;
         }
 
-        public IEnumerable<Line> GetLocalToDestinyLines(decimal latitude1, decimal longitude1, decimal latitude2, decimal longitude2, decimal distance)
+        public IEnumerable<Line> GetLocalToDestinyLines(decimal latitude1, decimal longitude1, decimal latitude2, decimal longitude2, List<int> tags, decimal distance)
         {
             var itens = new List<Line>();
 
@@ -126,6 +127,10 @@ namespace Ikuzo.Infra.Data.Repository
                     SELECT * 
                     FROM [LINE] l 
                     WHERE
+                    (
+	                    {BuildLineTagSqlQuery(tags)}
+                    ) > 0 
+                    AND
                     (
 	                    SELECT count(i.LineId) FROM [Itinerary] i
 	                    WHERE i.LineId = l.LineId and 
@@ -137,6 +142,7 @@ namespace Ikuzo.Infra.Data.Repository
 	                    WHERE i.LineId = l.LineId and 
 	                    dbo.FnGetDistance(@lat2, @long2, i.Latitude, i.Longitude, 'Meters') <= @distance
                     ) > 0";
+
 
             using (var cn = Connection)
             {
@@ -190,7 +196,7 @@ namespace Ikuzo.Infra.Data.Repository
             {
                 DataType = Type.GetType("System.Guid"),
                 ColumnName = "ItineraryGuid"
-            }; 
+            };
 
             var column2 = new DataColumn
             {
@@ -247,7 +253,7 @@ namespace Ikuzo.Infra.Data.Repository
             foreach (var itinerary in itineraries)
             {
                 var dr = dtTable.NewRow();
-                dr["ItineraryGuid"] = itinerary.ItineraryGuid; 
+                dr["ItineraryGuid"] = itinerary.ItineraryGuid;
                 dr["Latitude"] = itinerary.Latitude;
                 dr["Longitude"] = itinerary.Longitude;
                 dr["LineId"] = itinerary.LineId;
@@ -260,6 +266,15 @@ namespace Ikuzo.Infra.Data.Repository
             }
 
             return dtTable;
+        }
+
+        private string BuildLineTagSqlQuery(List<int> tags)
+        {
+            if (tags == null || tags.Count == 0) return "SELECT 1";
+
+            var inValues = tags.Aggregate(string.Empty, (current, tag) => current + (tag + ","));
+
+            return $"SELECT count(lt.LineId) FROM [LineTag] lt WHERE lt.LineId = l.LineId AND lt.TagId IN ({inValues.Substring(0, inValues.Length - 1)})";
         }
     }
 }

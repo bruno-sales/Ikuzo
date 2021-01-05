@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\LineTag.cs" />
     <Compile Include="Entities\Modal.cs" />
     <Compile Include="Entities\Gps.cs" />
     <Compile Include="Entities\Itinerary.cs" />

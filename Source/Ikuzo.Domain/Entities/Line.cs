@@ -10,7 +10,7 @@ namespace Ikuzo.Domain.Entities
             LastUpdateDate = DateTime.UtcNow;
             Modals = new Collection<Modal>();
             Itineraries = new Collection<Itinerary>();
-            Tags = new Collection<Tag>();
+            LineTags = new Collection<LineTag>();
         }
 
         public Line(string lineId, string description)
@@ -20,13 +20,13 @@ namespace Ikuzo.Domain.Entities
             LastUpdateDate = DateTime.UtcNow;
             Modals = new Collection<Modal>();
             Itineraries = new Collection<Itinerary>();
-            Tags = new Collection<Tag>();
+            LineTags = new Collection<LineTag>();
         }
 
         public string LineId { get; set; } 
         public string Description { get; set; }
         public virtual Collection<Modal> Modals { get; set; }
-        public virtual Collection<Tag> Tags { get; set; }
+        public virtual Collection<LineTag> LineTags { get; set; }
         public virtual Collection<Itinerary> Itineraries { get; set; }
         public DateTime LastUpdateDate { get; set; }
     }

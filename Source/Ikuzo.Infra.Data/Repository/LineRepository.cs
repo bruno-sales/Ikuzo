@@ -26,7 +26,7 @@ namespace Ikuzo.Infra.Data.Repository
             return DbSet
                 .Include(i => i.Modals)
                 .Include(i => i.Itineraries)
-                .Include(i => i.Tags)
+                .Include(i => i.LineTags)
                 .FirstOrDefault(i => string.Equals(i.LineId.ToLower(), lineId.ToLower()));
         }
 

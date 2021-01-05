@@ -19,18 +19,29 @@ namespace Ikuzo.Application.App
             _itineraryService = itineraryService;
         }
 
-        public IEnumerable<LineIndex> GetLocalToDestinyLines(decimal latitude1, decimal longitude1, decimal latitude2, decimal longitude2, decimal distance)
+        public IEnumerable<LineIndex> GetLocalToDestinyLines(decimal latitude1, decimal longitude1, decimal latitude2, decimal longitude2, List<string> tags, decimal distance)
         {
-            var lines = _itineraryService.GetLocalToDestinyLines(latitude1, longitude1, latitude2, longitude2,distance).ToList();
 
+            var enumTags = new List<int>();
+
+            foreach (var tag in tags)
+            {
+                var parsed = Enum.TryParse<TagTypes>(tag, true, out var enumTag);
+                enumTags.Add(parsed ? (int) enumTag : (int) TagTypes.None);
+            }
+
+            var lines = _itineraryService.GetLocalToDestinyLines(latitude1, longitude1, latitude2, longitude2, enumTags, distance).ToList();
+
+
+            /*
             foreach (var line in lines)
             {
-                var itineraries = _itineraryService.GetLineItineraries(line.LineId);
+                var itineraries = _itineraryService.GetLineItineraries(line.LineId).ToList();
 
                 Itinerary closerToStartItinerary = null;
                 Itinerary closerToEndItinerary = null;
 
-                var distanceToStart= int.MaxValue;
+                var distanceToStart = int.MaxValue;
                 var distanceToEnd = int.MaxValue;
 
                 foreach (var itinerary in itineraries)
@@ -54,24 +65,25 @@ namespace Ikuzo.Application.App
                     }
                 }
 
+                
                 if (closerToStartItinerary.Sequence < closerToEndItinerary.Sequence && closerToStartItinerary.Returning == closerToEndItinerary.Returning)
                 {
 
                     var totalDistance = itineraries
                         .Where(i => i.Sequence >= closerToStartItinerary.Sequence &&
-                                    i.Sequence <= closerToEndItinerary.Sequence && 
+                                    i.Sequence <= closerToEndItinerary.Sequence &&
                                     i.Returning == closerToStartItinerary.Returning).Sum(i => i.DistanceToNext);
                 }
                 else
                 {
                     var totalDistance = itineraries
                         .Where(i => i.Sequence >= closerToEndItinerary.Sequence &&
-                                    i.Sequence <= closerToStartItinerary.Sequence && 
+                                    i.Sequence <= closerToStartItinerary.Sequence &&
                                     i.Returning == closerToStartItinerary.Returning).Sum(i => i.DistanceToNext);
                 }
 
             }
-
+            */
 
             var modelLines = Mapper.Map<List<Line>, List<LineIndex>>(lines);
 

@@ -33,7 +33,16 @@ namespace Ikuzo.Application.App
 
         public LineDetails GetLine(string lineId)
         {
-            var modelLine = Mapper.Map<Line, LineDetails>(_lineService.Details(lineId));
+            var line = _lineService.Details(lineId);
+
+            var modelLine = Mapper.Map<Line, LineDetails>(line);
+
+            if (line == null || line.LineTags.Any() == false) 
+                return modelLine;
+
+            var tags = new List<string>();
+            tags.AddRange(line.LineTags.Select(i => i.Tag.TagName));
+            modelLine.Tags = tags;
 
             return modelLine;
         }
@@ -58,7 +67,7 @@ namespace Ikuzo.Application.App
 
             var itineraries = _itineraryService.GetLineItineraries(lineId).ToList();
             var itineraryIndex = Mapper.Map<List<Itinerary>, List<ItineraryIndex>>(itineraries);
-            
+
             var lineItinerary = new LineItinerary { Line = line.LineId, Name = line.Description };
             lineItinerary.Itineraries.AddRange(itineraryIndex);
 

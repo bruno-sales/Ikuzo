@@ -1,10 +1,10 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Ikuzo.Application.Interfaces;
 using Ikuzo.RequestModels;
 
 namespace Ikuzo.Controllers
 {
+    
     [RoutePrefix("api/v1/lines")]
     public class LineController : ApiController
     {

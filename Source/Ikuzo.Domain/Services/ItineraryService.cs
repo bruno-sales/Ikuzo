@@ -52,9 +52,9 @@ namespace Ikuzo.Domain.Services
             return result;
         }
 
-        public IEnumerable<Line> GetLocalToDestinyLines(decimal latitude1, decimal longitude1, decimal latitude2, decimal longitude2, decimal distance)
+        public IEnumerable<Line> GetLocalToDestinyLines(decimal latitude1, decimal longitude1, decimal latitude2, decimal longitude2, List<int> tags, decimal distance)
         {
-            var lines = _itineraryRepository.GetLocalToDestinyLines(latitude1, longitude1, latitude2, longitude2, distance);
+            var lines = _itineraryRepository.GetLocalToDestinyLines(latitude1, longitude1, latitude2, longitude2, tags, distance);
 
             return lines;
         }

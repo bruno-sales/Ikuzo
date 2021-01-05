@@ -11,6 +11,6 @@ namespace Ikuzo.Domain.Interfaces.Repositories
         void ItineraryBulkInsert(IEnumerable<Itinerary> itineraries);
         IEnumerable<Itinerary> GetLineItineraries(string lineId);
         IEnumerable<Line> GetLocalToDestinyLines(decimal latitude1, decimal longitude1, decimal latitude2,
-            decimal longitude2, decimal distance);
+            decimal longitude2, List<int> tags, decimal distance);
     }
 }

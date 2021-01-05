@@ -39,13 +39,19 @@ CREATE TABLE Itinerary (
 ); 
 
 CREATE TABLE Tag (
-    TagId varchar(30) NOT NULL,
-    LineId varchar(30) NOT NULL,
-    TagName varchar(50) NULL,
-    LastUpdateDate [datetime] NOT NULL ,
-    PRIMARY KEY (TagId),
-    FOREIGN KEY (LineId) REFERENCES Line(LineId)
+    TagId  [int] IDENTITY(1,1), 
+    Name varchar(50) NULL,
+    PRIMARY KEY (TagId)
 ); 
+
+CREATE TABLE LineTag (
+	LineTagId [int] IDENTITY(1,1),
+	LineId varchar(30) NOT NULL,
+	TagId int NOT NULL,
+    PRIMARY KEY (TagId),
+    FOREIGN KEY (LineId) REFERENCES Line(LineId),
+    FOREIGN KEY (TagId) REFERENCES Tag(TagId)
+);
 
 CREATE TABLE GpsHistory (
     GpsHistoryId [bigint] IDENTITY(1,1),
@@ -58,3 +64,10 @@ CREATE TABLE GpsHistory (
     LastUpdateDate [datetime] NOT NULL 
     PRIMARY KEY (GpsHistoryId)
 ); 
+
+INSERT INTO Tag VALUES ('None');
+INSERT INTO Tag VALUES ('Fast');
+INSERT INTO Tag VALUES ('Stop');
+INSERT INTO Tag VALUES ('Touristic');
+INSERT INTO Tag VALUES ('Dangerous');
+INSERT INTO Tag VALUES ('Downtown');

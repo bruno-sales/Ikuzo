@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\GpsHistoryConfig.cs" />
+    <Compile Include="Config\LineTagConfig.cs" />
     <Compile Include="Config\TagConfig.cs" />
     <Compile Include="Config\ModalConfig.cs" />
     <Compile Include="Config\GpsConfig.cs" />
